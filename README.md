@@ -1,213 +1,143 @@
 # Portable ATC Radar Trainer
 
-An experimental **portable, offline-capable Air Traffic Control radar training platform** exploring how real-time simulation, local AI and speech technologies can be combined to support human-centred ATC training.
+An experimental, local-first Air Traffic Control training platform. Phase 1 is an engineering and training-workflow prototype for one trainee on one Windows laptop. It is not a certified simulator and must not be used for operational traffic control.
 
-> **Project Status:** Early development / Phase 1
+This repository currently contains the FP-001 application foundation only: a FastAPI health endpoint, a React browser health display, test/tooling configuration, and enforceable layer boundaries. Training, simulation, speech, persistence, and replay capabilities belong to later feature packets and are not implemented here.
 
-## Project Vision
+## Phase 1 architecture
 
-The long-term goal is to develop a low-cost ATC training architecture capable of running locally with minimal dependence on cloud services.
+The authoritative Phase 1 architecture is browser-based and backend-authoritative. Normal operation is local and offline. React/TypeScript/Vite provide the browser application; Python/FastAPI/Pydantic/Uvicorn provide the backend.
 
-The system is intended to explore the use of AI-driven virtual pilots and controllers that can communicate naturally with a human trainee while interacting with a real-time air traffic simulation.
+Unity and BlueSky are explicitly deferred and are not Phase 1 dependencies. Phase 1 also requires no cloud service, container runtime, or distributed deployment.
 
-The radar trainer is the first step toward a broader portable ATC training platform.
+The governing documents are:
 
-## Phase 1 Goal
+- [Phase 1 Architecture Baseline v1.0](docs/architecture/baseline/ATC_Portable_Trainer_Phase1_Architecture_Baseline_v1.0.md)
+- [Phase 1 Feature Packets](docs/feature-packets/ATC_Portable_Trainer_Phase1_Feature_Packets.md)
 
-Phase 1 focuses on establishing the minimum end-to-end architecture needed for a working training loop.
+## Prerequisites
 
-```text id="jtr0x4"
-Human Controller
-       │
-       │ Voice
-       ▼
-Whisper ASR
-       │
-       ▼
-Command / Agent Layer
-       │
-       ▼
-Local LLM
-       │
-       ▼
-BlueSky Simulation
-       │
-       ▼
-Unity Radar Display
+- Windows 11
+- Python 3.12
+- Node.js 22 or 24 LTS with pnpm 11
+- PowerShell 7 or Windows PowerShell 5.1
 
-Virtual Pilot Response
-       │
-       ▼
-Piper / Kokoro TTS
-       │
-       ▼
-Human Controller
+Internet access is needed only to install dependencies. After installation, the FP-001 application starts and operates without network services.
+
+## Repository boundaries
+
+```text
+apps/
+  api/                  FastAPI entry point and transport models
+  web/                  React browser presentation
+packages/
+  domain/               Provider-independent domain rules and ports
+  application/          Use-case orchestration
+  infrastructure/       Concrete local adapters
+tests/                  Backend and architecture tests/fixtures
+scripts/                Development and architecture-check commands
+docs/                   Authoritative architecture and feature packets
 ```
 
-System events and interactions are recorded in SQLite to support replay and later training analysis.
+Dependencies point inward. In particular:
 
-## Planned Technology Stack
+- `packages/domain` must not import `apps`, `packages/application`, or `packages/infrastructure`.
+- Infrastructure implements ports owned by inner layers.
+- API/browser transport models must not become domain models by convenience.
+- The browser must not own authoritative simulation, clearance, scoring, or replay rules.
 
-| Layer                  | Technology      |
-| ---------------------- | --------------- |
-| Visualisation          | Unity           |
-| Air traffic simulation | BlueSky         |
-| Speech recognition     | Whisper         |
-| AI / virtual pilot     | Local LLM       |
-| Speech synthesis       | Piper or Kokoro |
-| Replay / event storage | SQLite          |
+FP-001 creates package markers only; domain models, services, adapters, persistence, and events are intentionally deferred.
 
-The architecture is intentionally designed around technologies that can operate locally.
+## Install
 
-## Design Principles
+From the repository root in PowerShell:
 
-### Local First
+```powershell
+py -3.12 -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install --upgrade pip
+python -m pip install -e ".[dev]"
 
-Core training functionality should be capable of operating without continuous cloud connectivity.
-
-### Low Latency
-
-Voice interaction and simulation responses should remain responsive enough for real-time training.
-
-### Modular Architecture
-
-Speech recognition, AI reasoning, simulation, visualisation and replay should remain separate components connected through well-defined interfaces.
-
-### Deterministic Simulation
-
-AI-generated dialogue should not directly manipulate simulation state.
-
-Validated commands should be converted into deterministic simulation events before affecting aircraft or scenario state.
-
-### Replayability
-
-Important trainee, AI and simulation events should be recorded so a training session can later be reconstructed and analysed.
-
-### Human-Centred Training
-
-AI exists to support the training of human controllers rather than replacing the human trainee.
-
-## Initial Architecture
-
-```text id="s62hsa"
-Human Trainee
-     │
-     ▼
-Whisper ASR
-     │
-     ▼
-Agent / Command Layer
-     │
-     ├──────────────► Local LLM
-     │                    │
-     │                    ▼
-     │               Piper / Kokoro
-     │                    │
-     │                    ▼
-     │               Voice Response
-     │
-     ▼
-BlueSky Simulation
-     │
-     ▼
-Unity Radar Display
-
-All significant events
-     │
-     ▼
-SQLite Replay Database
+Set-Location apps\web
+pnpm install --frozen-lockfile
+Set-Location ..\..
 ```
 
-This architecture will evolve as the prototype develops.
+Dependencies and tool versions are pinned in `pyproject.toml`, `apps/web/package.json`, and `apps/web/pnpm-lock.yaml`.
 
-## Repository Structure
+## Run
 
-```text id="o5d8x2"
-Portable-ATC-Radar-Trainer/
-├── README.md
-├── LICENSE
-├── .gitignore
-│
-├── docs/
-│   ├── architecture/
-│   ├── decisions/
-│   ├── phase-1/
-│   └── diagrams/
-│
-├── unity/
-│
-├── services/
-│   ├── asr/
-│   ├── llm/
-│   ├── tts/
-│   └── bluesky/
-│
-├── replay/
-├── tests/
-└── scripts/
+Start both applications from the repository root:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\start-dev.ps1
 ```
 
-The structure may change as implementation experience reveals better boundaries between components.
+The execution-policy override applies only to this PowerShell process. It does not change the execution policy for the current user or machine.
 
-## Development Approach
+The API binds to `127.0.0.1:8000` and the browser application to `127.0.0.1:5173`. Open <http://127.0.0.1:5173> if the browser does not open automatically.
 
-The project will be developed incrementally.
+Alternatively, use two PowerShell terminals:
 
-Each major capability should first work independently before being integrated into the complete training loop.
-
-```text id="y4wmyi"
-Simulation
-    ↓
-Radar Visualisation
-    ↓
-Speech Recognition
-    ↓
-Command Interpretation
-    ↓
-Virtual Pilot Response
-    ↓
-Speech Synthesis
-    ↓
-Replay
-    ↓
-Integrated Training Scenario
+```powershell
+# Terminal 1, repository root
+.\.venv\Scripts\Activate.ps1
+python -m uvicorn apps.api.main:app --host 127.0.0.1 --port 8000
 ```
 
-The emphasis is on getting a small end-to-end system working before increasing realism or complexity.
+```powershell
+# Terminal 2
+Set-Location apps\web
+pnpm run dev
+```
 
-## Longer-Term Direction
+The frontend reads `VITE_API_URL` when supplied and otherwise uses `http://127.0.0.1:8000`.
 
-Future phases may explore:
+## Verify
 
-* Multiple virtual aircraft and pilots
-* Multiple ATC sectors or controller positions
-* Standard ATC phraseology
-* Deliberately incorrect pilot readbacks
-* Different speech characteristics and accents
-* Cross-transmissions and frequency congestion
-* Adaptive training scenarios
-* Instructor controls
-* Session rollback and continuation
-* Competency assessment
-* AI-assisted coaching and debrief
-* Tower and aerodrome visual simulation
-* Multi-user training
-* Higher-fidelity visual environments
+Run backend tests, lint, types, and the production boundary check from the repository root:
 
-These capabilities are **future directions**, not current Phase 1 functionality.
+```powershell
+.\.venv\Scripts\Activate.ps1
+python -m pytest
+python -m ruff check apps packages scripts tests
+python -m mypy
+python scripts\check_architecture.py
+```
 
-## Project Status
+Run frontend tests, lint, types, and production build:
 
-This repository currently represents an **early-stage research and engineering prototype**.
+```powershell
+Set-Location apps\web
+pnpm test
+pnpm run lint
+pnpm run typecheck
+pnpm run build
+```
 
-Architecture, interfaces and technology choices may change as individual components are tested and integrated.
+With the API running, verify health:
 
-The immediate objective is to prove a reliable local end-to-end training loop before attempting higher fidelity or larger-scale deployment.
+```powershell
+Invoke-RestMethod http://127.0.0.1:8000/health | ConvertTo-Json -Compress
+```
+
+Expected response:
+
+```json
+{"status":"ok"}
+```
+
+The architecture test suite proves both sides of the rule: valid domain imports pass, while `tests/fixtures/invalid_domain_dependency.py` is deliberately rejected. To observe the expected rejection directly:
+
+```powershell
+python scripts\check_architecture.py tests\fixtures\invalid_domain_dependency.py
+if ($LASTEXITCODE -ne 1) { throw "Invalid dependency fixture was not rejected" }
+```
+
+## FP-001 scope boundary
+
+This foundation does not implement session lifecycle, SQLite/persistence, events, scenarios, aircraft or runway logic, simulation, WebSockets, ASR, LLM integration, TTS, radio, competency/scoring, replay, instructor functions, Unity, BlueSky, cloud services, or distributed deployment.
 
 ## License
 
-Licensed under the **Apache License 2.0**.
-
----
-
-**Current focus:** Phase 1 — establish the portable ATC radar trainer foundation.
+Licensed under the Apache License 2.0. See [LICENSE](LICENSE).

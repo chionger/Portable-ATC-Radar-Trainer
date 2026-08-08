@@ -88,6 +88,23 @@ InitTestScene*.unity*
 /[Aa]ssets/StreamingAssets/aa*
 /[Aa]ssets/AddressableAssetsData/link.xml*
 /[Aa]ssets/Addressables_Temp*
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+
+# Node / Vite
+node_modules/
+dist/
+*.tsbuildinfo
+
+# Local configuration
+.env
+.env.local
 # By default, Addressables content builds will generate addressables_content_state.bin
 # files in platform-specific subfolders, for example:
 # /Assets/AddressableAssetsData/OSX/addressables_content_state.bin
