@@ -70,8 +70,10 @@ Dependencies and tool versions are pinned in `pyproject.toml`, `apps/web/package
 Start both applications from the repository root:
 
 ```powershell
-.\scripts\start-dev.ps1
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\start-dev.ps1
 ```
+
+The execution-policy override applies only to this PowerShell process. It does not change the execution policy for the current user or machine.
 
 The API binds to `127.0.0.1:8000` and the browser application to `127.0.0.1:5173`. Open <http://127.0.0.1:5173> if the browser does not open automatically.
 
