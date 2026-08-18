@@ -2,7 +2,7 @@
 ## Phase 1 Ordered Feature Packets
 
 **Source authority:** ATC Portable Trainer — Phase 1 Architecture Baseline v1.0  
-**Packet set version:** 1.0  
+**Packet set version:** 1.1
 **Date:** 2026-08-07  
 **Purpose:** GitHub issue planning and implementation sequencing  
 **Constraint:** No packet requires Unity, BlueSky, cloud services, or distributed deployment
@@ -23,6 +23,7 @@
 
 ```text
 FP-001 Repository foundation
+  -> FP-001A Local model zoo foundation
   -> FP-002 Typed configuration
   -> FP-003 Session/domain primitives
   -> FP-004 Event schemas
@@ -113,6 +114,78 @@ Dependencies shown above are the critical ordering spine. Section 5 identifies s
 
 **Rollback considerations:** Revert as a single foundation commit; no user data or migrations exist.
 
+## FP-001A — Local Model Zoo Foundation
+
+**Objective:** Establish an offline-capable local model catalogue, provenance record, storage convention, and integrity-verification mechanism for candidate AI model assets without integrating those models into the ATC application runtime.
+
+**User or system value:** Preserves candidate model assets and the information required to identify, verify, restore, licence-review, and later benchmark them even when upstream availability changes.
+
+**Architecture baseline references:** §§6, 8, 24, 29; local-first and offline deployment constraints. Architecture Baseline v1.0 amendment for local model asset preservation.
+
+**Dependencies:** FP-001.
+
+**Affected modules:** `model-zoo`; model manifest/schema; checksum-verification tooling; tests; `.gitignore`; model-zoo documentation.
+
+**Inputs:** Locally acquired candidate model files and associated identity, revision, source, licence, format, quantisation, runtime-compatibility, acquisition, and checksum metadata.
+
+**Outputs:** Versioned model manifest; documented external-storage convention; model metadata schema; SHA-256 verification workflow; model-zoo operating instructions; test fixtures.
+
+**Domain models:** Model-asset metadata only. This packet must not introduce ATC operational domain models.
+
+**Events produced and consumed:** None.
+
+**REST or WebSocket changes:** None.
+
+**Persistence changes:** None to the application database. Actual model binaries remain external deployment assets and are not stored in application persistence.
+
+**Configuration changes:** None to application runtime configuration. FP-002 remains responsible for typed application configuration and later model-path configuration.
+
+**Implementation constraints:**
+
+- Actual large model binaries must not be committed to Git.
+- The Git repository stores model metadata, schema, checksums, provenance, licence references, and verification tooling.
+- Local model assets must remain usable without cloud connectivity after acquisition.
+- Verification must be deterministic and use cryptographic file hashes such as SHA-256.
+- Model identity must include sufficient information to distinguish revision/version and quantisation/format.
+- A model listed in the zoo is a candidate asset only; listing does not imply approval for runtime use.
+- Verification tooling must not automatically download model files.
+- The repository must remain runnable after this packet merges.
+
+**Explicit non-goals:**
+
+- ASR inference or Whisper integration.
+- LLM inference or llama.cpp integration.
+- TTS inference or Piper/Kokoro integration.
+- Model benchmarking or provider selection.
+- Fine-tuning or training.
+- Automatic runtime model discovery or switching.
+- Cloud model services.
+- Committing multi-gigabyte weights to GitHub.
+- Replacing FP-027, FP-028, or FP-030 benchmark/integration responsibilities.
+
+**Acceptance criteria:**
+
+- A documented `model-zoo` structure exists.
+- A machine-readable manifest format exists and validates required metadata.
+- Model records distinguish category, identity, revision, format, quantisation, source, licence, checksum, intended role, and verification status.
+- Model binaries are excluded from Git by design and documentation.
+- A checksum-verification command reports at minimum `VERIFIED`, `MISSING`, and `HASH_MISMATCH`.
+- Verification works without network access.
+- Deterministic test fixtures cover successful verification, missing files, invalid metadata, and checksum mismatch.
+- Documentation clearly distinguishes `available`, `verified`, `benchmarked`, and `approved for runtime`.
+- No ASR, LLM, or TTS runtime integration is introduced.
+
+**Unit tests:** Manifest/schema validation; SHA-256 calculation; missing-file handling; checksum mismatch; deterministic output; safe path handling.
+
+**Integration tests:** Verify a small local fixture through the same manifest and verification workflow intended for real model assets.
+
+**Documentation updates:** Add model-zoo operating guide covering storage separation, acquisition metadata, verification, backup, restore, licence recording, and relationship to later benchmark packets.
+
+**Completion evidence:** Passing tests; sample manifest; sample verification output showing verified/missing/mismatch cases; repository diff proving no model weight binaries were committed.
+
+**Rollback considerations:** Remove model-zoo metadata/tooling without affecting FP-001 runtime application behaviour. External model assets remain independent of Git history.
+
+
 ## FP-002 — Typed Configuration and Effective Settings
 
 **Objective:** Introduce validated typed settings, precedence rules, packaged defaults, and safe effective-configuration reporting.
@@ -121,7 +194,7 @@ Dependencies shown above are the critical ordering spine. Section 5 identifies s
 
 **Architecture baseline references:** §§1.3, 6, 11.3, 24, 28.1, 30; ADR-013.
 
-**Dependencies:** FP-001.
+**Dependencies:** FP-001, FP-001A.
 
 **Affected modules:** Configuration package, API dependency container, development scripts, tests.
 
@@ -1853,7 +1926,7 @@ Dependencies shown above are the critical ordering spine. Section 5 identifies s
 
 **Architecture baseline references:** §§2–6, 26, 29–32.
 
-**Dependencies:** FP-001–FP-042, except FP-035 only if FP-034 includes it.
+**Dependencies:** FP-001, FP-001A, FP-002–FP-042, except FP-035 only if FP-034 includes it.
 
 **Affected modules:** Test evidence, release manifest, traceability matrix, defect records, documentation only unless defects are found.
 
@@ -1891,7 +1964,7 @@ Dependencies shown above are the critical ordering spine. Section 5 identifies s
 
 Create issues in packet ID order. Keep future issues in “Blocked/Planned” state until dependencies close. Recommended merge order is:
 
-1. FP-001–FP-004: runnable foundation and contracts.
+1. FP-001, FP-001A, FP-002–FP-004: runnable foundation, local model preservation, and contracts.
 2. FP-005: close AB-01 before durable state integration.
 3. FP-006–FP-015: persistence, scenario, deterministic simulation, live browser.
 4. FP-016–FP-019: deterministic command/pilot/error core.
@@ -1910,7 +1983,7 @@ GitHub labels should include milestone, component, packet type (`implementation`
 
 | Milestone | Packets | Exit gate |
 |---|---|---|
-| M1 — Architecture foundation | FP-001–FP-008 | Durable events/session lifecycle, health, runnable repository, AB-01 closed |
+| M1 — Architecture foundation | FP-001, FP-001A, FP-002–FP-008 | Durable events/session lifecycle, health, runnable repository, AB-01 closed |
 | M2 — Scenario and deterministic simulation | FP-009–FP-015 | Deterministic scripted traffic visible in browser and reconstructable |
 | M3 — Command, pilot, error, and radio core | FP-016–FP-022 | Full reference training logic works without live models; AB-02 closed |
 | M4 — Local speech/language | FP-023–FP-030 | Offline voice loop uses fakes in CI and benchmarked local adapters on reference hardware |
@@ -1923,7 +1996,7 @@ GitHub labels should include milestone, component, packet type (`implementation`
 The primary critical path is:
 
 ```text
-FP-001 -> 002 -> 003 -> 004 -> 005 -> 006 -> 008 -> 009 -> 010
+FP-001 -> 001A -> 002 -> 003 -> 004 -> 005 -> 006 -> 008 -> 009 -> 010
 -> 011 -> 012 -> 013 -> 014 -> 015 -> 016 -> 017 -> 018 -> 019
 -> 020 -> 021 -> 022 -> 023 -> 024 -> 025 -> 026 -> 027/028/029/030
 -> 031 -> 032 -> 036 -> 037 -> 038/039 -> 040 -> 041 -> 042 -> 043
@@ -1935,7 +2008,7 @@ Critical decision gates are FP-005, FP-020, FP-034, and FP-036. FP-034 does not 
 
 Parallel work is permitted only after shared dependency contracts are merged:
 
-- FP-002 and early FP-003 design may proceed after FP-001, but merge FP-002 first if FP-003 uses settings.
+- FP-001A must merge after FP-001 and before FP-002. Early FP-002 design may proceed while FP-001A is being reviewed, but FP-002 must not merge until FP-001A is complete. Early FP-003 design may overlap FP-002, but FP-002 merges first if FP-003 uses settings.
 - FP-007 observability can overlap late FP-006 repository work after event/persistence interfaces stabilise.
 - FP-009 scenario schema and FP-010 domain design can be developed in parallel, but FP-010 merges after scenario mapping contracts.
 - FP-013 snapshots and FP-014 WebSocket design can overlap after FP-012, but FP-014 requires the snapshot contract.
