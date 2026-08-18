@@ -2,7 +2,7 @@
 
 An experimental, local-first Air Traffic Control training platform. Phase 1 is an engineering and training-workflow prototype for one trainee on one Windows laptop. It is not a certified simulator and must not be used for operational traffic control.
 
-This repository currently contains the FP-001 application foundation only: a FastAPI health endpoint, a React browser health display, test/tooling configuration, and enforceable layer boundaries. Training, simulation, speech, persistence, and replay capabilities belong to later feature packets and are not implemented here.
+This repository contains the FP-001 runnable application foundation and the FP-001A local model-zoo foundation. The model zoo catalogs and verifies externally stored candidate assets; it does not run or select models. Training, simulation, speech inference, persistence, and replay capabilities belong to later feature packets and are not implemented here.
 
 ## Phase 1 architecture
 
@@ -37,6 +37,7 @@ packages/
 tests/                  Backend and architecture tests/fixtures
 scripts/                Development and architecture-check commands
 docs/                   Authoritative architecture and feature packets
+model-zoo/              Model metadata, schema, and offline operating guide
 ```
 
 Dependencies point inward. In particular:
@@ -103,6 +104,8 @@ python -m pytest
 python -m ruff check apps packages scripts tests
 python -m mypy
 python scripts\check_architecture.py
+python scripts\check_model_assets.py
+python scripts\verify_model_zoo.py --manifest model-zoo\manifest.json --asset-root <asset-root>
 ```
 
 Run frontend tests, lint, types, and production build:
@@ -137,6 +140,10 @@ if ($LASTEXITCODE -ne 1) { throw "Invalid dependency fixture was not rejected" }
 ## FP-001 scope boundary
 
 This foundation does not implement session lifecycle, SQLite/persistence, events, scenarios, aircraft or runway logic, simulation, WebSockets, ASR, LLM integration, TTS, radio, competency/scoring, replay, instructor functions, Unity, BlueSky, cloud services, or distributed deployment.
+
+## FP-001A local model zoo
+
+The model-zoo mechanism stores catalog metadata in Git while keeping model files in an external local `<asset-root>`. See [the model-zoo operating guide](model-zoo/README.md) for the manifest contract, offline verification, storage, backup, and restoration procedures. The production manifest is intentionally empty until separately governed acquisition and later benchmark work add candidate records.
 
 ## License
 

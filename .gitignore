@@ -105,6 +105,21 @@ dist/
 # Local configuration
 .env
 .env.local
+
+# FP-001A local model zoo: model assets remain outside Git.
+/model-zoo/assets/
+/model-zoo/cache/
+/model-zoo/staging/
+/model-zoo/downloads/
+*.gguf
+*.safetensors
+*.ckpt
+*.pt
+*.pth
+*.onnx
+*.tflite
+/model-zoo/**/*.bin
+/models/**/*.bin
 # By default, Addressables content builds will generate addressables_content_state.bin
 # files in platform-specific subfolders, for example:
 # /Assets/AddressableAssetsData/OSX/addressables_content_state.bin
