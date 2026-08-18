@@ -1,0 +1,129 @@
+{
+  "schema_version": "1.0",
+  "catalog_version": "1.0.0",
+  "models": [
+    {
+      "entry_id": "synthetic-asr-verified",
+      "identity": {
+        "family": "Synthetic Test Family",
+        "name": "Synthetic ASR Fixture",
+        "revision": "test-revision-001",
+        "variant": "deterministic-text-fixture"
+      },
+      "category": "ASR",
+      "intended_role": "Automated verification testing only; not an inference model",
+      "format": "synthetic-test-data",
+      "quantisation": null,
+      "source": {
+        "publisher": "Portable ATC test suite",
+        "original_uri": "urn:portable-atc:test-fixture:verified"
+      },
+      "acquisition": {
+        "acquired_on": "2026-08-19",
+        "method": "Generated as deterministic repository test text",
+        "notes": "Clearly synthetic; not a real model asset"
+      },
+      "licence": {
+        "name": "Repository test fixture",
+        "spdx_id": "Apache-2.0",
+        "reference_uri": "../../../../LICENSE",
+        "usage_notes": "Test-only synthetic content"
+      },
+      "runtime_compatibility": ["verification-tool-only"],
+      "lifecycle": {
+        "available": true,
+        "benchmarked": false,
+        "approved_for_runtime": false
+      },
+      "assets": [
+        {
+          "path": "verified-fixture.dat",
+          "size_bytes": 33,
+          "sha256": "0c56c211c6c100a50860972f27db1b7ca32127be6f17da4a0fa30950edba32fb"
+        }
+      ]
+    },
+    {
+      "entry_id": "synthetic-llm-missing",
+      "identity": {
+        "family": "Synthetic Test Family",
+        "name": "Synthetic LLM Missing Fixture",
+        "revision": "test-revision-001",
+        "variant": "intentionally-absent"
+      },
+      "category": "LLM",
+      "intended_role": "Missing-file verification testing only; not an inference model",
+      "format": "synthetic-test-data",
+      "quantisation": null,
+      "source": {
+        "publisher": "Portable ATC test suite",
+        "original_uri": "urn:portable-atc:test-fixture:missing"
+      },
+      "acquisition": {
+        "acquired_on": "2026-08-19",
+        "method": "Intentionally not created",
+        "notes": "Clearly synthetic; not a real model asset"
+      },
+      "licence": {
+        "name": "Repository test fixture",
+        "spdx_id": "Apache-2.0",
+        "reference_uri": "../../../../LICENSE",
+        "usage_notes": "Test-only synthetic record"
+      },
+      "runtime_compatibility": ["verification-tool-only"],
+      "lifecycle": {
+        "available": false,
+        "benchmarked": false,
+        "approved_for_runtime": false
+      },
+      "assets": [
+        {
+          "path": "missing-fixture.dat",
+          "size_bytes": 31,
+          "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+        }
+      ]
+    },
+    {
+      "entry_id": "synthetic-tts-mismatch",
+      "identity": {
+        "family": "Synthetic Test Family",
+        "name": "Synthetic TTS Mismatch Fixture",
+        "revision": "test-revision-001",
+        "variant": "intentionally-wrong-hash"
+      },
+      "category": "TTS",
+      "intended_role": "Hash-mismatch verification testing only; not an inference model",
+      "format": "synthetic-test-data",
+      "quantisation": null,
+      "source": {
+        "publisher": "Portable ATC test suite",
+        "original_uri": "urn:portable-atc:test-fixture:mismatch"
+      },
+      "acquisition": {
+        "acquired_on": "2026-08-19",
+        "method": "Generated as deterministic repository test text",
+        "notes": "Expected hash intentionally differs; clearly synthetic"
+      },
+      "licence": {
+        "name": "Repository test fixture",
+        "spdx_id": "Apache-2.0",
+        "reference_uri": "../../../../LICENSE",
+        "usage_notes": "Test-only synthetic content"
+      },
+      "runtime_compatibility": ["verification-tool-only"],
+      "lifecycle": {
+        "available": true,
+        "benchmarked": false,
+        "approved_for_runtime": false
+      },
+      "assets": [
+        {
+          "path": "mismatch-fixture.dat",
+          "size_bytes": 35,
+          "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+        }
+      ]
+    }
+  ]
+}

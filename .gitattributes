@@ -1,0 +1,2 @@
+# Synthetic model-zoo assets are byte fixtures, not text. Never rewrite line endings.
+tests/fixtures/model-zoo/assets/*.dat -text
