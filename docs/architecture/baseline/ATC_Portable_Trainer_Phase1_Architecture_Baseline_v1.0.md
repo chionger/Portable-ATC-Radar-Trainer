@@ -118,6 +118,8 @@ Given the same scenario version, seed, structured inputs, and simulation timing,
 
 Normal startup, training, debrief, replay, and export shall not require internet access. No runtime component may silently fall back to a cloud service.
 
+Model assets required for approved local AI functions shall be capable of being preserved, verified, backed up, restored, and used without dependence on continued availability of their original upstream distribution service. Model binaries remain external deployment assets and shall not be stored in the application Git repository.
+
 # 5. Scope
 
 ## 5.1 In scope
@@ -209,6 +211,51 @@ It shall exclude generated event/request IDs, wall-clock time, processing durati
 
 Core controls shall support keyboard operation, including configurable PTT. Colour shall not be the sole status indicator. Focus and contrast shall meet WCAG 2.1 AA where practical for the prototype.
 
+### 6.8 Local Model Zoo and Model Asset Preservation
+
+Phase 1 shall maintain an offline-capable local model zoo for candidate AI model assets that may later be evaluated for ASR, LLM, TTS, and other approved local AI roles.
+
+The model zoo is an **asset-preservation and provenance facility**, not an application runtime component.
+
+The Git repository shall contain only the information and tooling required to identify, verify, manage, and restore model assets. This may include:
+
+- model identity and family;
+- exact version or revision;
+- model category and intended role;
+- file format;
+- quantisation, where applicable;
+- original source and acquisition information;
+- licence and usage-rights information;
+- cryptographic checksums;
+- runtime compatibility information;
+- local storage convention;
+- verification status; and
+- backup and restoration instructions.
+
+Large model binaries and model weights shall **not** be committed to the application Git repository. They shall be stored as external local deployment assets using a documented storage convention suitable for offline and air-gapped operation.
+
+The architecture shall distinguish the following states:
+
+**Available** — the model asset has been acquired and catalogued.
+
+**Verified** — the locally stored asset matches its recorded identity and cryptographic checksum.
+
+**Benchmarked** — the model has been evaluated under the relevant benchmark feature packet.
+
+**Approved for runtime** — the model has satisfied the applicable acceptance criteria and has been explicitly selected for an application role.
+
+These states are not interchangeable. In particular:
+
+**Available ≠ Verified ≠ Benchmarked ≠ Approved for runtime.**
+
+FP-001A establishes only the model-zoo foundation, metadata, storage convention, provenance, integrity verification, and operating procedure.
+
+FP-001A shall not introduce ASR inference, LLM inference, TTS inference, model fine-tuning, automatic model downloading, runtime model selection, or model-specific ATC application dependencies.
+
+Actual model evaluation and runtime integration remain governed by the later feature packets responsible for ASR, LLM, and TTS benchmarking and integration.
+
+Model-zoo verification shall be capable of operating without network connectivity after model assets have been acquired. The application itself shall not require access to an upstream model repository in order to verify locally preserved assets.
+
 # 7. System Context
 
 ## 7.1 Actors
@@ -230,6 +277,7 @@ The deployed Phase 1 system has no required network dependency. Local external r
 - local LLM model/runtime when enabled;
 - local TTS model/runtime;
 - local filesystem and SQLite database;
+- local model-zoo storage containing preserved candidate model assets, manifests, checksums, and licence/provenance records;
 - a supported local web browser.
 
 ## 7.3 Trust boundary
