@@ -116,8 +116,6 @@ Dependencies shown above are the critical ordering spine. Section 5 identifies s
 
 ## FP-001A — Local Model Zoo Foundation
 
-## FP-001A — Local Model Zoo Foundation
-
 **Objective:** Establish an offline-capable local model catalogue, provenance record, storage convention, and integrity-verification mechanism for candidate AI model assets without integrating those models into the ATC application runtime.
 
 **User or system value:** Preserves candidate model assets and the information required to identify, verify, restore, licence-review, and later benchmark them even when upstream availability changes.
