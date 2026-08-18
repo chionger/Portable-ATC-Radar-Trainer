@@ -30,6 +30,25 @@ def test_known_sha256_calculation() -> None:
     )
 
 
+def test_all_checked_in_asset_fixture_bytes_are_stable() -> None:
+    expected = {
+        "verified-fixture.dat": (
+            33,
+            "0c56c211c6c100a50860972f27db1b7ca32127be6f17da4a0fa30950edba32fb",
+        ),
+        "mismatch-fixture.dat": (
+            35,
+            "9e294c917abbff9cc7b781f75c572d6b7bab0d55031af0b066be2d8806bc068c",
+        ),
+    }
+    actual = {
+        path.name: (path.stat().st_size, sha256_file(path))
+        for path in sorted(ASSET_ROOT.glob("*.dat"))
+    }
+
+    assert actual == expected
+
+
 def test_fixture_integration_reports_all_required_states() -> None:
     results = verify_manifest(load_manifest(FIXTURE_ROOT / "manifest.json"), ASSET_ROOT)
 
