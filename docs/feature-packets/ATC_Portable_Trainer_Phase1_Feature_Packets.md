@@ -2009,7 +2009,6 @@ Critical decision gates are FP-005, FP-020, FP-034, and FP-036. FP-034 does not 
 Parallel work is permitted only after shared dependency contracts are merged:
 
 - FP-001A must merge after FP-001 and before FP-002. Early FP-002 design may proceed while FP-001A is being reviewed, but FP-002 must not merge until FP-001A is complete. Early FP-003 design may overlap FP-002, but FP-002 merges first if FP-003 uses settings.
-- FP-002 and early FP-003 design may proceed after FP-001, but merge FP-002 first if FP-003 uses settings.
 - FP-007 observability can overlap late FP-006 repository work after event/persistence interfaces stabilise.
 - FP-009 scenario schema and FP-010 domain design can be developed in parallel, but FP-010 merges after scenario mapping contracts.
 - FP-013 snapshots and FP-014 WebSocket design can overlap after FP-012, but FP-014 requires the snapshot contract.
