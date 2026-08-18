@@ -1926,7 +1926,7 @@ Dependencies shown above are the critical ordering spine. Section 5 identifies s
 
 **Architecture baseline references:** §§2–6, 26, 29–32.
 
-**Dependencies:** FP-001–FP-042, except FP-035 only if FP-034 includes it.
+**Dependencies:** FP-001, FP-001A, FP-002–FP-042, except FP-035 only if FP-034 includes it.
 
 **Affected modules:** Test evidence, release manifest, traceability matrix, defect records, documentation only unless defects are found.
 
@@ -1964,7 +1964,7 @@ Dependencies shown above are the critical ordering spine. Section 5 identifies s
 
 Create issues in packet ID order. Keep future issues in “Blocked/Planned” state until dependencies close. Recommended merge order is:
 
-1. FP-001–FP-004: runnable foundation and contracts.
+1. FP-001, FP-001A, FP-002–FP-004: runnable foundation, local model preservation, and contracts.
 2. FP-005: close AB-01 before durable state integration.
 3. FP-006–FP-015: persistence, scenario, deterministic simulation, live browser.
 4. FP-016–FP-019: deterministic command/pilot/error core.
@@ -1983,7 +1983,7 @@ GitHub labels should include milestone, component, packet type (`implementation`
 
 | Milestone | Packets | Exit gate |
 |---|---|---|
-| M1 — Architecture foundation | FP-001–FP-008 | Durable events/session lifecycle, health, runnable repository, AB-01 closed |
+| M1 — Architecture foundation | FP-001, FP-001A, FP-002–FP-008 | Durable events/session lifecycle, health, runnable repository, AB-01 closed |
 | M2 — Scenario and deterministic simulation | FP-009–FP-015 | Deterministic scripted traffic visible in browser and reconstructable |
 | M3 — Command, pilot, error, and radio core | FP-016–FP-022 | Full reference training logic works without live models; AB-02 closed |
 | M4 — Local speech/language | FP-023–FP-030 | Offline voice loop uses fakes in CI and benchmarked local adapters on reference hardware |
@@ -1996,7 +1996,7 @@ GitHub labels should include milestone, component, packet type (`implementation`
 The primary critical path is:
 
 ```text
-FP-001 -> 002 -> 003 -> 004 -> 005 -> 006 -> 008 -> 009 -> 010
+FP-001 -> 001A -> 002 -> 003 -> 004 -> 005 -> 006 -> 008 -> 009 -> 010
 -> 011 -> 012 -> 013 -> 014 -> 015 -> 016 -> 017 -> 018 -> 019
 -> 020 -> 021 -> 022 -> 023 -> 024 -> 025 -> 026 -> 027/028/029/030
 -> 031 -> 032 -> 036 -> 037 -> 038/039 -> 040 -> 041 -> 042 -> 043
@@ -2008,6 +2008,7 @@ Critical decision gates are FP-005, FP-020, FP-034, and FP-036. FP-034 does not 
 
 Parallel work is permitted only after shared dependency contracts are merged:
 
+- FP-001A must merge after FP-001 and before FP-002. Early FP-002 design may proceed while FP-001A is being reviewed, but FP-002 must not merge until FP-001A is complete. Early FP-003 design may overlap FP-002, but FP-002 merges first if FP-003 uses settings.
 - FP-002 and early FP-003 design may proceed after FP-001, but merge FP-002 first if FP-003 uses settings.
 - FP-007 observability can overlap late FP-006 repository work after event/persistence interfaces stabilise.
 - FP-009 scenario schema and FP-010 domain design can be developed in parallel, but FP-010 merges after scenario mapping contracts.
