@@ -120,6 +120,8 @@ Normal startup, training, debrief, replay, and export shall not require internet
 
 Model assets required for approved local AI functions shall be capable of being preserved, verified, backed up, restored, and used without dependence on continued availability of their original upstream distribution service. Model binaries remain external deployment assets and shall not be stored in the application Git repository.
 
+Model acquisition itself may require temporary network access to an explicitly selected upstream source. After acquisition and verification are complete, preservation, validation, backup, restoration, benchmarking, and approved local use shall not depend on continued access to that upstream source.
+
 # 5. Scope
 
 ## 5.1 In scope
@@ -256,6 +258,49 @@ Actual model evaluation and runtime integration remain governed by the later fea
 
 Model-zoo verification shall be capable of operating without network connectivity after model assets have been acquired. The application itself shall not require access to an upstream model repository in order to verify locally preserved assets.
 
+### 6.9 Controlled Model Acquisition
+
+Phase 1 may provide model-acquisition tooling to reduce repetitive manual work when preserving explicitly selected candidate AI model assets.
+
+Model-acquisition tooling is a **model-zoo support capability**, not an application runtime capability and not a model-selection authority.
+
+The acquisition workflow shall operate only after a human has explicitly identified a candidate model or repository to acquire.
+
+The acquisition workflow shall:
+
+- require an explicit external model-zoo asset root;
+- prevent model assets from being downloaded into the application Git repository;
+- identify and record the source repository;
+- resolve or require an immutable upstream model revision where supported;
+- preserve the selected upstream model snapshot outside Git;
+- distinguish preserved upstream model files from downloader cache, temporary files, and locally generated preservation metadata;
+- calculate deterministic file sizes and cryptographic hashes for preserved assets;
+- generate candidate metadata compatible with the model-zoo catalogue;
+- use the existing model-zoo integrity-verification mechanism after acquisition;
+- report acquisition size and available storage where practicable;
+- refuse unsafe destination paths;
+- avoid silently overwriting an already preserved model revision; and
+- leave model approval, benchmarking, runtime selection, and application configuration to their responsible later feature packets.
+
+Acquisition tooling shall not automatically:
+
+- select which model should be acquired;
+- approve a model for commercial or runtime use;
+- benchmark model quality;
+- execute ASR, LLM, TTS, or other model inference;
+- fine-tune or train models;
+- quantise or convert model formats;
+- delete preserved model revisions;
+- upload model assets;
+- commit or merge Git changes; or
+- modify application runtime model configuration.
+
+The architecture shall preserve the separation:
+
+**Human candidate selection → acquisition → catalogue/verification → later benchmark → explicit runtime approval.**
+
+A successfully acquired and verified model remains only an available and verified candidate until later benchmark and approval decisions are completed.
+
 # 7. System Context
 
 ## 7.1 Actors
@@ -279,6 +324,7 @@ The deployed Phase 1 system has no required network dependency. Local external r
 - local filesystem and SQLite database;
 - local model-zoo storage containing preserved candidate model assets, manifests, checksums, and licence/provenance records;
 - a supported local web browser.
+- explicitly selected upstream model repositories used only during controlled acquisition, where network access is available;
 
 ## 7.3 Trust boundary
 
