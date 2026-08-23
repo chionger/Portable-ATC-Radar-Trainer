@@ -1,6 +1,6 @@
 # Local model zoo operating guide
 
-The FP-001A model zoo is an offline asset-preservation and provenance facility. It is not part of the ATC application runtime and does not select, benchmark, download, discover, load, or run models.
+The model zoo is an offline asset-preservation and provenance facility. It is not part of the ATC application runtime and does not select, benchmark, discover, load, or run models. FP-001B provides a separate, operator-invoked acquisition command for a model that a human has already selected.
 
 ## State boundaries
 
@@ -38,13 +38,49 @@ Store files using this convention:
 ```text
 <asset-root>/
   <category>/
-    <model-id>/
-      <revision>/
-        <variant>/
-          <asset files>
+    <publisher>/
+      <model-name>/
+        <immutable-revision>/
+          <upstream snapshot files>
+          PRESERVATION/
+            <locally generated records>
 ```
 
-Manifest asset paths use forward slashes and are relative to `<asset-root>`, for example `asr/example-id/revision/variant/asset.dat`. `D:\Portable-ATC-Models` may be used as an example Windows asset root, but it is not a default or hard-coded location.
+Manifest asset paths use forward slashes and are relative to `<asset-root>`, for example `ASR/Publisher/example-id/commit-sha/config.json`. The identity `variant` is catalogue metadata and does not add a mandatory path component. The existing Whisper snapshot is grandfathered and is not migrated by FP-001B. `D:\Portable-ATC-Models` may be used as an example Windows asset root, but it is not a default or hard-coded location.
+
+The asset root also contains disposable provider data outside immutable revisions:
+
+```text
+<asset-root>/.cache/    provider download cache
+<asset-root>/.staging/  incomplete acquisitions
+```
+
+Neither directory, nor any revision's `PRESERVATION` directory, is part of the upstream asset inventory.
+
+## Controlled acquisition
+
+Install the optional, pinned provider dependency:
+
+```powershell
+python -m pip install -e ".[dev,acquisition]"
+```
+
+Create a JSON metadata file containing the human-reviewed FP-001A fields: `entry_id`, `identity` (`family`, `name`, and `variant`; the tool replaces `revision`), `category`, `intended_role`, `format`, `quantisation`, `publisher`, `licence`, `runtime_compatibility`, and optional `acquisition_notes`. Then run:
+
+```powershell
+python scripts\acquire_model.py `
+  --provider huggingface `
+  --repository openai/whisper-large-v3-turbo `
+  --revision <explicit-branch-tag-or-full-sha> `
+  --asset-root D:\ATC-Model-Zoo `
+  --metadata .\candidate-metadata.json
+```
+
+The Hugging Face adapter resolves the requested revision to a full commit SHA and downloads using that SHA. Both values are recorded. The command reports expected and free bytes before transfer. It reserves the larger of 1 GiB or 5 percent of the expected snapshot as a safety margin, refuses clearly insufficient storage, and requires confirmation for an expected uncached download of at least 1 GiB or an unknown size. Use `--yes` only for deliberate unattended acquisition.
+
+Network and timeout failures are retried at most three times with bounded exponential backoff. Provider cache is retained for reuse. An interruption or failure leaves diagnostic state only under `.staging`; it never creates the immutable final revision directory. Rerun the same command to retry. Existing final revisions are always a collision: there is no force, overwrite, repair, or deletion mode.
+
+Acquisition preserves upstream-relative files at the immutable revision root and writes `acquisition.json`, `inventory.json`, `candidate-manifest.json`, and `verification.json` under `PRESERVATION`. The complete one-entry candidate manifest is validated and its staged bytes are verified through the FP-001A implementation before atomic promotion. Review it manually before separately adding an entry to `model-zoo/manifest.json`; acquisition never edits the production catalogue.
 
 ## Recording acquisition, provenance, and licence
 

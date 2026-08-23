@@ -2,7 +2,7 @@
 
 An experimental, local-first Air Traffic Control training platform. Phase 1 is an engineering and training-workflow prototype for one trainee on one Windows laptop. It is not a certified simulator and must not be used for operational traffic control.
 
-This repository contains the FP-001 runnable application foundation and the FP-001A local model-zoo foundation. The model zoo catalogs and verifies externally stored candidate assets; it does not run or select models. Training, simulation, speech inference, persistence, and replay capabilities belong to later feature packets and are not implemented here.
+This repository contains the FP-001 runnable application foundation, the FP-001A local model-zoo foundation, and FP-001B controlled model-acquisition tooling. The model zoo catalogs and verifies externally stored candidate assets; it does not run or select models. Training, simulation, speech inference, persistence, and replay capabilities belong to later feature packets and are not implemented here.
 
 ## Phase 1 architecture
 
@@ -141,9 +141,9 @@ if ($LASTEXITCODE -ne 1) { throw "Invalid dependency fixture was not rejected" }
 
 This foundation does not implement session lifecycle, SQLite/persistence, events, scenarios, aircraft or runway logic, simulation, WebSockets, ASR, LLM integration, TTS, radio, competency/scoring, replay, instructor functions, Unity, BlueSky, cloud services, or distributed deployment.
 
-## FP-001A local model zoo
+## FP-001A and FP-001B local model zoo
 
-The model-zoo mechanism stores catalog metadata in Git while keeping model files in an external local `<asset-root>`. See [the model-zoo operating guide](model-zoo/README.md) for the manifest contract, offline verification, storage, backup, and restoration procedures. The production manifest is intentionally empty until separately governed acquisition and later benchmark work add candidate records.
+The model-zoo mechanism stores catalogue metadata in Git while keeping model files in an external local `<asset-root>`. FP-001B can acquire an explicitly selected, immutable snapshot and generate candidate metadata for human review; it does not edit the production catalogue. See [the model-zoo operating guide](model-zoo/README.md) for acquisition, manifest review, offline verification, storage, backup, and restoration procedures.
 
 ## License
 

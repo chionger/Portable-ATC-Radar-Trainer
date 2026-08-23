@@ -1,0 +1,22 @@
+{
+  "entry_id": "synthetic-acquired-model",
+  "identity": {
+    "family": "Synthetic",
+    "name": "tiny-model",
+    "revision": "replaced-by-tool",
+    "variant": "upstream-snapshot"
+  },
+  "category": "ASR",
+  "intended_role": "acquisition testing only",
+  "format": "synthetic-test-data",
+  "quantisation": null,
+  "publisher": "Test-Publisher",
+  "acquisition_notes": "No real model content",
+  "licence": {
+    "name": "Test fixture",
+    "spdx_id": "Apache-2.0",
+    "reference_uri": "urn:test:licence",
+    "usage_notes": "test only"
+  },
+  "runtime_compatibility": ["verification-tool-only"]
+}

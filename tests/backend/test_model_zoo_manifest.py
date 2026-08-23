@@ -9,10 +9,14 @@ from scripts.verify_model_zoo import Manifest, load_manifest
 ROOT = Path(__file__).resolve().parents[2]
 
 
-def test_empty_production_manifest_is_valid() -> None:
+def test_production_manifest_is_valid_and_preserves_lifecycle_boundaries() -> None:
     manifest = load_manifest(ROOT / "model-zoo/manifest.json")
 
-    assert manifest == Manifest(schema_version="1.0", catalog_version="1.0.0", models=[])
+    assert manifest.schema_version == "1.0"
+    assert manifest.catalog_version == "1.0.0"
+    assert all(entry.lifecycle.available for entry in manifest.models)
+    assert all(not entry.lifecycle.benchmarked for entry in manifest.models)
+    assert all(not entry.lifecycle.approved_for_runtime for entry in manifest.models)
 
 
 def test_checked_in_schema_is_versioned_and_machine_readable() -> None:
