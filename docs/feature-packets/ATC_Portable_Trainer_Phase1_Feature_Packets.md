@@ -2,7 +2,7 @@
 ## Phase 1 Ordered Feature Packets
 
 **Source authority:** ATC Portable Trainer — Phase 1 Architecture Baseline v1.0  
-**Packet set version:** 1.1
+**Packet set version:** 1.2
 **Date:** 2026-08-07  
 **Purpose:** GitHub issue planning and implementation sequencing  
 **Constraint:** No packet requires Unity, BlueSky, cloud services, or distributed deployment
@@ -24,6 +24,7 @@
 ```text
 FP-001 Repository foundation
   -> FP-001A Local model zoo foundation
+  -> FP-001B Model zoo acquisition tooling
   -> FP-002 Typed configuration
   -> FP-003 Session/domain primitives
   -> FP-004 Event schemas
@@ -185,6 +186,90 @@ Dependencies shown above are the critical ordering spine. Section 5 identifies s
 
 **Rollback considerations:** Remove model-zoo metadata/tooling without affecting FP-001 runtime application behaviour. External model assets remain independent of Git history.
 
+## FP-001B — Model Zoo Acquisition Tooling
+
+**Objective:** Automate the repetitive, error-prone mechanics of acquiring an explicitly selected model snapshot into the external model zoo while preserving the architectural separation between acquisition, verification, benchmarking, and runtime approval.
+
+**User or system value:** Reduces manual acquisition errors, ensures exact revisions and provenance are captured consistently, and makes repeated regional model preservation practical without introducing model-selection or runtime behaviour.
+
+**Architecture baseline references:** §§4.7, 6.8, 6.9, 7.2; FP-001A model-zoo architecture.
+
+**Dependencies:** FP-001A.
+
+**Affected modules:** Model-zoo acquisition tooling under `scripts`; model-zoo operating documentation; deterministic acquisition tests and fixtures; packaging/tool configuration only where required.
+
+**Inputs:** Explicit upstream repository identifier; exact or resolvable immutable revision; external model-zoo asset root; optional human-supplied catalogue metadata.
+
+**Outputs:** Externally preserved upstream snapshot; acquisition/provenance record; preserved-asset inventory; deterministic SHA-256 metadata; FP-001A-compatible candidate catalogue data; acquisition-size and verification report.
+
+**Domain models:** Acquisition metadata and candidate model-asset metadata only. No ATC operational domain models.
+
+**Events produced and consumed:** None.
+
+**REST or WebSocket changes:** None.
+
+**Persistence changes:** None to application persistence. Model assets remain external deployment assets.
+
+**Configuration changes:** None to application runtime configuration. External acquisition parameters are supplied to the acquisition tooling and shall not introduce FP-002 application configuration.
+
+**Implementation constraints:**
+
+- Acquisition begins only after a human explicitly specifies the upstream model/repository.
+- The tool must require an external asset root and reject locations inside the application Git repository.
+- The tool shall use an immutable upstream revision where supported.
+- Existing preserved revisions must not be silently overwritten.
+- Upstream model snapshot files must be distinguished from downloader cache, temporary files, and locally generated preservation metadata.
+- Preserved files must receive deterministic path, byte-size, and SHA-256 metadata.
+- Generated catalogue data must remain compatible with the FP-001A manifest contract.
+- Existing FP-001A verification tooling shall be reused rather than duplicated.
+- Model acquisition may use network access; verification of acquired assets must remain offline-capable.
+- The tool shall report storage consumption and available free space where practical.
+- Model files shall never be committed to Git.
+- The repository must remain runnable after this packet merges.
+
+**Explicit non-goals:**
+
+- Automatic model discovery or recommendation.
+- Automatic selection of models by geography, popularity, benchmark, or provider.
+- Commercial-use approval.
+- Licence legal determination.
+- ASR, LLM, TTS, embedding, or VLM inference.
+- Model benchmarking.
+- Fine-tuning, training, or reinforcement learning.
+- Quantisation or model-format conversion.
+- Automatic deletion of old model revisions.
+- Automatic Git commits, pushes, pull requests, or merges.
+- Runtime model selection.
+- Application model-path configuration.
+- Replacing FP-027, FP-028, or FP-030 responsibilities.
+
+**Acceptance criteria:**
+
+- An acquisition command accepts an explicitly selected supported repository/model.
+- Acquisition requires an external asset root outside Git.
+- An immutable upstream revision is recorded.
+- The acquired snapshot is stored outside Git.
+- Upstream preserved files are separated from cache and locally generated preservation metadata.
+- A deterministic asset inventory is produced.
+- SHA-256 and exact byte size are recorded for preserved files.
+- An FP-001A-compatible candidate manifest entry can be generated without automatically marking it benchmarked or approved for runtime.
+- An existing preserved revision is not silently overwritten.
+- Unsafe destination paths are rejected.
+- Storage use/free-space information is reported where supported.
+- FP-001A verification successfully validates a synthetic acquired snapshot.
+- Normal automated tests do not download any real models.
+- No model weights enter Git.
+- No FP-002 or later runtime functionality is introduced.
+
+**Unit tests:** Revision handling; destination validation; repository-inside-Git rejection; existing-revision collision; deterministic inventory generation; cache exclusion; preservation metadata separation; SHA-256 generation; free-space reporting; manifest-candidate generation; safe path handling.
+
+**Integration tests:** Acquire a tiny synthetic or local fixture through the same workflow intended for real model repositories, then validate it using the existing FP-001A verifier.
+
+**Documentation updates:** Extend the model-zoo operating guide with model-acquisition workflow, external storage boundary, exact-revision requirements, cache separation, interruption/retry behaviour, generated metadata review, storage budgeting, and post-acquisition verification.
+
+**Completion evidence:** Passing acquisition tests; synthetic acquisition transcript; generated asset inventory; generated candidate manifest; successful FP-001A verification; proof that no model weights were committed; proof that runtime/application behaviour remains unchanged.
+
+**Rollback considerations:** Acquisition tooling may be removed without affecting FP-001A catalogue integrity or existing externally preserved model assets.
 
 ## FP-002 — Typed Configuration and Effective Settings
 
@@ -194,7 +279,7 @@ Dependencies shown above are the critical ordering spine. Section 5 identifies s
 
 **Architecture baseline references:** §§1.3, 6, 11.3, 24, 28.1, 30; ADR-013.
 
-**Dependencies:** FP-001, FP-001A.
+**Dependencies:** FP-001, FP-001A, FP-001B.
 
 **Affected modules:** Configuration package, API dependency container, development scripts, tests.
 
@@ -1926,7 +2011,7 @@ Dependencies shown above are the critical ordering spine. Section 5 identifies s
 
 **Architecture baseline references:** §§2–6, 26, 29–32.
 
-**Dependencies:** FP-001, FP-001A, FP-002–FP-042, except FP-035 only if FP-034 includes it.
+**Dependencies:** FP-001, FP-001A, FP-001B, FP-002–FP-042, except FP-035 only if FP-034 includes it.
 
 **Affected modules:** Test evidence, release manifest, traceability matrix, defect records, documentation only unless defects are found.
 
@@ -1964,7 +2049,7 @@ Dependencies shown above are the critical ordering spine. Section 5 identifies s
 
 Create issues in packet ID order. Keep future issues in “Blocked/Planned” state until dependencies close. Recommended merge order is:
 
-1. FP-001, FP-001A, FP-002–FP-004: runnable foundation, local model preservation, and contracts.
+1. FP-001, FP-001A, FP-001B, FP-002–FP-004: runnable foundation, local model preservation, acquisition tooling, and contracts.
 2. FP-005: close AB-01 before durable state integration.
 3. FP-006–FP-015: persistence, scenario, deterministic simulation, live browser.
 4. FP-016–FP-019: deterministic command/pilot/error core.
@@ -1983,7 +2068,7 @@ GitHub labels should include milestone, component, packet type (`implementation`
 
 | Milestone | Packets | Exit gate |
 |---|---|---|
-| M1 — Architecture foundation | FP-001, FP-001A, FP-002–FP-008 | Durable events/session lifecycle, health, runnable repository, AB-01 closed |
+| M1 — Architecture foundation | FP-001, FP-001A, FP-001B, FP-002–FP-008 | Durable events/session lifecycle, health, runnable repository, AB-01 closed |
 | M2 — Scenario and deterministic simulation | FP-009–FP-015 | Deterministic scripted traffic visible in browser and reconstructable |
 | M3 — Command, pilot, error, and radio core | FP-016–FP-022 | Full reference training logic works without live models; AB-02 closed |
 | M4 — Local speech/language | FP-023–FP-030 | Offline voice loop uses fakes in CI and benchmarked local adapters on reference hardware |
@@ -1996,7 +2081,7 @@ GitHub labels should include milestone, component, packet type (`implementation`
 The primary critical path is:
 
 ```text
-FP-001 -> 001A -> 002 -> 003 -> 004 -> 005 -> 006 -> 008 -> 009 -> 010
+FP-001 -> 001A -> 001B -> 002 -> 003 -> 004 -> 005 -> 006 -> 008 -> 009 -> 010
 -> 011 -> 012 -> 013 -> 014 -> 015 -> 016 -> 017 -> 018 -> 019
 -> 020 -> 021 -> 022 -> 023 -> 024 -> 025 -> 026 -> 027/028/029/030
 -> 031 -> 032 -> 036 -> 037 -> 038/039 -> 040 -> 041 -> 042 -> 043
@@ -2008,7 +2093,7 @@ Critical decision gates are FP-005, FP-020, FP-034, and FP-036. FP-034 does not 
 
 Parallel work is permitted only after shared dependency contracts are merged:
 
-- FP-001A must merge after FP-001 and before FP-002. Early FP-002 design may proceed while FP-001A is being reviewed, but FP-002 must not merge until FP-001A is complete. Early FP-003 design may overlap FP-002, but FP-002 merges first if FP-003 uses settings.
+- FP-001A must merge after FP-001. FP-001B must then merge after FP-001A and before FP-002. Early FP-002 design may proceed while FP-001B is being reviewed, but FP-002 must not merge until FP-001B is complete. Early FP-003 design may overlap FP-002, but FP-002 merges first if FP-003 uses settings.
 - FP-007 observability can overlap late FP-006 repository work after event/persistence interfaces stabilise.
 - FP-009 scenario schema and FP-010 domain design can be developed in parallel, but FP-010 merges after scenario mapping contracts.
 - FP-013 snapshots and FP-014 WebSocket design can overlap after FP-012, but FP-014 requires the snapshot contract.
