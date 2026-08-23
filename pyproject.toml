@@ -14,6 +14,9 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+acquisition = [
+  "huggingface-hub==1.28.0",
+]
 dev = [
   "httpx==0.28.1",
   "mypy==1.15.0",
@@ -43,5 +46,8 @@ files = [
   "packages",
   "scripts/check_architecture.py",
   "scripts/check_model_assets.py",
+  "scripts/acquire_model.py",
+  "scripts/model_acquisition.py",
+  "scripts/model_source_huggingface.py",
   "scripts/verify_model_zoo.py",
 ]
