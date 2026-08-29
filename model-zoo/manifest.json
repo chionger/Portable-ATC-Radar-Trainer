@@ -1755,6 +1755,200 @@
           "sha256": "b5de6cc1c6758d02c0d3cec0efa062f1161654475458003f6f293f6ef28acdaa"
         }
       ]
+    },
+    {
+        "entry_id": "aisingapore-qwen-sea-lion-v4.5-27b-it",
+        "identity": {
+            "family": "SEA-LION v4.5",
+            "name": "Qwen-SEA-LION-v4.5-27B-IT",
+            "revision": "544e416f68a5700c7577547ad48e351e7d294116",
+            "variant": "instruction-tuned-multimodal-huggingface"
+        },
+        "category": "LLM",
+        "intended_role": "Southeast-Asian multilingual and multimodal instruction-following candidate for regional capability diversification",
+        "format": "transformers-safetensors",
+        "quantisation": null,
+        "source": {
+            "publisher": "AI-Singapore",
+            "original_uri": "https://huggingface.co/aisingapore/Qwen-SEA-LION-v4.5-27B-IT"
+        },
+        "acquisition": {
+            "acquired_on": "2026-08-29",
+            "method": "huggingface snapshot pinned to immutable revision",
+            "notes": "Preserved as an offline strategic candidate for Southeast-Asian language, cultural and regional capability diversification. Runtime approval requires later benchmarking."
+        },
+        "licence": {
+            "name": "MIT License",
+            "spdx_id": "MIT",
+            "reference_uri": "https://huggingface.co/aisingapore/Qwen-SEA-LION-v4.5-27B-IT/blob/main/LICENSE",
+            "usage_notes": "Preservation does not constitute runtime approval. Review model documentation and applicable terms before production deployment."
+        },
+        "runtime_compatibility": [
+            "Hugging Face Transformers",
+            "vLLM"
+        ],
+        "lifecycle": {
+            "available": true,
+            "benchmarked": false,
+            "approved_for_runtime": false
+        },
+        "assets": [
+            {
+                "path": "LLM/AI-Singapore/Qwen-SEA-LION-v4.5-27B-IT/544e416f68a5700c7577547ad48e351e7d294116/.gitattributes",
+                "size_bytes": 1854,
+                "sha256": "b4b930e0be3c14088d8137d8072ace826f6721ae7a60c55b64dcf748037974d1"
+            },
+            {
+                "path": "LLM/AI-Singapore/Qwen-SEA-LION-v4.5-27B-IT/544e416f68a5700c7577547ad48e351e7d294116/LICENSE",
+                "size_bytes": 1064,
+                "sha256": "151a54770b52e7f511ddfb7aae6f29ae6f0aef8ee119be5474270bed28e0c502"
+            },
+            {
+                "path": "LLM/AI-Singapore/Qwen-SEA-LION-v4.5-27B-IT/544e416f68a5700c7577547ad48e351e7d294116/Qwen-SEA-LION-v4.5.png",
+                "size_bytes": 1665744,
+                "sha256": "018963a7bc894e68855a560ccc7656858b78b417bf3573793334f5f97520a998"
+            },
+            {
+                "path": "LLM/AI-Singapore/Qwen-SEA-LION-v4.5-27B-IT/544e416f68a5700c7577547ad48e351e7d294116/README.md",
+                "size_bytes": 23398,
+                "sha256": "acf5d67d66121c2af5465eb2be0e9abc6f689185ba92cbda4673474472abe2ce"
+            },
+            {
+                "path": "LLM/AI-Singapore/Qwen-SEA-LION-v4.5-27B-IT/544e416f68a5700c7577547ad48e351e7d294116/SEA-HELM_20_May_2026_200B-ver2.png",
+                "size_bytes": 297196,
+                "sha256": "b87570e3545a9a9843746e10cbd66e3c544a051140c6279957ad3bf051f76b7e"
+            },
+            {
+                "path": "LLM/AI-Singapore/Qwen-SEA-LION-v4.5-27B-IT/544e416f68a5700c7577547ad48e351e7d294116/chat_template.jinja",
+                "size_bytes": 7764,
+                "sha256": "e84f32a23fdda27689f868aa4a1a5621f41133e51a48d7f3efcbea2839574259"
+            },
+            {
+                "path": "LLM/AI-Singapore/Qwen-SEA-LION-v4.5-27B-IT/544e416f68a5700c7577547ad48e351e7d294116/config.json",
+                "size_bytes": 4308,
+                "sha256": "69db4eb7196bc8190813231b3018ca05d8c2e3abc7b1af19d55c157af44a9d9c"
+            },
+            {
+                "path": "LLM/AI-Singapore/Qwen-SEA-LION-v4.5-27B-IT/544e416f68a5700c7577547ad48e351e7d294116/configuration.json",
+                "size_bytes": 51,
+                "sha256": "2d4464e2ead06bc9bc718c781309ad1e7baded626d66e8dcdc8b469ba185faf0"
+            },
+            {
+                "path": "LLM/AI-Singapore/Qwen-SEA-LION-v4.5-27B-IT/544e416f68a5700c7577547ad48e351e7d294116/generation_config.json",
+                "size_bytes": 202,
+                "sha256": "e70c136c1b78ddc1fb0905bac8e733a4dc448d4f852a5dd75143fffc70be550e"
+            },
+            {
+                "path": "LLM/AI-Singapore/Qwen-SEA-LION-v4.5-27B-IT/544e416f68a5700c7577547ad48e351e7d294116/merges.txt",
+                "size_bytes": 3353259,
+                "sha256": "a9d356d7bdf1ef4949e3e748e95b8e10ad9d4e2e838eddc38a0a7b6b94d1db8d"
+            },
+            {
+                "path": "LLM/AI-Singapore/Qwen-SEA-LION-v4.5-27B-IT/544e416f68a5700c7577547ad48e351e7d294116/model-00001-of-00015.safetensors",
+                "size_bytes": 3968861320,
+                "sha256": "940f81126671e07a6185ba39af6fc91b35847526e2bd6fa6b58206b7bfec22ab"
+            },
+            {
+                "path": "LLM/AI-Singapore/Qwen-SEA-LION-v4.5-27B-IT/544e416f68a5700c7577547ad48e351e7d294116/model-00002-of-00015.safetensors",
+                "size_bytes": 3921677104,
+                "sha256": "de09942b4759ede04a41a555f9a60c47b7499ef90ab6f409c6c5e15be2caa491"
+            },
+            {
+                "path": "LLM/AI-Singapore/Qwen-SEA-LION-v4.5-27B-IT/544e416f68a5700c7577547ad48e351e7d294116/model-00003-of-00015.safetensors",
+                "size_bytes": 3921677096,
+                "sha256": "3fcba4896b4d1ca4f6c237ce6e569b2d1677bff3cd6be8f842d7d484b3b5b225"
+            },
+            {
+                "path": "LLM/AI-Singapore/Qwen-SEA-LION-v4.5-27B-IT/544e416f68a5700c7577547ad48e351e7d294116/model-00004-of-00015.safetensors",
+                "size_bytes": 3921677096,
+                "sha256": "98786dd75b985a144707668b9a72052ef860c77a965040f79b024f5c55524c40"
+            },
+            {
+                "path": "LLM/AI-Singapore/Qwen-SEA-LION-v4.5-27B-IT/544e416f68a5700c7577547ad48e351e7d294116/model-00005-of-00015.safetensors",
+                "size_bytes": 3921677080,
+                "sha256": "15cc13f3151f95a48cd26ad4b6bff948035b56489c4f1f7de45382839c110cea"
+            },
+            {
+                "path": "LLM/AI-Singapore/Qwen-SEA-LION-v4.5-27B-IT/544e416f68a5700c7577547ad48e351e7d294116/model-00006-of-00015.safetensors",
+                "size_bytes": 3900710856,
+                "sha256": "f43003db36eb75a19be50a62985bd17c47976ea363fe1a4eef2d4ebf6c3e7d4d"
+            },
+            {
+                "path": "LLM/AI-Singapore/Qwen-SEA-LION-v4.5-27B-IT/544e416f68a5700c7577547ad48e351e7d294116/model-00007-of-00015.safetensors",
+                "size_bytes": 3994391944,
+                "sha256": "f94f039054d7a0dede482ca242457c5da2460f550bf0e289d98939beae37532b"
+            },
+            {
+                "path": "LLM/AI-Singapore/Qwen-SEA-LION-v4.5-27B-IT/544e416f68a5700c7577547ad48e351e7d294116/model-00008-of-00015.safetensors",
+                "size_bytes": 3879219744,
+                "sha256": "9c394c4f756a75f41b72d3b7d298aec559c434ab3215fce1678244909bc5ed4d"
+            },
+            {
+                "path": "LLM/AI-Singapore/Qwen-SEA-LION-v4.5-27B-IT/544e416f68a5700c7577547ad48e351e7d294116/model-00009-of-00015.safetensors",
+                "size_bytes": 3921677104,
+                "sha256": "df8d2f63c8dec83faf731e6fe81dcb1c28f2f23e59ec86705535de05e7593924"
+            },
+            {
+                "path": "LLM/AI-Singapore/Qwen-SEA-LION-v4.5-27B-IT/544e416f68a5700c7577547ad48e351e7d294116/model-00010-of-00015.safetensors",
+                "size_bytes": 3921677096,
+                "sha256": "4e056e0a70301f55ea44b914685d2ae6ca633dd021f9cbaac95ba1e5425fd397"
+            },
+            {
+                "path": "LLM/AI-Singapore/Qwen-SEA-LION-v4.5-27B-IT/544e416f68a5700c7577547ad48e351e7d294116/model-00011-of-00015.safetensors",
+                "size_bytes": 3921677104,
+                "sha256": "3de811ccdf1f4b9098ada5d584a11b0ca8c2530e90791748b3297a0f2028f8b3"
+            },
+            {
+                "path": "LLM/AI-Singapore/Qwen-SEA-LION-v4.5-27B-IT/544e416f68a5700c7577547ad48e351e7d294116/model-00012-of-00015.safetensors",
+                "size_bytes": 3921677104,
+                "sha256": "eb36a8cbbe2d1130386a65f36385d275cf06395239ae8451a92030b5d89e2ceb"
+            },
+            {
+                "path": "LLM/AI-Singapore/Qwen-SEA-LION-v4.5-27B-IT/544e416f68a5700c7577547ad48e351e7d294116/model-00013-of-00015.safetensors",
+                "size_bytes": 3995081816,
+                "sha256": "be0a3fed86ac52c10f26175728e7bae4ec80ed2dc09c3b62b835954488cd8a0f"
+            },
+            {
+                "path": "LLM/AI-Singapore/Qwen-SEA-LION-v4.5-27B-IT/544e416f68a5700c7577547ad48e351e7d294116/model-00014-of-00015.safetensors",
+                "size_bytes": 3942652920,
+                "sha256": "aecf06138d3e5e49092abd93bb2aed2b2e6784b4d1746e1afd6d8827a6c01559"
+            },
+            {
+                "path": "LLM/AI-Singapore/Qwen-SEA-LION-v4.5-27B-IT/544e416f68a5700c7577547ad48e351e7d294116/model-00015-of-00015.safetensors",
+                "size_bytes": 508670536,
+                "sha256": "16f05320e3ac8c504e8b69926406ec009c48dc8505ae2917e9414663a3579cdf"
+            },
+            {
+                "path": "LLM/AI-Singapore/Qwen-SEA-LION-v4.5-27B-IT/544e416f68a5700c7577547ad48e351e7d294116/model.safetensors.index.json",
+                "size_bytes": 112216,
+                "sha256": "a8ad2c26fb707ff8c245806315b03e3b4b74595528492423af5dae0ce39b4d9b"
+            },
+            {
+                "path": "LLM/AI-Singapore/Qwen-SEA-LION-v4.5-27B-IT/544e416f68a5700c7577547ad48e351e7d294116/preprocessor_config.json",
+                "size_bytes": 390,
+                "sha256": "27225450ac9c6529872ee1924fcb0962ff5634834f817040f444118116f4e516"
+            },
+            {
+                "path": "LLM/AI-Singapore/Qwen-SEA-LION-v4.5-27B-IT/544e416f68a5700c7577547ad48e351e7d294116/tokenizer.json",
+                "size_bytes": 12807982,
+                "sha256": "5f9e4d4901a92b997e463c1f46055088b6cca5ca61a6522d1b9f64c4bb81cb42"
+            },
+            {
+                "path": "LLM/AI-Singapore/Qwen-SEA-LION-v4.5-27B-IT/544e416f68a5700c7577547ad48e351e7d294116/tokenizer_config.json",
+                "size_bytes": 16720,
+                "sha256": "f4d969585e55cec902abe1300d760cef06866ae807de8c6fb7a98394c37c066b"
+            },
+            {
+                "path": "LLM/AI-Singapore/Qwen-SEA-LION-v4.5-27B-IT/544e416f68a5700c7577547ad48e351e7d294116/video_preprocessor_config.json",
+                "size_bytes": 385,
+                "sha256": "7768af27c1fafa9cc9011c1dc20067e03f8915e03b63504550e11d5066986d13"
+            },
+            {
+                "path": "LLM/AI-Singapore/Qwen-SEA-LION-v4.5-27B-IT/544e416f68a5700c7577547ad48e351e7d294116/vocab.json",
+                "size_bytes": 6722759,
+                "sha256": "ce99b4cb2983d118806ce0a8b777a35b093e2000a503ebde25853284c9dfa003"
+            }
+        ]
     }
   ]
 }
