@@ -2309,6 +2309,159 @@
                 "sha256": "d075130fa39a4098e97e7ef1ceff144990b36bcf98ed15b51e061e83c1561e1e"
             }
         ]
+    },
+    {
+        "entry_id": "coherelabs-aya-expanse-8b",
+        "identity": {
+            "family": "Aya Expanse",
+            "name": "aya-expanse-8b",
+            "revision": "5062468bf9bc0c6035fd64e06274333ec127d980",
+            "variant": "multilingual-instruct-huggingface"
+        },
+        "category": "LLM",
+        "intended_role": "Multilingual strategic hedge for broad language coverage, regional experimentation and offline capability preservation",
+        "format": "transformers-safetensors",
+        "quantisation": null,
+        "source": {
+            "publisher": "CohereLabs",
+            "original_uri": "https://huggingface.co/CohereLabs/aya-expanse-8b"
+        },
+        "acquisition": {
+            "acquired_on": "2026-08-30",
+            "method": "huggingface snapshot pinned to immutable revision",
+            "notes": "Preserved as a multilingual strategic candidate. Runtime and commercial approval require later benchmarking and licence review."
+        },
+        "licence": {
+            "name": "CC-BY-NC-4.0",
+            "spdx_id": "CC-BY-NC-4.0",
+            "reference_uri": "https://huggingface.co/CohereLabs/aya-expanse-8b",
+            "usage_notes": "Non-commercial licence. Preservation does not constitute approval for commercial or production use."
+        },
+        "runtime_compatibility": [
+            "Hugging Face Transformers"
+        ],
+        "lifecycle": {
+            "available": true,
+            "benchmarked": false,
+            "approved_for_runtime": false
+        },
+        "assets": [
+            {
+                "path": "LLM/CohereLabs/aya-expanse-8b/5062468bf9bc0c6035fd64e06274333ec127d980/.gitattributes",
+                "size_bytes": 1903,
+                "sha256": "9b8ad8da4aa08e8895b906e4456bd18a3eeb8e8fc29cfa9a5d2203c1757b747f"
+            },
+            {
+                "path": "LLM/CohereLabs/aya-expanse-8b/5062468bf9bc0c6035fd64e06274333ec127d980/README.md",
+                "size_bytes": 8040,
+                "sha256": "528eae331b704302fb5c7f4396b8fe5d4baaf337b9706caafe9b2756c30b487e"
+            },
+            {
+                "path": "LLM/CohereLabs/aya-expanse-8b/5062468bf9bc0c6035fd64e06274333ec127d980/assets/aya-expanse-8B.png",
+                "size_bytes": 475480,
+                "sha256": "e1752681b9c8e3b6acc21088146d54510a368bfebe3a582f2f61182d0a6672f3"
+            },
+            {
+                "path": "LLM/CohereLabs/aya-expanse-8b/5062468bf9bc0c6035fd64e06274333ec127d980/assets/winrates_by_lang.png",
+                "size_bytes": 134252,
+                "sha256": "d8e3ac58a2d5d04167a049ba4f93566d8543f2491ec817f2558bce2fb117feb6"
+            },
+            {
+                "path": "LLM/CohereLabs/aya-expanse-8b/5062468bf9bc0c6035fd64e06274333ec127d980/assets/winrates_dolly.png",
+                "size_bytes": 108551,
+                "sha256": "ab94a31b09c1ee399e22999a05bef14c6300137c0a21e1d87ede36e6f25a71c1"
+            },
+            {
+                "path": "LLM/CohereLabs/aya-expanse-8b/5062468bf9bc0c6035fd64e06274333ec127d980/assets/winrates_marenahard_complete.png",
+                "size_bytes": 102858,
+                "sha256": "f627b96224b6131c272c833bab16b47b0d1eaac13e91f92a1c29fcf943d3d227"
+            },
+            {
+                "path": "LLM/CohereLabs/aya-expanse-8b/5062468bf9bc0c6035fd64e06274333ec127d980/assets/winrates_step_by_step.png",
+                "size_bytes": 110344,
+                "sha256": "a3f45c26a101ea8f2237b16595198bfd79957682ec77c35506077f343ff19e76"
+            },
+            {
+                "path": "LLM/CohereLabs/aya-expanse-8b/5062468bf9bc0c6035fd64e06274333ec127d980/aya-expanse-8B.png",
+                "size_bytes": 475480,
+                "sha256": "e1752681b9c8e3b6acc21088146d54510a368bfebe3a582f2f61182d0a6672f3"
+            },
+            {
+                "path": "LLM/CohereLabs/aya-expanse-8b/5062468bf9bc0c6035fd64e06274333ec127d980/config.json",
+                "size_bytes": 634,
+                "sha256": "81b7c1977e7c57052496bcbd50e94837db24e8188a5dc98efa0f9518fda9de7a"
+            },
+            {
+                "path": "LLM/CohereLabs/aya-expanse-8b/5062468bf9bc0c6035fd64e06274333ec127d980/generation_config.json",
+                "size_bytes": 137,
+                "sha256": "9215e5e7770b06aca2a98906d29f0d947f6ef01f1b3e9d0b33ef4b0969ef7ad9"
+            },
+            {
+                "path": "LLM/CohereLabs/aya-expanse-8b/5062468bf9bc0c6035fd64e06274333ec127d980/model-00001-of-00004.safetensors",
+                "size_bytes": 4915779640,
+                "sha256": "4caed059a6c25f86bc9c576c852438b220179a410725e8c6e02a02567bb25811"
+            },
+            {
+                "path": "LLM/CohereLabs/aya-expanse-8b/5062468bf9bc0c6035fd64e06274333ec127d980/model-00002-of-00004.safetensors",
+                "size_bytes": 4915824616,
+                "sha256": "c98d47d38a411c1f71b6ef21d85890f90f8b215df49ee11679b2f21deb411ddd"
+            },
+            {
+                "path": "LLM/CohereLabs/aya-expanse-8b/5062468bf9bc0c6035fd64e06274333ec127d980/model-00003-of-00004.safetensors",
+                "size_bytes": 4999719496,
+                "sha256": "d879c402bed6398a700784fade48fd3fc9941d86c621caf0973fedc54b2c8400"
+            },
+            {
+                "path": "LLM/CohereLabs/aya-expanse-8b/5062468bf9bc0c6035fd64e06274333ec127d980/model-00004-of-00004.safetensors",
+                "size_bytes": 1224771920,
+                "sha256": "d0510958ff72c271230ddc0c880c49102bcd8dedc6d00ab290cffb51efe335f3"
+            },
+            {
+                "path": "LLM/CohereLabs/aya-expanse-8b/5062468bf9bc0c6035fd64e06274333ec127d980/model.safetensors.index.json",
+                "size_bytes": 20990,
+                "sha256": "deaecc92e00b66a2fdd24576148760e930dc39b6c5c0db8c3c3e34ecd8e0da8f"
+            },
+            {
+                "path": "LLM/CohereLabs/aya-expanse-8b/5062468bf9bc0c6035fd64e06274333ec127d980/special_tokens_map.json",
+                "size_bytes": 439,
+                "sha256": "a8a127f35f234ae60b1fcebe12a3c295c04021781a7e1fb97f65f4f89a513fa5"
+            },
+            {
+                "path": "LLM/CohereLabs/aya-expanse-8b/5062468bf9bc0c6035fd64e06274333ec127d980/tokenizer.json",
+                "size_bytes": 12777433,
+                "sha256": "c69a7ea6c0927dfac8c349186ebcf0466a4723c21cbdb2e850cf559f0bee92b8"
+            },
+            {
+                "path": "LLM/CohereLabs/aya-expanse-8b/5062468bf9bc0c6035fd64e06274333ec127d980/tokenizer_config.json",
+                "size_bytes": 8641,
+                "sha256": "579bbdf6ad451c006373873e3f033e999673b39f909592338f0aa484db16e4ef"
+            },
+            {
+                "path": "LLM/CohereLabs/aya-expanse-8b/5062468bf9bc0c6035fd64e06274333ec127d980/winrates_by_lang.png",
+                "size_bytes": 134252,
+                "sha256": "d8e3ac58a2d5d04167a049ba4f93566d8543f2491ec817f2558bce2fb117feb6"
+            },
+            {
+                "path": "LLM/CohereLabs/aya-expanse-8b/5062468bf9bc0c6035fd64e06274333ec127d980/winrates_dolly.png",
+                "size_bytes": 108551,
+                "sha256": "ab94a31b09c1ee399e22999a05bef14c6300137c0a21e1d87ede36e6f25a71c1"
+            },
+            {
+                "path": "LLM/CohereLabs/aya-expanse-8b/5062468bf9bc0c6035fd64e06274333ec127d980/winrates_marenahard.png",
+                "size_bytes": 90737,
+                "sha256": "693c2a625de68917717eac7bf70ea90e6e622c2ab58be6c82b69360a72984dfb"
+            },
+            {
+                "path": "LLM/CohereLabs/aya-expanse-8b/5062468bf9bc0c6035fd64e06274333ec127d980/winrates_marenahard_complete.png",
+                "size_bytes": 102858,
+                "sha256": "f627b96224b6131c272c833bab16b47b0d1eaac13e91f92a1c29fcf943d3d227"
+            },
+            {
+                "path": "LLM/CohereLabs/aya-expanse-8b/5062468bf9bc0c6035fd64e06274333ec127d980/winrates_step_by_step.png",
+                "size_bytes": 110344,
+                "sha256": "a3f45c26a101ea8f2237b16595198bfd79957682ec77c35506077f343ff19e76"
+            }
+        ]
     }
   ]
 }
