@@ -1949,6 +1949,366 @@
                 "sha256": "ce99b4cb2983d118806ce0a8b777a35b093e2000a503ebde25853284c9dfa003"
             }
         ]
+    },
+    {
+        "entry_id": "meta-llama-4-scout-17b-16e-instruct",
+        "identity": {
+            "family": "Llama 4",
+            "name": "Llama-4-Scout-17B-16E-Instruct",
+            "revision": "92f3b1597a195b523d8d9e5700e57e4fbb8f20d3",
+            "variant": "instruct-multimodal-huggingface"
+        },
+        "category": "LLM",
+        "intended_role": "US-origin multimodal general reasoning, instruction-following and ecosystem-diversification candidate",
+        "format": "transformers-safetensors",
+        "quantisation": null,
+        "source": {
+            "publisher": "Meta",
+            "original_uri": "https://huggingface.co/meta-llama/Llama-4-Scout-17B-16E-Instruct"
+        },
+        "acquisition": {
+            "acquired_on": "2026-08-30",
+            "method": "huggingface snapshot pinned to immutable revision",
+            "notes": "Preserved as an offline strategic candidate for US-origin ecosystem and multimodal capability diversification. Runtime approval requires later benchmarking."
+        },
+        "licence": {
+            "name": "Llama 4 Community License",
+            "spdx_id": null,
+            "reference_uri": "https://huggingface.co/meta-llama/Llama-4-Scout-17B-16E-Instruct/blob/main/LICENSE",
+            "usage_notes": "Subject to the Llama 4 Community License and applicable acceptable-use terms. Preservation does not constitute commercial or runtime approval."
+        },
+        "runtime_compatibility": [
+            "Hugging Face Transformers",
+            "vLLM",
+            "SGLang"
+        ],
+        "lifecycle": {
+            "available": true,
+            "benchmarked": false,
+            "approved_for_runtime": false
+        },
+        "assets": [
+            {
+                "path": "LLM/Meta/Llama-4-Scout-17B-16E-Instruct/92f3b1597a195b523d8d9e5700e57e4fbb8f20d3/.gitattributes",
+                "size_bytes": 1570,
+                "sha256": "34448b82c17d60fec9b65b1f093c115ddbaadc04beb1b0140b6bfed2e012a930"
+            },
+            {
+                "path": "LLM/Meta/Llama-4-Scout-17B-16E-Instruct/92f3b1597a195b523d8d9e5700e57e4fbb8f20d3/LICENSE",
+                "size_bytes": 7815,
+                "sha256": "f95172ae8c823aebb14f73810fc71ce026e27555a17134d4720233caf8c2b2f0"
+            },
+            {
+                "path": "LLM/Meta/Llama-4-Scout-17B-16E-Instruct/92f3b1597a195b523d8d9e5700e57e4fbb8f20d3/README.md",
+                "size_bytes": 32586,
+                "sha256": "19659e477d9e582b5cdd9a2bac1658d5e5e7a2722b2efdd4248c06398c87882f"
+            },
+            {
+                "path": "LLM/Meta/Llama-4-Scout-17B-16E-Instruct/92f3b1597a195b523d8d9e5700e57e4fbb8f20d3/USE_POLICY.md",
+                "size_bytes": 5991,
+                "sha256": "8339da22c3d75ebf17b79dbcc5bfa490a878fbbadf34d15ad0969955b626fc11"
+            },
+            {
+                "path": "LLM/Meta/Llama-4-Scout-17B-16E-Instruct/92f3b1597a195b523d8d9e5700e57e4fbb8f20d3/chat_template.jinja",
+                "size_bytes": 7346,
+                "sha256": "fb76136a36a8422930f25fbe3326e9ae0d67e82259c7917b1b71d18ae6934cef"
+            },
+            {
+                "path": "LLM/Meta/Llama-4-Scout-17B-16E-Instruct/92f3b1597a195b523d8d9e5700e57e4fbb8f20d3/config.json",
+                "size_bytes": 2182,
+                "sha256": "4e355708c862d7d059ae05e88aaf00c45f99403552fac85c364d1e6d79d28efb"
+            },
+            {
+                "path": "LLM/Meta/Llama-4-Scout-17B-16E-Instruct/92f3b1597a195b523d8d9e5700e57e4fbb8f20d3/generation_config.json",
+                "size_bytes": 215,
+                "sha256": "bab4cab48a19ec65f3c0bca3a39ba7a663bae7766e88f41c8d6dc8cf3cbf6dc3"
+            },
+            {
+                "path": "LLM/Meta/Llama-4-Scout-17B-16E-Instruct/92f3b1597a195b523d8d9e5700e57e4fbb8f20d3/model-00001-of-00050.safetensors",
+                "size_bytes": 3938735392,
+                "sha256": "bbf828156579c47920e57b6f0ab756affd19b37e82141661984f8b3969c07d21"
+            },
+            {
+                "path": "LLM/Meta/Llama-4-Scout-17B-16E-Instruct/92f3b1597a195b523d8d9e5700e57e4fbb8f20d3/model-00002-of-00050.safetensors",
+                "size_bytes": 4404205216,
+                "sha256": "e6acea57d3006e6d3f6788adb1e435d8deb36302c5e57f434d923e67633f7121"
+            },
+            {
+                "path": "LLM/Meta/Llama-4-Scout-17B-16E-Instruct/92f3b1597a195b523d8d9e5700e57e4fbb8f20d3/model-00003-of-00050.safetensors",
+                "size_bytes": 4404205216,
+                "sha256": "a82804c0762ae5bf8604ef746d665ece5a58592c2b2cb32dc77b05839f81abdf"
+            },
+            {
+                "path": "LLM/Meta/Llama-4-Scout-17B-16E-Instruct/92f3b1597a195b523d8d9e5700e57e4fbb8f20d3/model-00004-of-00050.safetensors",
+                "size_bytes": 4404205216,
+                "sha256": "c506a653a01647ecaf59017efa144a7c37d37f92c1c39f2e09de7a39077f3f95"
+            },
+            {
+                "path": "LLM/Meta/Llama-4-Scout-17B-16E-Instruct/92f3b1597a195b523d8d9e5700e57e4fbb8f20d3/model-00005-of-00050.safetensors",
+                "size_bytes": 4404205216,
+                "sha256": "263c89811dcf3bea5c0e4317703b095765b7f17a3a90538c2517562b98afea12"
+            },
+            {
+                "path": "LLM/Meta/Llama-4-Scout-17B-16E-Instruct/92f3b1597a195b523d8d9e5700e57e4fbb8f20d3/model-00006-of-00050.safetensors",
+                "size_bytes": 4404205216,
+                "sha256": "24515405e22c53941607593eeed5ac11e2f99b308ed69b12991122b9ceb2cd77"
+            },
+            {
+                "path": "LLM/Meta/Llama-4-Scout-17B-16E-Instruct/92f3b1597a195b523d8d9e5700e57e4fbb8f20d3/model-00007-of-00050.safetensors",
+                "size_bytes": 4404205216,
+                "sha256": "501d6f29b4756d5f39231edd627cf4e41cf661c53aeece7c4fe12bac7e2b065c"
+            },
+            {
+                "path": "LLM/Meta/Llama-4-Scout-17B-16E-Instruct/92f3b1597a195b523d8d9e5700e57e4fbb8f20d3/model-00008-of-00050.safetensors",
+                "size_bytes": 4404205216,
+                "sha256": "adb3cd17c4ea49c2017e55c2d8e965bdb270036e0a846a9e5b2cbfd65b6f7412"
+            },
+            {
+                "path": "LLM/Meta/Llama-4-Scout-17B-16E-Instruct/92f3b1597a195b523d8d9e5700e57e4fbb8f20d3/model-00009-of-00050.safetensors",
+                "size_bytes": 4404205216,
+                "sha256": "14e44b52dc9755332a0f7bc93ffbf97bcabe1a0ae952f501ec9911b3d125eb4e"
+            },
+            {
+                "path": "LLM/Meta/Llama-4-Scout-17B-16E-Instruct/92f3b1597a195b523d8d9e5700e57e4fbb8f20d3/model-00010-of-00050.safetensors",
+                "size_bytes": 4404205216,
+                "sha256": "ff899cbd27103d873deda9cf3c5a64ab50750a27914bd8265c15bde01ca6ac31"
+            },
+            {
+                "path": "LLM/Meta/Llama-4-Scout-17B-16E-Instruct/92f3b1597a195b523d8d9e5700e57e4fbb8f20d3/model-00011-of-00050.safetensors",
+                "size_bytes": 4404205208,
+                "sha256": "5cc570f56d72bdc2f569319028b020c9ee8dbeb92219ffff3d82d1de95bceaa8"
+            },
+            {
+                "path": "LLM/Meta/Llama-4-Scout-17B-16E-Instruct/92f3b1597a195b523d8d9e5700e57e4fbb8f20d3/model-00012-of-00050.safetensors",
+                "size_bytes": 4404205232,
+                "sha256": "59aa34eb6c3d32f56c43a3746a95b4db344241aefe3525c9c0e32811d6e0a73c"
+            },
+            {
+                "path": "LLM/Meta/Llama-4-Scout-17B-16E-Instruct/92f3b1597a195b523d8d9e5700e57e4fbb8f20d3/model-00013-of-00050.safetensors",
+                "size_bytes": 4404205232,
+                "sha256": "7de8e74201e97aefc62631d5da756a407df429ab13f40c5cec2dd2d213e20f9c"
+            },
+            {
+                "path": "LLM/Meta/Llama-4-Scout-17B-16E-Instruct/92f3b1597a195b523d8d9e5700e57e4fbb8f20d3/model-00014-of-00050.safetensors",
+                "size_bytes": 4404205232,
+                "sha256": "d748c87687d89792a926f3ff3603ea83eeeac9940d2444e643fcb6b137fabe00"
+            },
+            {
+                "path": "LLM/Meta/Llama-4-Scout-17B-16E-Instruct/92f3b1597a195b523d8d9e5700e57e4fbb8f20d3/model-00015-of-00050.safetensors",
+                "size_bytes": 4404205232,
+                "sha256": "a02f782a1a9559f2268a6260c6b24771299fe53791dbe2be0be2650643c5d997"
+            },
+            {
+                "path": "LLM/Meta/Llama-4-Scout-17B-16E-Instruct/92f3b1597a195b523d8d9e5700e57e4fbb8f20d3/model-00016-of-00050.safetensors",
+                "size_bytes": 4404205232,
+                "sha256": "9fe2c30d5ef14b66c1cdee2d668310877f361b0573b30cd6e7686d2951b92a48"
+            },
+            {
+                "path": "LLM/Meta/Llama-4-Scout-17B-16E-Instruct/92f3b1597a195b523d8d9e5700e57e4fbb8f20d3/model-00017-of-00050.safetensors",
+                "size_bytes": 4404205232,
+                "sha256": "04f42430ef6435fe2073432296b2f4b3aab1d077c3b8c8f1b17b0b035daafdaa"
+            },
+            {
+                "path": "LLM/Meta/Llama-4-Scout-17B-16E-Instruct/92f3b1597a195b523d8d9e5700e57e4fbb8f20d3/model-00018-of-00050.safetensors",
+                "size_bytes": 4404205232,
+                "sha256": "5794abbf334b25b61f2d112a09018f93659830a3c68367d34bc1c00aaff07d28"
+            },
+            {
+                "path": "LLM/Meta/Llama-4-Scout-17B-16E-Instruct/92f3b1597a195b523d8d9e5700e57e4fbb8f20d3/model-00019-of-00050.safetensors",
+                "size_bytes": 4404205232,
+                "sha256": "1e7f13a189c3085ce6a4f106c71ce0dda45ae2ccc4daff1d182abf282e00b3e8"
+            },
+            {
+                "path": "LLM/Meta/Llama-4-Scout-17B-16E-Instruct/92f3b1597a195b523d8d9e5700e57e4fbb8f20d3/model-00020-of-00050.safetensors",
+                "size_bytes": 4404205232,
+                "sha256": "b830a0c9ac8d867de91b01af537466fa0a2256b9859a469089de086643b03278"
+            },
+            {
+                "path": "LLM/Meta/Llama-4-Scout-17B-16E-Instruct/92f3b1597a195b523d8d9e5700e57e4fbb8f20d3/model-00021-of-00050.safetensors",
+                "size_bytes": 4404205232,
+                "sha256": "21ed384c8b2b49ea0c21d83558aeee747a672dc3b9b9931c723f6b104cc1144d"
+            },
+            {
+                "path": "LLM/Meta/Llama-4-Scout-17B-16E-Instruct/92f3b1597a195b523d8d9e5700e57e4fbb8f20d3/model-00022-of-00050.safetensors",
+                "size_bytes": 4404205232,
+                "sha256": "b72ea5e84f1443a14e36eb7e4b1c14143e6a1e57d6ba07b1902c08b6d6770c49"
+            },
+            {
+                "path": "LLM/Meta/Llama-4-Scout-17B-16E-Instruct/92f3b1597a195b523d8d9e5700e57e4fbb8f20d3/model-00023-of-00050.safetensors",
+                "size_bytes": 4404205232,
+                "sha256": "cd02f9a1a3c95959e2bb5b029bcdf92c2f6ba1d2c33c094a6359e00d22e679e6"
+            },
+            {
+                "path": "LLM/Meta/Llama-4-Scout-17B-16E-Instruct/92f3b1597a195b523d8d9e5700e57e4fbb8f20d3/model-00024-of-00050.safetensors",
+                "size_bytes": 4404205232,
+                "sha256": "f4f6b3e5d425a2eebe7baa622cacb4e3ceced4b3c90074f4979515afae1c2934"
+            },
+            {
+                "path": "LLM/Meta/Llama-4-Scout-17B-16E-Instruct/92f3b1597a195b523d8d9e5700e57e4fbb8f20d3/model-00025-of-00050.safetensors",
+                "size_bytes": 4404205232,
+                "sha256": "11ed1ef3dee4f266f043a032500a8612f3f876ba3b6f2ceb75e0c9930a472056"
+            },
+            {
+                "path": "LLM/Meta/Llama-4-Scout-17B-16E-Instruct/92f3b1597a195b523d8d9e5700e57e4fbb8f20d3/model-00026-of-00050.safetensors",
+                "size_bytes": 4404205232,
+                "sha256": "7631aecf68ae2b61b5c837bd7187d6725afc4b0c073d8d6be55f4f903f8b9953"
+            },
+            {
+                "path": "LLM/Meta/Llama-4-Scout-17B-16E-Instruct/92f3b1597a195b523d8d9e5700e57e4fbb8f20d3/model-00027-of-00050.safetensors",
+                "size_bytes": 4404205232,
+                "sha256": "50553fd675a45efe5679cf54a4c1f3ccbec5bc199f9aa4454ab9a33588396fe6"
+            },
+            {
+                "path": "LLM/Meta/Llama-4-Scout-17B-16E-Instruct/92f3b1597a195b523d8d9e5700e57e4fbb8f20d3/model-00028-of-00050.safetensors",
+                "size_bytes": 4404205232,
+                "sha256": "99683b9c8589200d803149e2fe6d7d644bb8672195a135c4a7917ab436e5cb40"
+            },
+            {
+                "path": "LLM/Meta/Llama-4-Scout-17B-16E-Instruct/92f3b1597a195b523d8d9e5700e57e4fbb8f20d3/model-00029-of-00050.safetensors",
+                "size_bytes": 4404205232,
+                "sha256": "8394beb7790a0fd628819dbc287da3c6454c64ce65280c7de4d5966521787555"
+            },
+            {
+                "path": "LLM/Meta/Llama-4-Scout-17B-16E-Instruct/92f3b1597a195b523d8d9e5700e57e4fbb8f20d3/model-00030-of-00050.safetensors",
+                "size_bytes": 4404205232,
+                "sha256": "e0da9e833d7f9652eac07191899a06fed28699ac7ecc52ce1574d940ea18e5cd"
+            },
+            {
+                "path": "LLM/Meta/Llama-4-Scout-17B-16E-Instruct/92f3b1597a195b523d8d9e5700e57e4fbb8f20d3/model-00031-of-00050.safetensors",
+                "size_bytes": 4404205232,
+                "sha256": "73573916fe578f1a9fde4ecd0963207dd438bc58b960100a3a5b0b987f3c0878"
+            },
+            {
+                "path": "LLM/Meta/Llama-4-Scout-17B-16E-Instruct/92f3b1597a195b523d8d9e5700e57e4fbb8f20d3/model-00032-of-00050.safetensors",
+                "size_bytes": 4404205232,
+                "sha256": "8dbfb9536b33d79dfac6566dcc852a2b1ed7e8244c7e9bc0268edf03abbc1074"
+            },
+            {
+                "path": "LLM/Meta/Llama-4-Scout-17B-16E-Instruct/92f3b1597a195b523d8d9e5700e57e4fbb8f20d3/model-00033-of-00050.safetensors",
+                "size_bytes": 4404205232,
+                "sha256": "f0e740433f753ee678ff21bdfdf2c14545d914c443463162701d68a8179d5739"
+            },
+            {
+                "path": "LLM/Meta/Llama-4-Scout-17B-16E-Instruct/92f3b1597a195b523d8d9e5700e57e4fbb8f20d3/model-00034-of-00050.safetensors",
+                "size_bytes": 4404205232,
+                "sha256": "3c26d94d6079a2fef6b0eaa217b3b05b428a317c8c2fdc5bd3f535cb068c4e21"
+            },
+            {
+                "path": "LLM/Meta/Llama-4-Scout-17B-16E-Instruct/92f3b1597a195b523d8d9e5700e57e4fbb8f20d3/model-00035-of-00050.safetensors",
+                "size_bytes": 4404205232,
+                "sha256": "c0d4f2685a86db5e9e29af427962ff6834b38269b0a9d551a44efcce2e24cb7d"
+            },
+            {
+                "path": "LLM/Meta/Llama-4-Scout-17B-16E-Instruct/92f3b1597a195b523d8d9e5700e57e4fbb8f20d3/model-00036-of-00050.safetensors",
+                "size_bytes": 4404205232,
+                "sha256": "8c98ba369fb5c322a32676aab4cfc8dbf0ca8b9baeaedcd892af2bf7ad317ff7"
+            },
+            {
+                "path": "LLM/Meta/Llama-4-Scout-17B-16E-Instruct/92f3b1597a195b523d8d9e5700e57e4fbb8f20d3/model-00037-of-00050.safetensors",
+                "size_bytes": 4404205232,
+                "sha256": "f11b830802e6f6e1c98b1b98290009c66f126c3ac6be4c15b35851c484ca86dd"
+            },
+            {
+                "path": "LLM/Meta/Llama-4-Scout-17B-16E-Instruct/92f3b1597a195b523d8d9e5700e57e4fbb8f20d3/model-00038-of-00050.safetensors",
+                "size_bytes": 4404205232,
+                "sha256": "5b48ce2681c3f229c37b3d482c085e77d082eb0a70c591a648f2bfb0c2517b00"
+            },
+            {
+                "path": "LLM/Meta/Llama-4-Scout-17B-16E-Instruct/92f3b1597a195b523d8d9e5700e57e4fbb8f20d3/model-00039-of-00050.safetensors",
+                "size_bytes": 4404205232,
+                "sha256": "311b90d7440430bfa485bc180f4edfd7d2ccb4205350150d873b50d15d6e581b"
+            },
+            {
+                "path": "LLM/Meta/Llama-4-Scout-17B-16E-Instruct/92f3b1597a195b523d8d9e5700e57e4fbb8f20d3/model-00040-of-00050.safetensors",
+                "size_bytes": 4404205232,
+                "sha256": "746016b6f4d211fed930407c9830f2b6456578d891a396c587ad2c56069f8b97"
+            },
+            {
+                "path": "LLM/Meta/Llama-4-Scout-17B-16E-Instruct/92f3b1597a195b523d8d9e5700e57e4fbb8f20d3/model-00041-of-00050.safetensors",
+                "size_bytes": 4404205232,
+                "sha256": "926afe352c3f28efd44b8fec30c3e05862c718be35d49c6a92872bac7b503f82"
+            },
+            {
+                "path": "LLM/Meta/Llama-4-Scout-17B-16E-Instruct/92f3b1597a195b523d8d9e5700e57e4fbb8f20d3/model-00042-of-00050.safetensors",
+                "size_bytes": 4404205232,
+                "sha256": "e537ea7d13c82f40252b7c6a1d4dc562a3c92a5bb0136ae3ffc3272cbbdbccab"
+            },
+            {
+                "path": "LLM/Meta/Llama-4-Scout-17B-16E-Instruct/92f3b1597a195b523d8d9e5700e57e4fbb8f20d3/model-00043-of-00050.safetensors",
+                "size_bytes": 4404205232,
+                "sha256": "349ced4be8332c261d2dab21f65975d4c20f6b9886e38e74b2c56977e57589c1"
+            },
+            {
+                "path": "LLM/Meta/Llama-4-Scout-17B-16E-Instruct/92f3b1597a195b523d8d9e5700e57e4fbb8f20d3/model-00044-of-00050.safetensors",
+                "size_bytes": 4404205232,
+                "sha256": "6a7f200a2e02a088e3e4d0b0d8dc238d5895f3d1c21fd6616bee4a65aa3ad5e8"
+            },
+            {
+                "path": "LLM/Meta/Llama-4-Scout-17B-16E-Instruct/92f3b1597a195b523d8d9e5700e57e4fbb8f20d3/model-00045-of-00050.safetensors",
+                "size_bytes": 4404205232,
+                "sha256": "1f104e4a56379fa6e0ce09157b8b348030d635e216dce06ebf1e06fd7bf0b921"
+            },
+            {
+                "path": "LLM/Meta/Llama-4-Scout-17B-16E-Instruct/92f3b1597a195b523d8d9e5700e57e4fbb8f20d3/model-00046-of-00050.safetensors",
+                "size_bytes": 4404205232,
+                "sha256": "fe7ac21d014f1fe88d6c8b8066b6a30c21ff609b480663f06eab152319466a38"
+            },
+            {
+                "path": "LLM/Meta/Llama-4-Scout-17B-16E-Instruct/92f3b1597a195b523d8d9e5700e57e4fbb8f20d3/model-00047-of-00050.safetensors",
+                "size_bytes": 4404205232,
+                "sha256": "d25967581499d21ed97f2e812aa77e5f0db7174193eb5b2f7d0cd28ee59fda01"
+            },
+            {
+                "path": "LLM/Meta/Llama-4-Scout-17B-16E-Instruct/92f3b1597a195b523d8d9e5700e57e4fbb8f20d3/model-00048-of-00050.safetensors",
+                "size_bytes": 4404205232,
+                "sha256": "fd0c1399bc7dfca7601ad5b7163744973ef912a53ffa64c5b473622d64c7f678"
+            },
+            {
+                "path": "LLM/Meta/Llama-4-Scout-17B-16E-Instruct/92f3b1597a195b523d8d9e5700e57e4fbb8f20d3/model-00049-of-00050.safetensors",
+                "size_bytes": 4278385928,
+                "sha256": "b63d113ff6f8a87204267a91c3df2dde8dd8acb799373eab710d5da85630ad22"
+            },
+            {
+                "path": "LLM/Meta/Llama-4-Scout-17B-16E-Instruct/92f3b1597a195b523d8d9e5700e57e4fbb8f20d3/model-00050-of-00050.safetensors",
+                "size_bytes": 2068971664,
+                "sha256": "5f412ae287747cc86e6ee5d58600bbe5c574d6fa77f351367aae9ea3f4dbcc3a"
+            },
+            {
+                "path": "LLM/Meta/Llama-4-Scout-17B-16E-Instruct/92f3b1597a195b523d8d9e5700e57e4fbb8f20d3/model.safetensors.index.json",
+                "size_bytes": 112288,
+                "sha256": "e32365edc5992323da1d5c626614502ae9f9d2812a93fb1c8eef9e261f2798f9"
+            },
+            {
+                "path": "LLM/Meta/Llama-4-Scout-17B-16E-Instruct/92f3b1597a195b523d8d9e5700e57e4fbb8f20d3/preprocessor_config.json",
+                "size_bytes": 636,
+                "sha256": "11a1b41f43161e324bf8302299bce8d59aba671d1505137d9d01179ae9aeacde"
+            },
+            {
+                "path": "LLM/Meta/Llama-4-Scout-17B-16E-Instruct/92f3b1597a195b523d8d9e5700e57e4fbb8f20d3/processor_config.json",
+                "size_bytes": 128,
+                "sha256": "bfc23f929e2a90ba534426072b2e0288909820f34ae79d8ff3934edda29e1f3a"
+            },
+            {
+                "path": "LLM/Meta/Llama-4-Scout-17B-16E-Instruct/92f3b1597a195b523d8d9e5700e57e4fbb8f20d3/special_tokens_map.json",
+                "size_bytes": 106,
+                "sha256": "52c1c70bc3807c1fbc5a28ec4a5c2cd35d8a64b6877b8f1ea89a4fdc63d53478"
+            },
+            {
+                "path": "LLM/Meta/Llama-4-Scout-17B-16E-Instruct/92f3b1597a195b523d8d9e5700e57e4fbb8f20d3/tokenizer.json",
+                "size_bytes": 27948578,
+                "sha256": "172c9eb4beafc72601690da3ccfcede5c2e6806a8d5ec1fca33e22acea8023a4"
+            },
+            {
+                "path": "LLM/Meta/Llama-4-Scout-17B-16E-Instruct/92f3b1597a195b523d8d9e5700e57e4fbb8f20d3/tokenizer.model",
+                "size_bytes": 3622230,
+                "sha256": "d0bdbaf59b0762c8c807617e2d8ea51420eb1b1de266df2495be755c8e0ed6ed"
+            },
+            {
+                "path": "LLM/Meta/Llama-4-Scout-17B-16E-Instruct/92f3b1597a195b523d8d9e5700e57e4fbb8f20d3/tokenizer_config.json",
+                "size_bytes": 231754,
+                "sha256": "d075130fa39a4098e97e7ef1ceff144990b36bcf98ed15b51e061e83c1561e1e"
+            }
+        ]
     }
   ]
 }
