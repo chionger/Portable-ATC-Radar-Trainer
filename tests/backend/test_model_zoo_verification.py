@@ -21,6 +21,60 @@ FIXTURE_ROOT = ROOT / "tests/fixtures/model-zoo"
 ASSET_ROOT = FIXTURE_ROOT / "assets"
 
 
+def _external_inventory_manifest(
+    inventory_path: str,
+    inventory_sha256: str,
+    asset_count: int,
+    total_size_bytes: int,
+):
+    return {
+        "schema_version": "1.0",
+        "catalog_version": "1.0.0",
+        "models": [
+            {
+                "entry_id": "synthetic-external-inventory",
+                "identity": {
+                    "family": "Synthetic Test Family",
+                    "name": "Synthetic External Inventory Fixture",
+                    "revision": "test-revision-external-001",
+                    "variant": "deterministic-external-inventory-fixture",
+                },
+                "category": "ASR",
+                "intended_role": "Verification test fixture",
+                "format": "test-fixture",
+                "quantisation": None,
+                "source": {
+                    "publisher": "test-suite",
+                    "original_uri": "https://example.invalid/external-inventory",
+                },
+                "acquisition": {
+                    "acquired_on": "2026-08-31",
+                    "method": "synthetic-test",
+                    "notes": "External inventory verification fixture",
+                },
+                "licence": {
+                    "name": "Test fixture",
+                    "spdx_id": None,
+                    "reference_uri": "https://example.invalid/test-licence",
+                    "usage_notes": "Test only",
+                },
+                "runtime_compatibility": [],
+                "lifecycle": {
+                    "available": True,
+                    "benchmarked": False,
+                    "approved_for_runtime": False,
+                },
+                "asset_inventory": {
+                    "path": inventory_path,
+                    "asset_count": asset_count,
+                    "total_size_bytes": total_size_bytes,
+                    "sha256": inventory_sha256,
+                },
+            }
+        ],
+    }
+
+
 def test_known_sha256_calculation() -> None:
     fixture = ASSET_ROOT / "verified-fixture.dat"
 
@@ -134,3 +188,495 @@ def test_cli_rejects_invalid_manifest(tmp_path: Path, capsys: pytest.CaptureFixt
 
     assert main(["--manifest", str(invalid), "--asset-root", str(ASSET_ROOT)]) == 2
     assert capsys.readouterr().out.startswith("INVALID_MANIFEST ")
+
+def test_external_inventory_verifies_listed_asset(tmp_path: Path) -> None:
+    asset_root = tmp_path / "external-model-zoo"
+    model_root = asset_root / "TTS" / "test" / "model" / "revision-001"
+    preservation_dir = model_root / "PRESERVATION"
+    preservation_dir.mkdir(parents=True)
+
+    asset_path = model_root / "voice.onnx"
+    asset_path.write_bytes(b"synthetic voice bytes")
+
+    inventory_data = [
+        {
+            "path": "voice.onnx",
+            "size_bytes": asset_path.stat().st_size,
+            "sha256": sha256_file(asset_path),
+        }
+    ]
+
+    inventory_path = preservation_dir / "inventory.json"
+    inventory_path.write_text(
+        json.dumps(inventory_data),
+        encoding="utf-8",
+    )
+
+    manifest_data = _external_inventory_manifest(
+        "TTS/test/model/revision-001/PRESERVATION/inventory.json",
+        sha256_file(inventory_path),
+        1,
+        asset_path.stat().st_size,
+    )
+
+    manifest_path = tmp_path / "manifest.json"
+    manifest_path.write_text(
+        json.dumps(manifest_data),
+        encoding="utf-8",
+    )
+
+    results = verify_manifest(load_manifest(manifest_path), asset_root)
+
+    assert any(
+        result.path == "TTS/test/model/revision-001/voice.onnx"
+        and result.state == VerificationState.VERIFIED
+        for result in results
+    )
+
+def test_external_inventory_is_verified_before_listed_assets(tmp_path: Path) -> None:
+    asset_root = tmp_path / "external-model-zoo"
+    model_root = asset_root / "TTS" / "test" / "model" / "revision-001"
+    preservation_dir = model_root / "PRESERVATION"
+    preservation_dir.mkdir(parents=True)
+
+    asset_path = model_root / "voice.onnx"
+    asset_path.write_bytes(b"synthetic voice bytes")
+
+    inventory_data = [
+        {
+            "path": "voice.onnx",
+            "size_bytes": asset_path.stat().st_size,
+            "sha256": sha256_file(asset_path),
+        }
+    ]
+
+    inventory_path = preservation_dir / "inventory.json"
+    inventory_path.write_text(
+        json.dumps(inventory_data),
+        encoding="utf-8",
+    )
+
+    wrong_inventory_sha256 = "0" * 64
+    assert sha256_file(inventory_path) != wrong_inventory_sha256
+
+    manifest_data = _external_inventory_manifest(
+        "TTS/test/model/revision-001/PRESERVATION/inventory.json",
+        wrong_inventory_sha256,
+        1,
+        asset_path.stat().st_size,
+    )
+
+    manifest_path = tmp_path / "manifest.json"
+    manifest_path.write_text(
+        json.dumps(manifest_data),
+        encoding="utf-8",
+    )
+
+    results = verify_manifest(load_manifest(manifest_path), asset_root)
+
+    assert any(
+        result.path
+        == "TTS/test/model/revision-001/PRESERVATION/inventory.json"
+        and result.state == VerificationState.HASH_MISMATCH
+        for result in results
+    )
+
+    assert not any(
+        result.path == "TTS/test/model/revision-001/voice.onnx"
+        for result in results
+    )
+
+def test_external_inventory_detects_asset_count_mismatch(tmp_path: Path) -> None:
+    asset_root = tmp_path / "external-model-zoo"
+    model_root = asset_root / "TTS" / "test" / "model" / "revision-001"
+    preservation_dir = model_root / "PRESERVATION"
+    preservation_dir.mkdir(parents=True)
+
+    asset_path = model_root / "voice.onnx"
+    asset_path.write_bytes(b"synthetic voice bytes")
+
+    inventory_data = [
+        {
+            "path": "voice.onnx",
+            "size_bytes": asset_path.stat().st_size,
+            "sha256": sha256_file(asset_path),
+        }
+    ]
+
+    inventory_path = preservation_dir / "inventory.json"
+    inventory_path.write_text(
+        json.dumps(inventory_data),
+        encoding="utf-8",
+    )
+
+    manifest_data = _external_inventory_manifest(
+        "TTS/test/model/revision-001/PRESERVATION/inventory.json",
+        sha256_file(inventory_path),
+        2,
+        asset_path.stat().st_size,
+    )
+
+    manifest_path = tmp_path / "manifest.json"
+    manifest_path.write_text(
+        json.dumps(manifest_data),
+        encoding="utf-8",
+    )
+
+    results = verify_manifest(load_manifest(manifest_path), asset_root)
+
+    assert any(
+        result.path
+        == "TTS/test/model/revision-001/PRESERVATION/inventory.json"
+        and result.state == VerificationState.SIZE_MISMATCH
+        and result.detail is not None
+        and "expected_asset_count=2" in result.detail
+        and "actual_asset_count=1" in result.detail
+        for result in results
+    )
+
+def test_external_inventory_detects_total_size_mismatch(tmp_path: Path) -> None:
+    asset_root = tmp_path / "external-model-zoo"
+    model_root = asset_root / "TTS" / "test" / "model" / "revision-001"
+    preservation_dir = model_root / "PRESERVATION"
+    preservation_dir.mkdir(parents=True)
+
+    asset_path = model_root / "voice.onnx"
+    asset_path.write_bytes(b"synthetic voice bytes")
+
+    inventory_data = [
+        {
+            "path": "voice.onnx",
+            "size_bytes": asset_path.stat().st_size,
+            "sha256": sha256_file(asset_path),
+        }
+    ]
+
+    inventory_path = preservation_dir / "inventory.json"
+    inventory_path.write_text(
+        json.dumps(inventory_data),
+        encoding="utf-8",
+    )
+
+    actual_total_size = asset_path.stat().st_size
+    wrong_total_size = actual_total_size + 1
+
+    manifest_data = _external_inventory_manifest(
+        "TTS/test/model/revision-001/PRESERVATION/inventory.json",
+        sha256_file(inventory_path),
+        1,
+        wrong_total_size,
+    )
+
+    manifest_path = tmp_path / "manifest.json"
+    manifest_path.write_text(
+        json.dumps(manifest_data),
+        encoding="utf-8",
+    )
+
+    results = verify_manifest(load_manifest(manifest_path), asset_root)
+
+    assert any(
+        result.path
+        == "TTS/test/model/revision-001/PRESERVATION/inventory.json"
+        and result.state == VerificationState.SIZE_MISMATCH
+        and result.detail is not None
+        and f"expected_total_size_bytes={wrong_total_size}" in result.detail
+        and f"actual_total_size_bytes={actual_total_size}" in result.detail
+        for result in results
+    )
+
+def test_external_inventory_rejects_unsafe_asset_path(tmp_path: Path) -> None:
+    asset_root = tmp_path / "external-model-zoo"
+    model_root = asset_root / "TTS" / "test" / "model" / "revision-001"
+    preservation_dir = model_root / "PRESERVATION"
+    preservation_dir.mkdir(parents=True)
+
+    inventory_data = [
+        {
+            "path": "../outside.dat",
+            "size_bytes": 1,
+            "sha256": "0" * 64,
+        }
+    ]
+
+    inventory_path = preservation_dir / "inventory.json"
+    inventory_path.write_text(
+        json.dumps(inventory_data),
+        encoding="utf-8",
+    )
+
+    manifest_data = _external_inventory_manifest(
+        "TTS/test/model/revision-001/PRESERVATION/inventory.json",
+        sha256_file(inventory_path),
+        1,
+        1,
+    )
+
+    manifest_path = tmp_path / "manifest.json"
+    manifest_path.write_text(
+        json.dumps(manifest_data),
+        encoding="utf-8",
+    )
+
+    results = verify_manifest(load_manifest(manifest_path), asset_root)
+
+    assert any(
+        result.path
+        == "TTS/test/model/revision-001/PRESERVATION/inventory.json"
+        and result.state == VerificationState.UNSAFE_PATH
+        for result in results
+    )
+
+def test_external_inventory_rejects_duplicate_asset_paths(tmp_path: Path) -> None:
+    asset_root = tmp_path / "external-model-zoo"
+    model_root = asset_root / "TTS" / "test" / "model" / "revision-001"
+    preservation_dir = model_root / "PRESERVATION"
+    preservation_dir.mkdir(parents=True)
+
+    asset_path = model_root / "voice.onnx"
+    asset_path.write_bytes(b"synthetic voice bytes")
+
+    asset_record = {
+        "path": "voice.onnx",
+        "size_bytes": asset_path.stat().st_size,
+        "sha256": sha256_file(asset_path),
+    }
+
+    inventory_data = [
+        asset_record,
+        dict(asset_record),
+    ]
+
+    inventory_path = preservation_dir / "inventory.json"
+    inventory_path.write_text(
+        json.dumps(inventory_data),
+        encoding="utf-8",
+    )
+
+    manifest_data = _external_inventory_manifest(
+        "TTS/test/model/revision-001/PRESERVATION/inventory.json",
+        sha256_file(inventory_path),
+        2,
+        asset_path.stat().st_size * 2,
+    )
+
+    manifest_path = tmp_path / "manifest.json"
+    manifest_path.write_text(
+        json.dumps(manifest_data),
+        encoding="utf-8",
+    )
+
+    results = verify_manifest(load_manifest(manifest_path), asset_root)
+
+    assert any(
+        result.path
+        == "TTS/test/model/revision-001/PRESERVATION/inventory.json"
+        and result.state == VerificationState.UNSAFE_PATH
+        and result.detail is not None
+        and "asset paths must be unique" in result.detail
+        for result in results
+    )
+
+def test_external_inventory_detects_missing_asset(tmp_path: Path) -> None:
+    asset_root = tmp_path / "external-model-zoo"
+    model_root = asset_root / "TTS" / "test" / "model" / "revision-001"
+    preservation_dir = model_root / "PRESERVATION"
+    preservation_dir.mkdir(parents=True)
+
+    inventory_data = [
+        {
+            "path": "missing.onnx",
+            "size_bytes": 123,
+            "sha256": "0" * 64,
+        }
+    ]
+
+    inventory_path = preservation_dir / "inventory.json"
+    inventory_path.write_text(
+        json.dumps(inventory_data),
+        encoding="utf-8",
+    )
+
+    manifest_data = _external_inventory_manifest(
+        "TTS/test/model/revision-001/PRESERVATION/inventory.json",
+        sha256_file(inventory_path),
+        1,
+        123,
+    )
+
+    manifest_path = tmp_path / "manifest.json"
+    manifest_path.write_text(
+        json.dumps(manifest_data),
+        encoding="utf-8",
+    )
+
+    results = verify_manifest(load_manifest(manifest_path), asset_root)
+
+    assert any(
+        result.path == "TTS/test/model/revision-001/missing.onnx"
+        and result.state == VerificationState.MISSING
+        for result in results
+    )
+
+def test_external_inventory_detects_corrupted_asset(tmp_path: Path) -> None:
+    asset_root = tmp_path / "external-model-zoo"
+    model_root = asset_root / "TTS" / "test" / "model" / "revision-001"
+    preservation_dir = model_root / "PRESERVATION"
+    preservation_dir.mkdir(parents=True)
+
+    asset_path = model_root / "voice.onnx"
+
+    expected_bytes = b"1234567"
+    corrupted_bytes = b"7654321"
+
+    assert len(expected_bytes) == len(corrupted_bytes)
+
+    expected_sha256 = hashlib.sha256(expected_bytes).hexdigest()
+
+    asset_path.write_bytes(corrupted_bytes)
+
+    inventory_data = [
+        {
+            "path": "voice.onnx",
+            "size_bytes": len(expected_bytes),
+            "sha256": expected_sha256,
+        }
+    ]
+
+    inventory_path = preservation_dir / "inventory.json"
+    inventory_path.write_text(
+        json.dumps(inventory_data),
+        encoding="utf-8",
+    )
+
+    manifest_data = _external_inventory_manifest(
+        "TTS/test/model/revision-001/PRESERVATION/inventory.json",
+        sha256_file(inventory_path),
+        1,
+        len(expected_bytes),
+    )
+
+    manifest_path = tmp_path / "manifest.json"
+    manifest_path.write_text(
+        json.dumps(manifest_data),
+        encoding="utf-8",
+    )
+
+    results = verify_manifest(load_manifest(manifest_path), asset_root)
+
+    assert any(
+        result.path == "TTS/test/model/revision-001/voice.onnx"
+        and result.state == VerificationState.HASH_MISMATCH
+        for result in results
+    )
+
+def test_external_inventory_rejects_malformed_json(tmp_path: Path) -> None:
+    asset_root = tmp_path / "external-model-zoo"
+    model_root = asset_root / "TTS" / "test" / "model" / "revision-001"
+    preservation_dir = model_root / "PRESERVATION"
+    preservation_dir.mkdir(parents=True)
+
+    inventory_path = preservation_dir / "inventory.json"
+    inventory_path.write_text(
+        '[{"path": "voice.onnx",',
+        encoding="utf-8",
+    )
+
+    manifest_data = _external_inventory_manifest(
+        "TTS/test/model/revision-001/PRESERVATION/inventory.json",
+        sha256_file(inventory_path),
+        1,
+        1,
+    )
+
+    manifest_path = tmp_path / "manifest.json"
+    manifest_path.write_text(
+        json.dumps(manifest_data),
+        encoding="utf-8",
+    )
+
+    results = verify_manifest(load_manifest(manifest_path), asset_root)
+
+    assert any(
+        result.path
+        == "TTS/test/model/revision-001/PRESERVATION/inventory.json"
+        and result.state == VerificationState.UNSAFE_PATH
+        and result.detail is not None
+        for result in results
+    )
+
+def test_external_inventory_rejects_non_array_json(tmp_path: Path) -> None:
+    asset_root = tmp_path / "external-model-zoo"
+    model_root = asset_root / "TTS" / "test" / "model" / "revision-001"
+    preservation_dir = model_root / "PRESERVATION"
+    preservation_dir.mkdir(parents=True)
+
+    inventory_path = preservation_dir / "inventory.json"
+    inventory_path.write_text(
+        json.dumps(
+            {
+                "path": "voice.onnx",
+                "size_bytes": 1,
+                "sha256": "0" * 64,
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    manifest_data = _external_inventory_manifest(
+        "TTS/test/model/revision-001/PRESERVATION/inventory.json",
+        sha256_file(inventory_path),
+        1,
+        1,
+    )
+
+    manifest_path = tmp_path / "manifest.json"
+    manifest_path.write_text(
+        json.dumps(manifest_data),
+        encoding="utf-8",
+    )
+
+    results = verify_manifest(load_manifest(manifest_path), asset_root)
+
+    assert any(
+        result.path
+        == "TTS/test/model/revision-001/PRESERVATION/inventory.json"
+        and result.state == VerificationState.UNSAFE_PATH
+        and result.detail is not None
+        and "external inventory must be a JSON array" in result.detail
+        for result in results
+    )
+
+def test_external_inventory_rejects_invalid_utf8_without_crashing(
+    tmp_path: Path,
+) -> None:
+    asset_root = tmp_path / "external-model-zoo"
+    model_root = asset_root / "TTS" / "test" / "model" / "revision-001"
+    preservation_dir = model_root / "PRESERVATION"
+    preservation_dir.mkdir(parents=True)
+
+    inventory_path = preservation_dir / "inventory.json"
+    inventory_path.write_bytes(b"\xff\xfe\xfa")
+
+    manifest_data = _external_inventory_manifest(
+        "TTS/test/model/revision-001/PRESERVATION/inventory.json",
+        sha256_file(inventory_path),
+        1,
+        1,
+    )
+
+    manifest_path = tmp_path / "manifest.json"
+    manifest_path.write_text(
+        json.dumps(manifest_data),
+        encoding="utf-8",
+    )
+
+    results = verify_manifest(load_manifest(manifest_path), asset_root)
+
+    assert any(
+        result.path
+        == "TTS/test/model/revision-001/PRESERVATION/inventory.json"
+        and result.state == VerificationState.UNSAFE_PATH
+        and result.detail is not None
+        for result in results
+    )

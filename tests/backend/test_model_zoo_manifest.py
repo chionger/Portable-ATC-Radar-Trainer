@@ -71,3 +71,168 @@ def test_unknown_manifest_metadata_is_rejected() -> None:
         Manifest.model_validate(
             {"schema_version": "1.0", "catalog_version": "1.0.0", "models": [], "surprise": True}
         )
+def _valid_model_entry() -> dict[str, object]:
+    fixture = load_manifest(ROOT / "tests/fixtures/model-zoo/manifest.json")
+    return fixture.models[0].model_dump(mode="python")
+
+
+def _external_inventory() -> dict[str, object]:
+    return {
+        "path": (
+            "TTS/rhasspy/piper-voices/"
+            "39ab474be869e9181350af6a65e4953eef67aaa0/"
+            "PRESERVATION/inventory.json"
+        ),
+        "asset_count": 3292,
+        "total_size_bytes": 11801416573,
+        "sha256": "79c7bfcc7b1dcf2acc8fe56b85b8ccc0b29ec44b08cbe80cd457088100a72cb2",
+    }
+
+
+def test_model_entry_accepts_external_asset_inventory_instead_of_inline_assets() -> None:
+    entry = _valid_model_entry()
+    entry.pop("assets")
+    entry["asset_inventory"] = _external_inventory()
+
+    manifest = Manifest.model_validate(
+        {
+            "schema_version": "1.0",
+            "catalog_version": "1.0.0",
+            "models": [entry],
+        }
+    )
+
+    assert manifest.models[0].asset_inventory is not None
+    assert manifest.models[0].asset_inventory.asset_count == 3292
+
+
+def test_model_entry_rejects_both_inline_assets_and_external_inventory() -> None:
+    entry = _valid_model_entry()
+    entry["asset_inventory"] = _external_inventory()
+
+    with pytest.raises(ValidationError):
+        Manifest.model_validate(
+            {
+                "schema_version": "1.0",
+                "catalog_version": "1.0.0",
+                "models": [entry],
+            }
+        )
+
+
+def test_model_entry_rejects_missing_asset_representation() -> None:
+    entry = _valid_model_entry()
+    entry.pop("assets")
+
+    with pytest.raises(ValidationError):
+        Manifest.model_validate(
+            {
+                "schema_version": "1.0",
+                "catalog_version": "1.0.0",
+                "models": [entry],
+            }
+        )
+
+
+def test_external_asset_inventory_rejects_invalid_sha256() -> None:
+    entry = _valid_model_entry()
+    entry.pop("assets")
+    inventory = _external_inventory()
+    inventory["sha256"] = "not-a-sha256"
+    entry["asset_inventory"] = inventory
+
+    with pytest.raises(ValidationError):
+        Manifest.model_validate(
+            {
+                "schema_version": "1.0",
+                "catalog_version": "1.0.0",
+                "models": [entry],
+            }
+        )
+
+
+def test_external_asset_inventory_rejects_unsafe_path() -> None:
+    entry = _valid_model_entry()
+    entry.pop("assets")
+    inventory = _external_inventory()
+    inventory["path"] = "../outside/inventory.json"
+    entry["asset_inventory"] = inventory
+
+    with pytest.raises(ValidationError):
+        Manifest.model_validate(
+            {
+                "schema_version": "1.0",
+                "catalog_version": "1.0.0",
+                "models": [entry],
+            }
+        )
+
+def test_external_asset_inventory_requires_preservation_inventory_path() -> None:
+    entry = _valid_model_entry()
+    entry.pop("assets")
+
+    inventory = _external_inventory()
+    inventory["path"] = "TTS/rhasspy/piper-voices/inventory.json"
+    entry["asset_inventory"] = inventory
+
+    with pytest.raises(ValidationError):
+        Manifest.model_validate(
+            {
+                "schema_version": "1.0",
+                "catalog_version": "1.0.0",
+                "models": [entry],
+            }
+        )
+
+def test_checked_in_schema_supports_external_asset_inventory() -> None:
+    schema = json.loads(
+        (
+            ROOT / "model-zoo/schemas/model-manifest.schema.json"
+        ).read_text(encoding="utf-8")
+    )
+
+    model_schema = schema["$defs"]["model"]
+
+    assert "assets" not in model_schema["required"]
+
+    assert model_schema["properties"]["assets"] == {
+        "type": "array",
+        "minItems": 1,
+        "items": {"$ref": "#/$defs/asset"},
+    }
+
+    assert model_schema["properties"]["asset_inventory"] == {
+        "$ref": "#/$defs/asset_inventory"
+    }
+
+    assert model_schema["oneOf"] == [
+        {
+            "required": ["assets"],
+            "not": {"required": ["asset_inventory"]},
+        },
+        {
+            "required": ["asset_inventory"],
+            "not": {"required": ["assets"]},
+        },
+    ]
+
+    inventory_schema = schema["$defs"]["asset_inventory"]
+
+    assert inventory_schema["additionalProperties"] is False
+    assert set(inventory_schema["required"]) == {
+        "path",
+        "asset_count",
+        "total_size_bytes",
+        "sha256",
+    }
+
+    assert (
+        inventory_schema["properties"]["path"]["pattern"]
+        == r"(^|.*/)PRESERVATION/inventory\.json$"
+    )
+    assert inventory_schema["properties"]["asset_count"]["minimum"] == 1
+    assert inventory_schema["properties"]["total_size_bytes"]["minimum"] == 0
+    assert (
+        inventory_schema["properties"]["sha256"]["pattern"]
+        == "^[0-9a-f]{64}$"
+    )

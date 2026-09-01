@@ -17,7 +17,7 @@
     "model": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["entry_id", "identity", "category", "intended_role", "format", "quantisation", "source", "acquisition", "licence", "runtime_compatibility", "lifecycle", "assets"],
+      "required": ["entry_id", "identity", "category", "intended_role", "format", "quantisation", "source", "acquisition", "licence", "runtime_compatibility", "lifecycle"],
       "properties": {
         "entry_id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9._-]*$" },
         "identity": { "$ref": "#/$defs/identity" },
@@ -30,8 +30,19 @@
         "licence": { "$ref": "#/$defs/licence" },
         "runtime_compatibility": { "type": "array", "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
         "lifecycle": { "$ref": "#/$defs/lifecycle" },
-        "assets": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/asset" } }
-      }
+        "assets": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/asset" } },
+        "asset_inventory": { "$ref": "#/$defs/asset_inventory" }
+      },
+      "oneOf": [
+        {
+          "required": ["assets"],
+          "not": { "required": ["asset_inventory"] }
+        },
+        {
+          "required": ["asset_inventory"],
+          "not": { "required": ["assets"] }
+        }
+      ]
     },
     "identity": {
       "type": "object",
@@ -82,6 +93,21 @@
         "available": { "type": "boolean" },
         "benchmarked": { "type": "boolean" },
         "approved_for_runtime": { "type": "boolean" }
+      }
+    },
+    "asset_inventory": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "asset_count", "total_size_bytes", "sha256"],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "(^|.*/)PRESERVATION/inventory\\.json$"
+        },
+        "asset_count": { "type": "integer", "minimum": 1 },
+        "total_size_bytes": { "type": "integer", "minimum": 0 },
+        "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
       }
     },
     "asset": {
