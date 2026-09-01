@@ -76,6 +76,33 @@ def _valid_model_entry() -> dict[str, object]:
     return fixture.models[0].model_dump(mode="python")
 
 
+def test_model_entry_accepts_vision_category() -> None:
+    entry = _valid_model_entry()
+    entry["category"] = "VISION"
+
+    manifest = Manifest.model_validate(
+        {
+            "schema_version": "1.0",
+            "catalog_version": "1.0.0",
+            "models": [entry],
+        }
+    )
+
+    assert manifest.models[0].category == "VISION"
+
+
+def test_checked_in_schema_supports_vision_category() -> None:
+    schema = json.loads(
+        (ROOT / "model-zoo/schemas/model-manifest.schema.json").read_text(
+            encoding="utf-8"
+        )
+    )
+
+    categories = schema["$defs"]["model"]["properties"]["category"]["enum"]
+
+    assert "VISION" in categories
+
+
 def _external_inventory() -> dict[str, object]:
     return {
         "path": (

@@ -21,7 +21,7 @@
       "properties": {
         "entry_id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9._-]*$" },
         "identity": { "$ref": "#/$defs/identity" },
-        "category": { "enum": ["ASR", "LLM", "TTS", "OTHER_LOCAL_AI"] },
+        "category": { "enum": ["ASR", "LLM", "TTS", "VISION", "OTHER_LOCAL_AI"] },
         "intended_role": { "type": "string", "minLength": 1 },
         "format": { "type": "string", "minLength": 1 },
         "quantisation": { "type": ["string", "null"], "minLength": 1 },
