@@ -81,6 +81,33 @@ class Asset(StrictModel):
             raise ValueError("sha256 must be 64 lowercase hexadecimal characters")
         return value
 
+class AssetInventory(StrictModel):
+    path: Annotated[str, Field(min_length=1)]
+    asset_count: Annotated[int, Field(ge=1)]
+    total_size_bytes: Annotated[int, Field(ge=0)]
+    sha256: str
+
+    @field_validator("path")
+    @classmethod
+    def validate_path(cls, value: str) -> str:
+        validate_relative_asset_path(value)
+
+        parts = PurePosixPath(value).parts
+        if len(parts) < 2 or parts[-2:] != ("PRESERVATION", "inventory.json"):
+            raise ValueError(
+                "asset_inventory path must end with "
+                "'PRESERVATION/inventory.json'"
+            )
+
+        return value
+
+    @field_validator("sha256")
+    @classmethod
+    def validate_sha256(cls, value: str) -> str:
+        if not SHA256_PATTERN.fullmatch(value):
+            raise ValueError("sha256 must be 64 lowercase hexadecimal characters")
+        return value
+
 
 class ModelEntry(StrictModel):
     entry_id: str
@@ -94,7 +121,8 @@ class ModelEntry(StrictModel):
     licence: Licence
     runtime_compatibility: list[Annotated[str, Field(min_length=1)]]
     lifecycle: Lifecycle
-    assets: Annotated[list[Asset], Field(min_length=1)]
+    assets: Annotated[list[Asset], Field(min_length=1)] | None = None
+    asset_inventory: AssetInventory | None = None
 
     @field_validator("entry_id")
     @classmethod
@@ -105,11 +133,17 @@ class ModelEntry(StrictModel):
 
     @model_validator(mode="after")
     def require_unique_values(self) -> ModelEntry:
-        paths = [asset.path for asset in self.assets]
-        if len(paths) != len(set(paths)):
-            raise ValueError("asset paths must be unique within an entry")
+        if (self.assets is None) == (self.asset_inventory is None):
+            raise ValueError("exactly one of assets or asset_inventory must be provided")
+
+        if self.assets is not None:
+            paths = [asset.path for asset in self.assets]
+            if len(paths) != len(set(paths)):
+                raise ValueError("asset paths must be unique within an entry")
+
         if len(self.runtime_compatibility) != len(set(self.runtime_compatibility)):
             raise ValueError("runtime_compatibility values must be unique")
+
         return self
 
 
@@ -130,9 +164,17 @@ class Manifest(StrictModel):
         entry_ids = [entry.entry_id for entry in self.models]
         if len(entry_ids) != len(set(entry_ids)):
             raise ValueError("entry_id values must be unique")
-        paths = [asset.path for entry in self.models for asset in entry.assets]
+
+        paths: list[str] = []
+        for entry in self.models:
+            if entry.assets is not None:
+                paths.extend(asset.path for asset in entry.assets)
+            if entry.asset_inventory is not None:
+                paths.append(entry.asset_inventory.path)
+
         if len(paths) != len(set(paths)):
             raise ValueError("asset paths must be unique across the manifest")
+
         return self
 
 
@@ -192,55 +234,196 @@ def sha256_file(path: Path) -> str:
     return digest.hexdigest()
 
 
+def verify_file(
+    entry_id: str,
+    asset_root: Path,
+    asset_path: str,
+    expected_sha256: str,
+    expected_size: int | None = None,
+) -> VerificationResult:
+    try:
+        candidate = resolve_asset_path(asset_root, asset_path)
+    except (OSError, ValueError) as error:
+        return VerificationResult(
+            entry_id=entry_id,
+            path=asset_path,
+            state=VerificationState.UNSAFE_PATH,
+            expected_sha256=expected_sha256,
+            detail=str(error),
+        )
+
+    if not candidate.is_file():
+        return VerificationResult(
+            entry_id=entry_id,
+            path=asset_path,
+            state=VerificationState.MISSING,
+            expected_sha256=expected_sha256,
+        )
+
+    actual_sha256 = sha256_file(candidate)
+
+    if not hmac.compare_digest(actual_sha256, expected_sha256):
+        state = VerificationState.HASH_MISMATCH
+        detail = None
+    elif expected_size is not None and os.path.getsize(candidate) != expected_size:
+        state = VerificationState.SIZE_MISMATCH
+        detail = (
+            f"expected_size={expected_size} "
+            f"actual_size={os.path.getsize(candidate)}"
+        )
+    else:
+        state = VerificationState.VERIFIED
+        detail = None
+
+    return VerificationResult(
+        entry_id=entry_id,
+        path=asset_path,
+        state=state,
+        expected_sha256=expected_sha256,
+        actual_sha256=actual_sha256,
+        detail=detail,
+    )
+
+
 def verify_manifest(manifest: Manifest, asset_root: Path) -> list[VerificationResult]:
     results: list[VerificationResult] = []
+
     for entry in manifest.models:
-        for asset in entry.assets:
+        if entry.assets is not None:
+            for asset in entry.assets:
+                results.append(
+                    verify_file(
+                        entry_id=entry.entry_id,
+                        asset_root=asset_root,
+                        asset_path=asset.path,
+                        expected_sha256=asset.sha256,
+                        expected_size=asset.size_bytes,
+                    )
+                )
+
+        if entry.asset_inventory is not None:
+            inventory_result = verify_file(
+                entry_id=entry.entry_id,
+                asset_root=asset_root,
+                asset_path=entry.asset_inventory.path,
+                expected_sha256=entry.asset_inventory.sha256,
+            )
+            results.append(inventory_result)
+
+            if inventory_result.state != VerificationState.VERIFIED:
+                continue
+
+            inventory_path = resolve_asset_path(
+                asset_root,
+                entry.asset_inventory.path,
+            )
+
             try:
-                candidate = resolve_asset_path(asset_root, asset.path)
-            except (OSError, ValueError) as error:
+                inventory_data = json.loads(
+                    inventory_path.read_text(encoding="utf-8")
+                )
+
+                if not isinstance(inventory_data, list):
+                    raise TypeError(
+                        "external inventory must be a JSON array"
+                    )
+
+                inventory_assets = [
+                    Asset.model_validate(item)
+                    for item in inventory_data
+                ]
+            except (
+                json.JSONDecodeError,
+                UnicodeDecodeError,
+                ValidationError,
+                TypeError,
+            ) as error:
                 results.append(
                     VerificationResult(
                         entry_id=entry.entry_id,
-                        path=asset.path,
+                        path=entry.asset_inventory.path,
                         state=VerificationState.UNSAFE_PATH,
-                        expected_sha256=asset.sha256,
+                        expected_sha256=entry.asset_inventory.sha256,
+                        actual_sha256=inventory_result.actual_sha256,
                         detail=str(error),
                     )
                 )
                 continue
-            if not candidate.is_file():
+
+            inventory_asset_paths = [
+                asset.path for asset in inventory_assets
+            ]
+            if len(inventory_asset_paths) != len(set(inventory_asset_paths)):
                 results.append(
                     VerificationResult(
                         entry_id=entry.entry_id,
-                        path=asset.path,
-                        state=VerificationState.MISSING,
-                        expected_sha256=asset.sha256,
+                        path=entry.asset_inventory.path,
+                        state=VerificationState.UNSAFE_PATH,
+                        expected_sha256=entry.asset_inventory.sha256,
+                        actual_sha256=inventory_result.actual_sha256,
+                        detail=(
+                            "asset paths must be unique within "
+                            "external inventory"
+                        ),
                     )
                 )
                 continue
-            actual_sha256 = sha256_file(candidate)
-            if not hmac.compare_digest(actual_sha256, asset.sha256):
-                state = VerificationState.HASH_MISMATCH
-                detail = None
-            elif os.path.getsize(candidate) != asset.size_bytes:
-                state = VerificationState.SIZE_MISMATCH
-                detail = (
-                    f"expected_size={asset.size_bytes} actual_size={os.path.getsize(candidate)}"
+
+            actual_asset_count = len(inventory_assets)
+            if actual_asset_count != entry.asset_inventory.asset_count:
+                results.append(
+                    VerificationResult(
+                        entry_id=entry.entry_id,
+                        path=entry.asset_inventory.path,
+                        state=VerificationState.SIZE_MISMATCH,
+                        expected_sha256=entry.asset_inventory.sha256,
+                        actual_sha256=inventory_result.actual_sha256,
+                        detail=(
+                            f"expected_asset_count="
+                            f"{entry.asset_inventory.asset_count} "
+                            f"actual_asset_count={actual_asset_count}"
+                        ),
+                    )
                 )
-            else:
-                state = VerificationState.VERIFIED
-                detail = None
-            results.append(
-                VerificationResult(
-                    entry_id=entry.entry_id,
-                    path=asset.path,
-                    state=state,
-                    expected_sha256=asset.sha256,
-                    actual_sha256=actual_sha256,
-                    detail=detail,
-                )
+
+            actual_total_size_bytes = sum(
+                asset.size_bytes for asset in inventory_assets
             )
+            if actual_total_size_bytes != entry.asset_inventory.total_size_bytes:
+                results.append(
+                    VerificationResult(
+                        entry_id=entry.entry_id,
+                        path=entry.asset_inventory.path,
+                        state=VerificationState.SIZE_MISMATCH,
+                        expected_sha256=entry.asset_inventory.sha256,
+                        actual_sha256=inventory_result.actual_sha256,
+                        detail=(
+                            f"expected_total_size_bytes="
+                            f"{entry.asset_inventory.total_size_bytes} "
+                            f"actual_total_size_bytes={actual_total_size_bytes}"
+                        ),
+                    )
+                )
+
+            inventory_parts = PurePosixPath(entry.asset_inventory.path).parts
+            model_root_parts = inventory_parts[:-2]
+
+            for asset in inventory_assets:
+                full_asset_path = PurePosixPath(
+                    *model_root_parts,
+                    *PurePosixPath(asset.path).parts,
+                ).as_posix()
+
+                results.append(
+                    verify_file(
+                        entry_id=entry.entry_id,
+                        asset_root=asset_root,
+                        asset_path=full_asset_path,
+                        expected_sha256=asset.sha256,
+                        expected_size=asset.size_bytes,
+                    )
+                )
+
     return results
 
 
