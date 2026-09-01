@@ -2860,6 +2860,48 @@
                 "sha256": "5238ac22e0c7f8b6cdd2eddd6e444b8a700b73c4674d9a047d59a94ff96379a2"
             }
         ]
+    },
+    {
+        "entry_id": "rhasspy-piper-voices",
+        "identity": {
+            "family": "Piper",
+            "name": "piper-voices",
+            "revision": "39ab474be869e9181350af6a65e4953eef67aaa0",
+            "variant": "huggingface-complete-voice-bank"
+        },
+        "category": "TTS",
+        "intended_role": "Offline multilingual and multi-speaker TTS voice bank for ATC pilot, controller and training-agent voice diversity",
+        "format": "huggingface-model",
+        "quantisation": null,
+        "source": {
+            "publisher": "rhasspy",
+            "original_uri": "https://huggingface.co/rhasspy/piper-voices"
+        },
+        "acquisition": {
+            "acquired_on": "2026-08-30",
+            "method": "huggingface snapshot pinned to immutable revision",
+            "notes": "Preserved as a complete Piper voice-bank snapshot for offline ATC speech diversity, including multiple languages, regional varieties and speakers. Individual voices require separate provenance, licensing, voice-characteristic, intelligibility and latency review before runtime approval."
+        },
+        "licence": {
+            "name": "Mixed / per-voice review required",
+            "spdx_id": null,
+            "reference_uri": "https://huggingface.co/rhasspy/piper-voices",
+            "usage_notes": "Repository preservation does not imply that every included voice is cleared for commercial or production use. Dataset, model-card and voice-specific licensing and provenance must be reviewed before selecting any voice for runtime deployment."
+        },
+        "runtime_compatibility": [
+            "Piper"
+        ],
+        "lifecycle": {
+            "available": true,
+            "benchmarked": false,
+            "approved_for_runtime": false
+        },
+        "asset_inventory": {
+            "path": "TTS/rhasspy/piper-voices/39ab474be869e9181350af6a65e4953eef67aaa0/PRESERVATION/inventory.json",
+            "asset_count": 3292,
+            "total_size_bytes": 11801416573,
+            "sha256": "79c7bfcc7b1dcf2acc8fe56b85b8ccc0b29ec44b08cbe80cd457088100a72cb2"
+        }
     }
   ]
 }
