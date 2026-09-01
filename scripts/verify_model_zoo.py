@@ -112,7 +112,7 @@ class AssetInventory(StrictModel):
 class ModelEntry(StrictModel):
     entry_id: str
     identity: Identity
-    category: Literal["ASR", "LLM", "TTS", "OTHER_LOCAL_AI"]
+    category: Literal["ASR", "LLM", "TTS", "VISION", "OTHER_LOCAL_AI"]
     intended_role: Annotated[str, Field(min_length=1)]
     format: Annotated[str, Field(min_length=1)]
     quantisation: Annotated[str, Field(min_length=1)] | None
