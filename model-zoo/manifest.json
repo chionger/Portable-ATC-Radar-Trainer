@@ -3740,6 +3740,100 @@
         }
       ],
       "asset_inventory": null
-    }
+    },
+  {
+    "entry_id": "mistralai-voxtral-mini-3b-2507",
+    "identity": {
+      "family": "Voxtral",
+      "name": "Voxtral-Mini-3B-2507",
+      "revision": "3060fe34b35ba5d44202ce9ff3c097642914f8f3",
+      "variant": "huggingface"
+    },
+    "category": "OTHER_LOCAL_AI",
+    "intended_role": "Native audio-language understanding candidate for future evaluation of speech transcription, audio understanding, and ATC/GCI voice processing; preserved as a complement to the existing Whisper ASR pipeline rather than as an approved operational component.",
+    "format": "huggingface-model",
+    "quantisation": null,
+    "source": {
+      "publisher": "Mistral-AI",
+      "original_uri": "https://huggingface.co/mistralai/Voxtral-Mini-3B-2507"
+    },
+    "acquisition": {
+      "acquired_on": "2026-09-06",
+      "method": "huggingface snapshot pinned to immutable revision",
+      "notes": "Preserve the complete pinned upstream repository, including both consolidated and sharded safetensors representations. Preservation establishes availability only and does not imply benchmarking or approval for ATC/GCI runtime use."
+    },
+    "licence": {
+      "name": "Apache License 2.0",
+      "spdx_id": "Apache-2.0",
+      "reference_uri": "https://huggingface.co/mistralai/Voxtral-Mini-3B-2507/blob/3060fe34b35ba5d44202ce9ff3c097642914f8f3/README.md",
+      "usage_notes": "Preserved under the upstream Apache-2.0 licence declaration. Licence and usage requirements must be reviewed before deployment."
+    },
+    "runtime_compatibility": [
+      "mistral-common"
+    ],
+    "lifecycle": {
+      "available": true,
+      "benchmarked": false,
+      "approved_for_runtime": false
+    },
+    "assets": [
+      {
+        "path": "OTHER_LOCAL_AI/Mistral-AI/Voxtral-Mini-3B-2507/3060fe34b35ba5d44202ce9ff3c097642914f8f3/.gitattributes",
+        "size_bytes": 1567,
+        "sha256": "a1533fad1fb49e1230aff61a60028ea63bc924b4cc4501447351b50b9c840683"
+      },
+      {
+        "path": "OTHER_LOCAL_AI/Mistral-AI/Voxtral-Mini-3B-2507/3060fe34b35ba5d44202ce9ff3c097642914f8f3/README.md",
+        "size_bytes": 16579,
+        "sha256": "1bab81d52b2b8cab0a57603fc3ece9aec2afc53447bf4c4c3a45f620895c20d2"
+      },
+      {
+        "path": "OTHER_LOCAL_AI/Mistral-AI/Voxtral-Mini-3B-2507/3060fe34b35ba5d44202ce9ff3c097642914f8f3/config.json",
+        "size_bytes": 1361,
+        "sha256": "368124c9a9171b3a6c0cdb35cd7fedeff465eefecf315e2a621684bbed7dcd7e"
+      },
+      {
+        "path": "OTHER_LOCAL_AI/Mistral-AI/Voxtral-Mini-3B-2507/3060fe34b35ba5d44202ce9ff3c097642914f8f3/consolidated.safetensors",
+        "size_bytes": 9348806528,
+        "sha256": "ec4dda59bfd9956e71347530d62168cee564c2caf72986c8727355758691eaa7"
+      },
+      {
+        "path": "OTHER_LOCAL_AI/Mistral-AI/Voxtral-Mini-3B-2507/3060fe34b35ba5d44202ce9ff3c097642914f8f3/generation_config.json",
+        "size_bytes": 108,
+        "sha256": "cebeed3d4a1680c9b311863385d32b91008480dfbf8cf7abc2142447b8f73b76"
+      },
+      {
+        "path": "OTHER_LOCAL_AI/Mistral-AI/Voxtral-Mini-3B-2507/3060fe34b35ba5d44202ce9ff3c097642914f8f3/model-00001-of-00002.safetensors",
+        "size_bytes": 4977385976,
+        "sha256": "1facdc4c5a0e84f2881a59c4756441b7030a1f1036b2124c117540408d0e5fe9"
+      },
+      {
+        "path": "OTHER_LOCAL_AI/Mistral-AI/Voxtral-Mini-3B-2507/3060fe34b35ba5d44202ce9ff3c097642914f8f3/model-00002-of-00002.safetensors",
+        "size_bytes": 4379088336,
+        "sha256": "0a103ba715bc0d656e94bf79d637d4f8f0f4fe6d76fb1d4db7ee46c6b940f631"
+      },
+      {
+        "path": "OTHER_LOCAL_AI/Mistral-AI/Voxtral-Mini-3B-2507/3060fe34b35ba5d44202ce9ff3c097642914f8f3/model.safetensors.index.json",
+        "size_bytes": 68088,
+        "sha256": "7506794dd65e4324685f9634b3d83f20d36a723543650c1e6b72d81965289930"
+      },
+      {
+        "path": "OTHER_LOCAL_AI/Mistral-AI/Voxtral-Mini-3B-2507/3060fe34b35ba5d44202ce9ff3c097642914f8f3/params.json",
+        "size_bytes": 731,
+        "sha256": "4a37e19f2524a44bebf36a3da37a55dde31b8df9eab9b35d359b9a315c74e991"
+      },
+      {
+        "path": "OTHER_LOCAL_AI/Mistral-AI/Voxtral-Mini-3B-2507/3060fe34b35ba5d44202ce9ff3c097642914f8f3/preprocessor_config.json",
+        "size_bytes": 357,
+        "sha256": "86d67d926e17d3a9bb0bae334c9fc46bc163181992357a0357c0aec2c7e131d1"
+      },
+      {
+        "path": "OTHER_LOCAL_AI/Mistral-AI/Voxtral-Mini-3B-2507/3060fe34b35ba5d44202ce9ff3c097642914f8f3/tekken.json",
+        "size_bytes": 14894206,
+        "sha256": "4aaf3836c2a5332f029ce85a7a62255c966f47b6797ef81dedd0ade9c862e4a8"
+      }
+    ],
+    "asset_inventory": null
+  }
   ]
 }
