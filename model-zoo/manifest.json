@@ -3834,6 +3834,320 @@
       }
     ],
     "asset_inventory": null
-  }
+  },
+    {
+      "entry_id": "microsoft-phi-4-multimodal-instruct",
+      "identity": {
+        "family": "Phi-4",
+        "name": "Phi-4-multimodal-instruct",
+        "revision": "93f923e1a7727d1c4f446756212d9d3e8fcc5d81",
+        "variant": "huggingface"
+      },
+      "category": "OTHER_LOCAL_AI",
+      "intended_role": "Unified text, vision, and audio multimodal candidate for future evaluation of speech recognition, audio understanding, visual understanding, and multimodal ATC/GCI training workflows; preserved as an alternative to specialist model pipelines rather than as an approved operational component.",
+      "format": "huggingface-model",
+      "quantisation": null,
+      "source": {
+        "publisher": "Microsoft",
+        "original_uri": "https://huggingface.co/microsoft/Phi-4-multimodal-instruct"
+      },
+      "acquisition": {
+        "acquired_on": "2026-09-06",
+        "method": "huggingface snapshot pinned to immutable revision",
+        "notes": "Preserve the complete pinned upstream repository, including the base model shards, speech LoRA adapter, vision LoRA adapter, processor/tokenizer files, custom model code, examples, documentation, and associated repository assets. Preservation establishes availability only and does not imply benchmarking or approval for ATC/GCI runtime use."
+      },
+      "licence": {
+        "name": "MIT License",
+        "spdx_id": "MIT",
+        "reference_uri": "https://huggingface.co/microsoft/Phi-4-multimodal-instruct/blob/93f923e1a7727d1c4f446756212d9d3e8fcc5d81/LICENSE",
+        "usage_notes": "Preserved under the upstream MIT licence declaration. Licence and usage requirements must be reviewed before deployment."
+      },
+      "runtime_compatibility": [
+        "transformers"
+      ],
+      "lifecycle": {
+        "available": true,
+        "benchmarked": false,
+        "approved_for_runtime": false
+      },
+      "assets": [
+        {
+          "path": "OTHER_LOCAL_AI/Microsoft/Phi-4-multimodal-instruct/93f923e1a7727d1c4f446756212d9d3e8fcc5d81/.gitattributes",
+          "size_bytes": 1612,
+          "sha256": "7cd91ac89977e725d25a50a6d37beb9b8db12e42a88230b6d60279d6745fe7fd"
+        },
+        {
+          "path": "OTHER_LOCAL_AI/Microsoft/Phi-4-multimodal-instruct/93f923e1a7727d1c4f446756212d9d3e8fcc5d81/CODE_OF_CONDUCT.md",
+          "size_bytes": 444,
+          "sha256": "9daeae709a0bd71bcfd1c96dc5822ecec5210327eff929da64b0ae7f8faf1444"
+        },
+        {
+          "path": "OTHER_LOCAL_AI/Microsoft/Phi-4-multimodal-instruct/93f923e1a7727d1c4f446756212d9d3e8fcc5d81/LICENSE",
+          "size_bytes": 1141,
+          "sha256": "c2cfccb812fe482101a8f04597dfc5a9991a6b2748266c47ac91b6a5aae15383"
+        },
+        {
+          "path": "OTHER_LOCAL_AI/Microsoft/Phi-4-multimodal-instruct/93f923e1a7727d1c4f446756212d9d3e8fcc5d81/README.md",
+          "size_bytes": 65395,
+          "sha256": "c79dc706ea8478e931981a048164233ae2256b229114e05744610b87f9301293"
+        },
+        {
+          "path": "OTHER_LOCAL_AI/Microsoft/Phi-4-multimodal-instruct/93f923e1a7727d1c4f446756212d9d3e8fcc5d81/SECURITY.md",
+          "size_bytes": 2656,
+          "sha256": "7b6976eec43edfa68b79a459dd089c56b7a395916dbf1a01bd11e6d86e12128f"
+        },
+        {
+          "path": "OTHER_LOCAL_AI/Microsoft/Phi-4-multimodal-instruct/93f923e1a7727d1c4f446756212d9d3e8fcc5d81/SUPPORT.md",
+          "size_bytes": 1244,
+          "sha256": "149773411caf2c59cb1a6bfb2c6f070d1d054f1f018e7a80be319a8c384eeaf5"
+        },
+        {
+          "path": "OTHER_LOCAL_AI/Microsoft/Phi-4-multimodal-instruct/93f923e1a7727d1c4f446756212d9d3e8fcc5d81/added_tokens.json",
+          "size_bytes": 249,
+          "sha256": "d4f2aceb0f20b71dd1f4bcc7e052e4412946bf281840b8f83d39f259571af486"
+        },
+        {
+          "path": "OTHER_LOCAL_AI/Microsoft/Phi-4-multimodal-instruct/93f923e1a7727d1c4f446756212d9d3e8fcc5d81/config.json",
+          "size_bytes": 4631,
+          "sha256": "49e1c05f93d43d7f17715b779a2576235b019f587285d7d914e5b05156253f62"
+        },
+        {
+          "path": "OTHER_LOCAL_AI/Microsoft/Phi-4-multimodal-instruct/93f923e1a7727d1c4f446756212d9d3e8fcc5d81/configuration_phi4mm.py",
+          "size_bytes": 11014,
+          "sha256": "bd9609bd47ba0c87788011e5158a8bd3e1e93165a82a9b764eb7cb048006c949"
+        },
+        {
+          "path": "OTHER_LOCAL_AI/Microsoft/Phi-4-multimodal-instruct/93f923e1a7727d1c4f446756212d9d3e8fcc5d81/data_summary_card.md",
+          "size_bytes": 4619,
+          "sha256": "30da70419cb793a917e73c89dc585c802bc8a5cb6c54249ddf138329bff0f2c1"
+        },
+        {
+          "path": "OTHER_LOCAL_AI/Microsoft/Phi-4-multimodal-instruct/93f923e1a7727d1c4f446756212d9d3e8fcc5d81/examples/what_is_shown_in_this_image.wav",
+          "size_bytes": 112844,
+          "sha256": "9fcb7788d94740c7925b055a6e66d3bae6e2344ac5caa6ba47da715a3249ef66"
+        },
+        {
+          "path": "OTHER_LOCAL_AI/Microsoft/Phi-4-multimodal-instruct/93f923e1a7727d1c4f446756212d9d3e8fcc5d81/examples/what_is_the_traffic_sign_in_the_image.wav",
+          "size_bytes": 741454,
+          "sha256": "16faff68324cebb79626268af7eb4e2796f6fafd60cfa0ed2bbef927b7d8188a"
+        },
+        {
+          "path": "OTHER_LOCAL_AI/Microsoft/Phi-4-multimodal-instruct/93f923e1a7727d1c4f446756212d9d3e8fcc5d81/figures/audio_understand.png",
+          "size_bytes": 42645,
+          "sha256": "aa123a9f0b51ee8c43136f590f70b639c432375bef28418927bd5117b3b20125"
+        },
+        {
+          "path": "OTHER_LOCAL_AI/Microsoft/Phi-4-multimodal-instruct/93f923e1a7727d1c4f446756212d9d3e8fcc5d81/figures/multi_image.png",
+          "size_bytes": 191950,
+          "sha256": "c23abf6b0335edcb93347c38b9433ec816315ece1815e43735bc9e13f4d28844"
+        },
+        {
+          "path": "OTHER_LOCAL_AI/Microsoft/Phi-4-multimodal-instruct/93f923e1a7727d1c4f446756212d9d3e8fcc5d81/figures/speech_qa.png",
+          "size_bytes": 46754,
+          "sha256": "1b325e49c5eba594674ff5e63c093187b10fa55b456ee477fb638dcaab4a58b5"
+        },
+        {
+          "path": "OTHER_LOCAL_AI/Microsoft/Phi-4-multimodal-instruct/93f923e1a7727d1c4f446756212d9d3e8fcc5d81/figures/speech_recog_by_lang.png",
+          "size_bytes": 90697,
+          "sha256": "37c10d873fac0541541e7c71e30cda0f3809cf2942e71c5ea4f92944b53af145"
+        },
+        {
+          "path": "OTHER_LOCAL_AI/Microsoft/Phi-4-multimodal-instruct/93f923e1a7727d1c4f446756212d9d3e8fcc5d81/figures/speech_recognition.png",
+          "size_bytes": 63547,
+          "sha256": "fe5250ddbe956782eb785250adc346f23fd0728502a381972198a9e77425f187"
+        },
+        {
+          "path": "OTHER_LOCAL_AI/Microsoft/Phi-4-multimodal-instruct/93f923e1a7727d1c4f446756212d9d3e8fcc5d81/figures/speech_summarization.png",
+          "size_bytes": 40951,
+          "sha256": "245a78279a856b2791e92227a7e08fe13af89e9d1ddd88eeaed79f6cf2dd3440"
+        },
+        {
+          "path": "OTHER_LOCAL_AI/Microsoft/Phi-4-multimodal-instruct/93f923e1a7727d1c4f446756212d9d3e8fcc5d81/figures/speech_translate.png",
+          "size_bytes": 47677,
+          "sha256": "197e800c6bc8ea0ead72cb348b0d86dd28d46d1d888bbd0edb4a1bfb154e8d87"
+        },
+        {
+          "path": "OTHER_LOCAL_AI/Microsoft/Phi-4-multimodal-instruct/93f923e1a7727d1c4f446756212d9d3e8fcc5d81/figures/speech_translate_2.png",
+          "size_bytes": 46342,
+          "sha256": "ccbc37773f73be44b7ac6127bec0be8f0817bf589ee1d0c07d2824c2ce9c61c9"
+        },
+        {
+          "path": "OTHER_LOCAL_AI/Microsoft/Phi-4-multimodal-instruct/93f923e1a7727d1c4f446756212d9d3e8fcc5d81/figures/vision_radar.png",
+          "size_bytes": 173821,
+          "sha256": "1a649132fb490a235f3f390ac4f1a5360342d1d130bc6d63d59a30f449f7ecfd"
+        },
+        {
+          "path": "OTHER_LOCAL_AI/Microsoft/Phi-4-multimodal-instruct/93f923e1a7727d1c4f446756212d9d3e8fcc5d81/generation_config.json",
+          "size_bytes": 190,
+          "sha256": "757daa0d0e89171fe48fc3286341833e95b90bdb7dd3b02a2f8920fb09f85a38"
+        },
+        {
+          "path": "OTHER_LOCAL_AI/Microsoft/Phi-4-multimodal-instruct/93f923e1a7727d1c4f446756212d9d3e8fcc5d81/merges.txt",
+          "size_bytes": 2418348,
+          "sha256": "856ce61180bb689282eed6b3a6838bb1f438399be23aefe9d20eb379791fb4ad"
+        },
+        {
+          "path": "OTHER_LOCAL_AI/Microsoft/Phi-4-multimodal-instruct/93f923e1a7727d1c4f446756212d9d3e8fcc5d81/model-00001-of-00003.safetensors",
+          "size_bytes": 4997504848,
+          "sha256": "c46bb03332d82f6a3eaf85bd20af388dd4d4d68b198c2203c965c7381a466094"
+        },
+        {
+          "path": "OTHER_LOCAL_AI/Microsoft/Phi-4-multimodal-instruct/93f923e1a7727d1c4f446756212d9d3e8fcc5d81/model-00002-of-00003.safetensors",
+          "size_bytes": 4952333128,
+          "sha256": "b3e812c0c8acef4e7f5e34d6c9f77a7640ee4a2b93ea351921365ac62f19918d"
+        },
+        {
+          "path": "OTHER_LOCAL_AI/Microsoft/Phi-4-multimodal-instruct/93f923e1a7727d1c4f446756212d9d3e8fcc5d81/model-00003-of-00003.safetensors",
+          "size_bytes": 1199389232,
+          "sha256": "7be96b7339303752634b202d3f377bcf312a03046586eca6cea23347ace1e65a"
+        },
+        {
+          "path": "OTHER_LOCAL_AI/Microsoft/Phi-4-multimodal-instruct/93f923e1a7727d1c4f446756212d9d3e8fcc5d81/model.safetensors.index.json",
+          "size_bytes": 239890,
+          "sha256": "b67dbc7062e1ccf472faba4222d631dc42929c827fbdaed1ec8e34fe0601819a"
+        },
+        {
+          "path": "OTHER_LOCAL_AI/Microsoft/Phi-4-multimodal-instruct/93f923e1a7727d1c4f446756212d9d3e8fcc5d81/modeling_phi4mm.py",
+          "size_bytes": 116057,
+          "sha256": "e2b44eb7a66d6cc54524cee1ff9ba92d0658d435ea8900329ea0dbdb85c6439d"
+        },
+        {
+          "path": "OTHER_LOCAL_AI/Microsoft/Phi-4-multimodal-instruct/93f923e1a7727d1c4f446756212d9d3e8fcc5d81/phi_4_mm.tech_report.02252025.pdf",
+          "size_bytes": 5295165,
+          "sha256": "a5469d9123cbee2b41729db3217cacfeaa96eaf543868caa2eeec7cf2d24547d"
+        },
+        {
+          "path": "OTHER_LOCAL_AI/Microsoft/Phi-4-multimodal-instruct/93f923e1a7727d1c4f446756212d9d3e8fcc5d81/preprocessor_config.json",
+          "size_bytes": 482,
+          "sha256": "9db19b9663fb86f04c0f11d3a9b7f65a19f13d4543fb4a15bd33f82b0c92d64f"
+        },
+        {
+          "path": "OTHER_LOCAL_AI/Microsoft/Phi-4-multimodal-instruct/93f923e1a7727d1c4f446756212d9d3e8fcc5d81/processing_phi4mm.py",
+          "size_bytes": 32775,
+          "sha256": "84914d3e12256b4e2186e040c9830c11408468b6774f42afe85e6f8de2626d50"
+        },
+        {
+          "path": "OTHER_LOCAL_AI/Microsoft/Phi-4-multimodal-instruct/93f923e1a7727d1c4f446756212d9d3e8fcc5d81/processor_config.json",
+          "size_bytes": 121,
+          "sha256": "798fc4cd09c067053af27f07f0d2b329b471c5b2eb923ceb06efa41dee660c05"
+        },
+        {
+          "path": "OTHER_LOCAL_AI/Microsoft/Phi-4-multimodal-instruct/93f923e1a7727d1c4f446756212d9d3e8fcc5d81/sample_finetune_speech.py",
+          "size_bytes": 16669,
+          "sha256": "0f2d44593bd0142d3f985473b90d8baf884973fe4d55f139a9a035e333ecc9be"
+        },
+        {
+          "path": "OTHER_LOCAL_AI/Microsoft/Phi-4-multimodal-instruct/93f923e1a7727d1c4f446756212d9d3e8fcc5d81/sample_finetune_vision.py",
+          "size_bytes": 19617,
+          "sha256": "dee385e684dcab9c411cef87d41a4fcd897cce528712a23a9c00fd008eb8de3e"
+        },
+        {
+          "path": "OTHER_LOCAL_AI/Microsoft/Phi-4-multimodal-instruct/93f923e1a7727d1c4f446756212d9d3e8fcc5d81/sample_inference_phi4mm.py",
+          "size_bytes": 10498,
+          "sha256": "22bfc76ecdaeb2641bc6089a8efcaf2291e017111f0b6db3be91df451adab3a8"
+        },
+        {
+          "path": "OTHER_LOCAL_AI/Microsoft/Phi-4-multimodal-instruct/93f923e1a7727d1c4f446756212d9d3e8fcc5d81/special_tokens_map.json",
+          "size_bytes": 473,
+          "sha256": "57491904f8680d4b52ed440f1f7ba48cad1c31ecf3eb453b03484e6ff4723ae8"
+        },
+        {
+          "path": "OTHER_LOCAL_AI/Microsoft/Phi-4-multimodal-instruct/93f923e1a7727d1c4f446756212d9d3e8fcc5d81/speech-lora/adapter_config.json",
+          "size_bytes": 465,
+          "sha256": "ed252a6ae210888ee69f5720bd7e8d8261f0abfda90b18ea6452316c71336df8"
+        },
+        {
+          "path": "OTHER_LOCAL_AI/Microsoft/Phi-4-multimodal-instruct/93f923e1a7727d1c4f446756212d9d3e8fcc5d81/speech-lora/adapter_model.safetensors",
+          "size_bytes": 922782296,
+          "sha256": "1c2237461a4d1f9292cd128147bd3f0f70326a48d5d79c8e0f7583b26c095b30"
+        },
+        {
+          "path": "OTHER_LOCAL_AI/Microsoft/Phi-4-multimodal-instruct/93f923e1a7727d1c4f446756212d9d3e8fcc5d81/speech-lora/added_tokens.json",
+          "size_bytes": 249,
+          "sha256": "d4f2aceb0f20b71dd1f4bcc7e052e4412946bf281840b8f83d39f259571af486"
+        },
+        {
+          "path": "OTHER_LOCAL_AI/Microsoft/Phi-4-multimodal-instruct/93f923e1a7727d1c4f446756212d9d3e8fcc5d81/speech-lora/special_tokens_map.json",
+          "size_bytes": 473,
+          "sha256": "57491904f8680d4b52ed440f1f7ba48cad1c31ecf3eb453b03484e6ff4723ae8"
+        },
+        {
+          "path": "OTHER_LOCAL_AI/Microsoft/Phi-4-multimodal-instruct/93f923e1a7727d1c4f446756212d9d3e8fcc5d81/speech-lora/tokenizer.json",
+          "size_bytes": 15524095,
+          "sha256": "382cc235b56c725945e149cc25f191da667c836655efd0857b004320e90e91ea"
+        },
+        {
+          "path": "OTHER_LOCAL_AI/Microsoft/Phi-4-multimodal-instruct/93f923e1a7727d1c4f446756212d9d3e8fcc5d81/speech-lora/tokenizer_config.json",
+          "size_bytes": 3248,
+          "sha256": "d51bf28bbdc9915926a0b1908f95cec05f3d10b71af0d27f85344d9a486b03ae"
+        },
+        {
+          "path": "OTHER_LOCAL_AI/Microsoft/Phi-4-multimodal-instruct/93f923e1a7727d1c4f446756212d9d3e8fcc5d81/speech-lora/vocab.json",
+          "size_bytes": 3910310,
+          "sha256": "6cb65a857824fa6615bb1782d95d882617a8bbce1da0317118586b36f39e98bd"
+        },
+        {
+          "path": "OTHER_LOCAL_AI/Microsoft/Phi-4-multimodal-instruct/93f923e1a7727d1c4f446756212d9d3e8fcc5d81/speech_conformer_encoder.py",
+          "size_bytes": 110521,
+          "sha256": "3742827e945732cc5deea4a95e14004da037044431a94e3f3fac26239e614e3a"
+        },
+        {
+          "path": "OTHER_LOCAL_AI/Microsoft/Phi-4-multimodal-instruct/93f923e1a7727d1c4f446756212d9d3e8fcc5d81/tokenizer.json",
+          "size_bytes": 15524479,
+          "sha256": "4c1b9f641d4f8b7247b8d5007dd3b6a9f6a87cb5123134fe0d326f14d10c0585"
+        },
+        {
+          "path": "OTHER_LOCAL_AI/Microsoft/Phi-4-multimodal-instruct/93f923e1a7727d1c4f446756212d9d3e8fcc5d81/tokenizer_config.json",
+          "size_bytes": 3248,
+          "sha256": "a5da2e45718db78924ad5135a58a80b0303596acf54a1dc5c912c98436ddcaf3"
+        },
+        {
+          "path": "OTHER_LOCAL_AI/Microsoft/Phi-4-multimodal-instruct/93f923e1a7727d1c4f446756212d9d3e8fcc5d81/vision-lora/adapter_config.json",
+          "size_bytes": 464,
+          "sha256": "efbff3b978dd25e0c3abd7e71a1e9acb9a4f25e13f7430ce035654c0cb159484"
+        },
+        {
+          "path": "OTHER_LOCAL_AI/Microsoft/Phi-4-multimodal-instruct/93f923e1a7727d1c4f446756212d9d3e8fcc5d81/vision-lora/adapter_model.safetensors",
+          "size_bytes": 738232904,
+          "sha256": "1620b16722edf701038bf66e3cd46412c7cc5458e58df89e9f92cedb71fcbde8"
+        },
+        {
+          "path": "OTHER_LOCAL_AI/Microsoft/Phi-4-multimodal-instruct/93f923e1a7727d1c4f446756212d9d3e8fcc5d81/vision-lora/added_tokens.json",
+          "size_bytes": 249,
+          "sha256": "d4f2aceb0f20b71dd1f4bcc7e052e4412946bf281840b8f83d39f259571af486"
+        },
+        {
+          "path": "OTHER_LOCAL_AI/Microsoft/Phi-4-multimodal-instruct/93f923e1a7727d1c4f446756212d9d3e8fcc5d81/vision-lora/special_tokens_map.json",
+          "size_bytes": 473,
+          "sha256": "57491904f8680d4b52ed440f1f7ba48cad1c31ecf3eb453b03484e6ff4723ae8"
+        },
+        {
+          "path": "OTHER_LOCAL_AI/Microsoft/Phi-4-multimodal-instruct/93f923e1a7727d1c4f446756212d9d3e8fcc5d81/vision-lora/tokenizer.json",
+          "size_bytes": 15524095,
+          "sha256": "382cc235b56c725945e149cc25f191da667c836655efd0857b004320e90e91ea"
+        },
+        {
+          "path": "OTHER_LOCAL_AI/Microsoft/Phi-4-multimodal-instruct/93f923e1a7727d1c4f446756212d9d3e8fcc5d81/vision-lora/tokenizer_config.json",
+          "size_bytes": 3248,
+          "sha256": "d51bf28bbdc9915926a0b1908f95cec05f3d10b71af0d27f85344d9a486b03ae"
+        },
+        {
+          "path": "OTHER_LOCAL_AI/Microsoft/Phi-4-multimodal-instruct/93f923e1a7727d1c4f446756212d9d3e8fcc5d81/vision-lora/vocab.json",
+          "size_bytes": 3910310,
+          "sha256": "6cb65a857824fa6615bb1782d95d882617a8bbce1da0317118586b36f39e98bd"
+        },
+        {
+          "path": "OTHER_LOCAL_AI/Microsoft/Phi-4-multimodal-instruct/93f923e1a7727d1c4f446756212d9d3e8fcc5d81/vision_siglip_navit.py",
+          "size_bytes": 78218,
+          "sha256": "7d5c053341ee9c099126fe675d5dcdc0ed5c0246f92fffdec78a1ab2f804e28d"
+        },
+        {
+          "path": "OTHER_LOCAL_AI/Microsoft/Phi-4-multimodal-instruct/93f923e1a7727d1c4f446756212d9d3e8fcc5d81/vocab.json",
+          "size_bytes": 3910310,
+          "sha256": "6cb65a857824fa6615bb1782d95d882617a8bbce1da0317118586b36f39e98bd"
+        }
+      ],
+      "asset_inventory": null
+    }
   ]
 }
