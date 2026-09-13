@@ -1,0 +1,28 @@
+{
+    "schema_version":  "1.0",
+    "benchmark_id":  "synthetic-latency",
+    "benchmark_version":  "1.0.0",
+    "name":  "Synthetic Latency Benchmark",
+    "category":  "ASR",
+    "purpose":  "Validate the FP-001C benchmark evidence framework without loading a production model.",
+    "evaluation_set":  {
+                           "id":  "synthetic-fixture",
+                           "version":  "1.0.0",
+                           "description":  "Deterministic synthetic evaluation fixture."
+                       },
+    "metrics":  [
+                    {
+                        "metric_id":  "latency_ms",
+                        "description":  "Synthetic execution latency.",
+                        "unit":  "ms",
+                        "direction":  "lower_is_better"
+                    }
+                ],
+    "acceptance_criteria":  [
+                                {
+                                    "metric_id":  "latency_ms",
+                                    "operator":  "lte",
+                                    "threshold":  100
+                                }
+                            ]
+}

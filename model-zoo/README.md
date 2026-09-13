@@ -25,7 +25,7 @@ model-zoo/
     model-manifest.schema.json
 ```
 
-The production manifest is intentionally empty in FP-001A. Real model entries require a separately governed acquisition; synthetic examples exist only under `tests/fixtures/model-zoo`.
+The production manifest contains governed catalogue entries for preserved Model Zoo candidates. Synthetic examples remain confined to test fixtures and shall not be treated as production models.
 
 Git contains metadata, expected checksums, provenance/licence references, schema, documentation, and verification tooling. It must never contain model weights or a local `model-zoo/assets`, `cache`, `downloads`, or `staging` tree.
 

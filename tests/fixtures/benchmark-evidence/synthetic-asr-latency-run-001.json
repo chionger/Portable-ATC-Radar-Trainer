@@ -1,0 +1,40 @@
+{
+    "schema_version":  "1.0",
+    "run_id":  "synthetic-asr-latency-run-001",
+    "benchmark":  {
+                      "benchmark_id":  "synthetic-latency",
+                      "benchmark_version":  "1.0.0"
+                  },
+    "model":  {
+                  "entry_id":  "synthetic-asr-verified",
+                  "revision":  "test-revision-001"
+              },
+    "executed_at":  "2026-09-06T12:00:00Z",
+    "hardware":  {
+                     "profile_id":  "synthetic-test-host",
+                     "cpu":  "Synthetic CPU",
+                     "ram_bytes":  17179869184,
+                     "accelerators":  [
+
+                                      ]
+                 },
+    "runtime":  {
+                    "name":  "synthetic-benchmark-runtime",
+                    "version":  "1.0.0",
+                    "operating_system":  "synthetic-os",
+                    "configuration":  {
+
+                                      }
+                },
+    "measurements":  [
+                         {
+                             "metric_id":  "latency_ms",
+                             "value":  42
+                         }
+                     ],
+    "outcome":  {
+                    "status":  "COMPLETED",
+                    "criteria_met":  true,
+                    "notes":  "Synthetic passing fixture for FP-001C framework validation."
+                }
+}
