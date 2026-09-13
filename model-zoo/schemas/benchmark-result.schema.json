@@ -1,0 +1,279 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://portable-atc.local/schemas/benchmark-result-1.0.json",
+  "title": "Portable ATC model benchmark result",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "run_id",
+    "benchmark",
+    "model",
+    "executed_at",
+    "hardware",
+    "runtime",
+    "measurements",
+    "outcome"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "run_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9._-]*$"
+    },
+    "benchmark": {
+      "$ref": "#/$defs/benchmark_reference"
+    },
+    "model": {
+      "$ref": "#/$defs/model_reference"
+    },
+    "executed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "hardware": {
+      "$ref": "#/$defs/hardware"
+    },
+    "runtime": {
+      "$ref": "#/$defs/runtime"
+    },
+    "measurements": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/measurement"
+      }
+    },
+    "outcome": {
+      "$ref": "#/$defs/outcome"
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/evidence"
+      }
+    }
+  },
+  "$defs": {
+    "benchmark_reference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "benchmark_id",
+        "benchmark_version"
+      ],
+      "properties": {
+        "benchmark_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "benchmark_version": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+        }
+      }
+    },
+    "model_reference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "entry_id",
+        "revision"
+      ],
+      "properties": {
+        "entry_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "revision": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "hardware": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "profile_id",
+        "cpu",
+        "ram_bytes",
+        "accelerators"
+      ],
+      "properties": {
+        "profile_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "cpu": {
+          "type": "string",
+          "minLength": 1
+        },
+        "ram_bytes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "accelerators": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/accelerator"
+          }
+        }
+      }
+    },
+    "accelerator": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "name",
+        "memory_bytes"
+      ],
+      "properties": {
+        "type": {
+          "enum": [
+            "GPU",
+            "NPU",
+            "OTHER"
+          ]
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "memory_bytes": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "runtime": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "version",
+        "operating_system",
+        "configuration"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "operating_system": {
+          "type": "string",
+          "minLength": 1
+        },
+        "configuration": {
+          "type": "object"
+        }
+      }
+    },
+    "measurement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "metric_id",
+        "value"
+      ],
+      "properties": {
+        "metric_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "value": {
+          "type": "number"
+        }
+      }
+    },
+    "outcome": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "criteria_met"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "COMPLETED",
+            "FAILED",
+            "INVALID"
+          ]
+        },
+        "criteria_met": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "notes": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "FAILED",
+                  "INVALID"
+                ]
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "criteria_met": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "path"
+      ],
+      "properties": {
+        "type": {
+          "enum": [
+            "LOG",
+            "RAW_RESULT",
+            "SUMMARY",
+            "OTHER"
+          ]
+        },
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    }
+  }
+}
