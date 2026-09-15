@@ -83,7 +83,7 @@ Alternatively, use two PowerShell terminals:
 ```powershell
 # Terminal 1, repository root
 .\.venv\Scripts\Activate.ps1
-python -m uvicorn apps.api.main:app --host 127.0.0.1 --port 8000
+python -m scripts.run_api
 ```
 
 ```powershell
@@ -127,7 +127,7 @@ Invoke-RestMethod http://127.0.0.1:8000/health | ConvertTo-Json -Compress
 Expected response:
 
 ```json
-{"status":"ok"}
+{"status":"ok","configuration_version":"1.0"}
 ```
 
 The architecture test suite proves both sides of the rule: valid domain imports pass, while `tests/fixtures/invalid_domain_dependency.py` is deliberately rejected. To observe the expected rejection directly:
@@ -148,3 +148,7 @@ The model-zoo mechanism stores catalogue metadata in Git while keeping model fil
 ## License
 
 Licensed under the Apache License 2.0. See [LICENSE](LICENSE).
+
+## FP-002 typed configuration
+
+See [the configuration reference](docs/configuration.md) for packaged YAML defaults, local overrides, environment variables, safe reporting and configuration hashes. Use python -m scripts.run_api --show-config to inspect the redacted effective settings without starting the server.

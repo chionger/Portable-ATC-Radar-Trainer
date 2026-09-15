@@ -136,3 +136,6 @@ dist/
 
 # Auto-generated cache in Assets folder
 /[Aa]ssets/[Ss]ceneDependencyCache*
+
+# FP-002 private local overrides
+/config.local.yaml
