@@ -1,24 +1,38 @@
 param(
-    [string]$ApiHost = "127.0.0.1",
-    [int]$ApiPort = 8000
+    [string]$ApiHost,
+    [Nullable[int]]$ApiPort,
+    [string]$Config
 )
 
 $ErrorActionPreference = "Stop"
 $RepositoryRoot = Split-Path -Parent $PSScriptRoot
 $WebDirectory = Join-Path $RepositoryRoot "apps\web"
+$LauncherArgs = @("-m", "scripts.run_api")
+if ($PSBoundParameters.ContainsKey("ApiHost")) { $LauncherArgs += @("--host", $ApiHost) }
+if ($PSBoundParameters.ContainsKey("ApiPort")) { $LauncherArgs += @("--port", "$ApiPort") }
+if ($PSBoundParameters.ContainsKey("Config")) {
+    $LauncherArgs += @("--config", [IO.Path]::GetFullPath($Config))
+}
 
-$ApiProcess = Start-Process -FilePath "python" `
-    -ArgumentList @("-m", "uvicorn", "apps.api.main:app", "--host", $ApiHost, "--port", $ApiPort) `
-    -WorkingDirectory $RepositoryRoot -PassThru -WindowStyle Hidden
-
+Push-Location $RepositoryRoot
+$ApiProcess = $null
+$PreviousApiUrl = $env:VITE_API_URL
 try {
-    Write-Host "API started at http://${ApiHost}:${ApiPort}. Starting the browser application..."
-    Push-Location $WebDirectory
+    $ApiUrl = & python @LauncherArgs --dev-web
+    if ($LASTEXITCODE -ne 0) { throw "API configuration validation failed: $ApiUrl" }
+    $env:VITE_API_URL = $ApiUrl
+    # Start-Process joins arguments into one command line; quote paths containing spaces.
+    $QuotedArgs = $LauncherArgs | ForEach-Object { '"' + $_ + '"' }
+    $ApiProcess = Start-Process -FilePath "python" -ArgumentList $QuotedArgs `
+        -WorkingDirectory $RepositoryRoot -PassThru -WindowStyle Hidden
+    Write-Host "API starting at $ApiUrl. Starting the browser application..."
+    Set-Location $WebDirectory
     pnpm run dev
 }
 finally {
+    $env:VITE_API_URL = $PreviousApiUrl
     Pop-Location
-    if (-not $ApiProcess.HasExited) {
+    if ($null -ne $ApiProcess -and -not $ApiProcess.HasExited) {
         Stop-Process -Id $ApiProcess.Id
     }
 }

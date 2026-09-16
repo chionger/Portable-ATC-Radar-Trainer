@@ -1,0 +1,12 @@
+# Copy to config.local.yaml in the repository root (ignored by Git).
+schema_version: "1.0"
+api:
+  port: 8100
+logging:
+  level: "INFO"
+features:
+  report_configuration: false
+# Storage paths must be absolute. The default data path expands under your home.
+# No model storage is needed to start the application.
+paths:
+  model_root: null

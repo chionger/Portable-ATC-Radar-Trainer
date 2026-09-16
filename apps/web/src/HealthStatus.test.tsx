@@ -12,7 +12,7 @@ test('renders loading then healthy state', async () => {
   render(<HealthStatus />)
   expect(screen.getByText('Checking backend health…')).toBeInTheDocument()
 
-  resolveResponse(new Response(JSON.stringify({ status: 'ok' }), { status: 200 }))
+  resolveResponse(new Response(JSON.stringify({ status: 'ok', configuration_version: '1.0' }), { status: 200 }))
   expect(await screen.findByText('Backend connected and healthy')).toBeInTheDocument()
 })
 

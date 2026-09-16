@@ -10,6 +10,7 @@ requires-python = ">=3.12,<3.13"
 dependencies = [
   "fastapi==0.115.12",
   "pydantic==2.11.4",
+  "PyYAML==6.0.3",
   "uvicorn==0.34.2",
 ]
 
@@ -44,6 +45,7 @@ strict = true
 files = [
   "apps/api",
   "packages",
+  "scripts/run_api.py",
   "scripts/check_architecture.py",
   "scripts/check_model_assets.py",
   "scripts/acquire_model.py",
@@ -51,3 +53,6 @@ files = [
   "scripts/model_source_huggingface.py",
   "scripts/verify_model_zoo.py",
 ]
+
+[tool.setuptools.package-data]
+"packages.infrastructure.configuration" = ["defaults.yaml"]

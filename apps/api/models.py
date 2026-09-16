@@ -4,7 +4,7 @@ from pydantic import BaseModel
 
 
 class HealthResponse(BaseModel):
-    """Typed response returned by the process health endpoint."""
+    """Readiness and non-sensitive configuration schema version only."""
 
     status: Literal["ok"]
-
+    configuration_version: Literal["1.0"]

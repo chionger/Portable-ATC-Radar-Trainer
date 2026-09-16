@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 
 type HealthState = 'loading' | 'healthy' | 'unavailable'
-type HealthResponse = { status: 'ok' }
+type HealthResponse = { status: 'ok'; configuration_version: '1.0' }
 
 const apiUrl = import.meta.env.VITE_API_URL ?? 'http://127.0.0.1:8000'
 
