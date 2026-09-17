@@ -56,3 +56,4 @@ files = [
 
 [tool.setuptools.package-data]
 "packages.infrastructure.configuration" = ["defaults.yaml"]
+"packages.infrastructure.persistence" = ["migrations/*.sql"]

@@ -27,12 +27,16 @@ An explicitly selected missing or unreadable file prevents startup.
 | `paths.model_root` | `ATC_PATHS_MODEL_ROOT` | `null` (unconfigured); explicit absolute local directory |
 | `logging.level` | `ATC_LOGGING_LEVEL` | `INFO`; DEBUG, INFO, WARNING, ERROR, CRITICAL |
 | `features.report_configuration` | `ATC_FEATURES_REPORT_CONFIGURATION` | `false`; JSON `true` / `false` |
+| `persistence.database_path` | `ATC_PERSISTENCE_DATABASE_PATH` | `null`; defaults to `paths.data_root/sessions.sqlite3`; absolute local override |
+| `persistence.migration_mode` | `ATC_PERSISTENCE_MIGRATION_MODE` | `apply`; or `validate` for an existing schema |
+| `persistence.busy_timeout_ms` | `ATC_PERSISTENCE_BUSY_TIMEOUT_MS` | `1000`; JSON integer 0–30000 |
 
 Only the listed `ATC_` variables and `ATC_CONFIG_FILE` are accepted. Unrelated environment variables
 are ignored. String settings use literal environment text; ports, booleans and arrays use JSON.
-Use the exact string `null` to clear the model path in the environment.
+Use the exact string `null` to clear the model or database path override in the environment.
 
-Paths accept absolute local paths or `~/` home shorthand. Relative paths, drive-relative Windows
+Data/model roots accept absolute local paths or `~/` home shorthand. A database path override
+requires an absolute local path. Relative paths, drive-relative Windows
 paths, filesystem roots, traversal components, UNC/device paths and reserved Windows names are
 rejected. Validation is lexical: it does not check existence, permissions or symlink targets.
 Later file operations must enforce their own storage boundaries. An unset model root is valid
@@ -64,7 +68,7 @@ and supports default startup. Uvicorn owns its host, port and log options in tha
 
 ## Reporting, hashing and health
 
-`--show-config` prints JSON with both local paths redacted and a SHA-256 configuration hash; it
+`--show-config` prints JSON with local paths redacted and a SHA-256 configuration hash; it
 does not start the API. The optional `report_configuration` flag logs the same safe report.
 There are no credential settings in FP-002: unknown credential fields are rejected. Validation
 errors name the field and error type without echoing supplied values or YAML source lines.
@@ -82,4 +86,6 @@ are read or hashed. A future secret-bearing field will need an explicit hash/red
 ```
 
 The version identifies the configuration schema; the full effective hash and settings remain
-local. Domain/session persistence and model-specific tuning remain in later feature packets.
+local. FP-006 adds explicit SQLite persistence settings without opening a database during API
+startup. See the [persistence operating guide](architecture/FP-006-persistence.md) for schema,
+transactions, recovery and backups. Model-specific tuning remains in later feature packets.

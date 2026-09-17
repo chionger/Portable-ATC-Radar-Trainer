@@ -91,12 +91,30 @@ class FeatureSettings(StrictSettings):
     report_configuration: bool
 
 
+class PersistenceSettings(StrictSettings):
+    database_path: str | None = None
+    migration_mode: Literal["apply", "validate"] = "apply"
+    busy_timeout_ms: Annotated[int, Field(ge=0, le=30000)] = 1000
+
+    @field_validator("database_path")
+    @classmethod
+    def local_database(cls, value: str | None) -> str | None:
+        return absolute_local_path(value) if value is not None else None
+
+
 class AppSettings(StrictSettings):
     schema_version: Literal["1.0"]
     api: ApiSettings
     paths: PathSettings
     logging: LoggingSettings
     features: FeatureSettings
+    persistence: PersistenceSettings = PersistenceSettings()
+
+    def database_path(self) -> Path:
+        """Resolve configuration only; never create or open storage."""
+        return Path(
+            self.persistence.database_path or str(Path(self.paths.data_root) / "sessions.sqlite3")
+        )
 
     @classmethod
     def from_mapping(cls, value: Mapping[str, object]) -> Self:
@@ -126,6 +144,11 @@ class AppSettings(StrictSettings):
             "model_root": "[REDACTED]" if self.paths.model_root is not None else None,
         }
         report["configuration_hash"] = self.configuration_hash()
+        report["persistence"] = {
+            "database_path": "[REDACTED]" if self.persistence.database_path is not None else None,
+            "migration_mode": self.persistence.migration_mode,
+            "busy_timeout_ms": self.persistence.busy_timeout_ms,
+        }
         return report
 
 
@@ -170,8 +193,16 @@ ENV_FIELDS = {
     "ATC_PATHS_MODEL_ROOT": ("paths", "model_root"),
     "ATC_LOGGING_LEVEL": ("logging", "level"),
     "ATC_FEATURES_REPORT_CONFIGURATION": ("features", "report_configuration"),
+    "ATC_PERSISTENCE_DATABASE_PATH": ("persistence", "database_path"),
+    "ATC_PERSISTENCE_MIGRATION_MODE": ("persistence", "migration_mode"),
+    "ATC_PERSISTENCE_BUSY_TIMEOUT_MS": ("persistence", "busy_timeout_ms"),
 }
-JSON_ENV_FIELDS = {"ATC_API_PORT", "ATC_API_CORS_ORIGINS", "ATC_FEATURES_REPORT_CONFIGURATION"}
+JSON_ENV_FIELDS = {
+    "ATC_API_PORT",
+    "ATC_API_CORS_ORIGINS",
+    "ATC_FEATURES_REPORT_CONFIGURATION",
+    "ATC_PERSISTENCE_BUSY_TIMEOUT_MS",
+}
 
 
 def load_settings(
@@ -195,7 +226,9 @@ def load_settings(
         if name not in ENV_FIELDS:
             raise ConfigurationError("Unknown ATC_ environment setting")
         value: object = raw
-        if name in JSON_ENV_FIELDS or (name == "ATC_PATHS_MODEL_ROOT" and raw == "null"):
+        if name in JSON_ENV_FIELDS or (
+            name in {"ATC_PATHS_MODEL_ROOT", "ATC_PERSISTENCE_DATABASE_PATH"} and raw == "null"
+        ):
             try:
                 value = json.loads(raw)
             except ValueError:

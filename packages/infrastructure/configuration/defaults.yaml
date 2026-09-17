@@ -1,4 +1,8 @@
 schema_version: "1.0"
+persistence:
+  database_path: null
+  migration_mode: apply
+  busy_timeout_ms: 1000
 api:
   host: "127.0.0.1"
   port: 8000
