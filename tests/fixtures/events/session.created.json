@@ -1,0 +1,34 @@
+{
+  "event_id": "event-1",
+  "event_type": "session.created",
+  "schema_version": "1.0",
+  "session_id": "session-fixture",
+  "sequence": 1,
+  "sim_time": 0.0,
+  "wall_time_utc": "2026-09-17T00:00:00Z",
+  "actor": {
+    "kind": "system",
+    "identifier": null
+  },
+  "source": {
+    "component": "session-service",
+    "version": "1"
+  },
+  "correlation_id": "fixture-flow",
+  "causation_id": null,
+  "payload": {
+    "scenario_id": "approach",
+    "scenario_version": "1",
+    "seed": 42,
+    "versions": {
+      "configuration_version": "1.0",
+      "configuration_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "rule_version": "rules-1",
+      "schema_version": "schema-1",
+      "adapters": [],
+      "models": []
+    },
+    "state": "CREATED",
+    "version": 1
+  }
+}

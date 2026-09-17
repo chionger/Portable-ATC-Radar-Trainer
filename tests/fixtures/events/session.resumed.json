@@ -1,0 +1,27 @@
+{
+  "event_id": "event-6",
+  "event_type": "session.resumed",
+  "schema_version": "1.0",
+  "session_id": "session-fixture",
+  "sequence": 6,
+  "sim_time": 0.0,
+  "wall_time_utc": "2026-09-17T00:00:00Z",
+  "actor": {
+    "kind": "system",
+    "identifier": null
+  },
+  "source": {
+    "component": "session-service",
+    "version": "1"
+  },
+  "correlation_id": "fixture-flow",
+  "causation_id": null,
+  "payload": {
+    "previous_state": "PAUSED",
+    "state": "RUNNING",
+    "previous_version": 5,
+    "version": 6,
+    "outcome": null,
+    "failure": null
+  }
+}
