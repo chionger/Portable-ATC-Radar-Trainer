@@ -1,4 +1,4 @@
-"""Event factory and repository ports; atomic persistence is deferred to FP-005/006."""
+"""Event factory and repository ports; the SQLite adapter is supplied by FP-006."""
 
 from dataclasses import dataclass
 from typing import Protocol
@@ -111,7 +111,7 @@ class EventRepository(Protocol):
     Implementations must atomically compare the session tail with expected_last_sequence,
     enforce unique event IDs and (session_id, sequence), then durably append the entire
     validated batch or nothing. Reads return ascending sequence strictly after the cursor.
-    Projection consistency/recovery is gated by FP-005, not implemented by this port.
+    FP-006 implements projection consistency/recovery under the approved FP-005 decision.
     """
 
     def append(
