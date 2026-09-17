@@ -1,0 +1,27 @@
+{
+  "event_id": "event-5",
+  "event_type": "session.paused",
+  "schema_version": "1.0",
+  "session_id": "session-fixture",
+  "sequence": 5,
+  "sim_time": 0.0,
+  "wall_time_utc": "2026-09-17T00:00:00Z",
+  "actor": {
+    "kind": "system",
+    "identifier": null
+  },
+  "source": {
+    "component": "session-service",
+    "version": "1"
+  },
+  "correlation_id": "fixture-flow",
+  "causation_id": null,
+  "payload": {
+    "previous_state": "RUNNING",
+    "state": "PAUSED",
+    "previous_version": 4,
+    "version": 5,
+    "outcome": null,
+    "failure": null
+  }
+}

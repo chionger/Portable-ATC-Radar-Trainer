@@ -1,0 +1,284 @@
+[
+  {
+    "event_type": "session.created",
+    "schema_version": "1.0",
+    "projection_version": "1.0",
+    "status": "implemented"
+  },
+  {
+    "event_type": "session.initialising",
+    "schema_version": "1.0",
+    "projection_version": "1.0",
+    "status": "implemented"
+  },
+  {
+    "event_type": "session.ready",
+    "schema_version": "1.0",
+    "projection_version": "1.0",
+    "status": "implemented"
+  },
+  {
+    "event_type": "session.started",
+    "schema_version": "1.0",
+    "projection_version": "1.0",
+    "status": "implemented"
+  },
+  {
+    "event_type": "session.paused",
+    "schema_version": "1.0",
+    "projection_version": "1.0",
+    "status": "implemented"
+  },
+  {
+    "event_type": "session.resumed",
+    "schema_version": "1.0",
+    "projection_version": "1.0",
+    "status": "implemented"
+  },
+  {
+    "event_type": "session.completed",
+    "schema_version": "1.0",
+    "projection_version": "1.0",
+    "status": "implemented"
+  },
+  {
+    "event_type": "session.stopped",
+    "schema_version": "1.0",
+    "projection_version": "1.0",
+    "status": "implemented"
+  },
+  {
+    "event_type": "session.failed",
+    "schema_version": "1.0",
+    "projection_version": "1.0",
+    "status": "implemented"
+  },
+  {
+    "event_type": "scenario.loaded",
+    "schema_version": "1.0",
+    "projection_version": "1.0",
+    "status": "reserved"
+  },
+  {
+    "event_type": "scenario.phase_changed",
+    "schema_version": "1.0",
+    "projection_version": "1.0",
+    "status": "reserved"
+  },
+  {
+    "event_type": "scenario.objective_updated",
+    "schema_version": "1.0",
+    "projection_version": "1.0",
+    "status": "reserved"
+  },
+  {
+    "event_type": "scenario.event_triggered",
+    "schema_version": "1.0",
+    "projection_version": "1.0",
+    "status": "reserved"
+  },
+  {
+    "event_type": "controller.ptt_started",
+    "schema_version": "1.0",
+    "projection_version": "1.0",
+    "status": "reserved"
+  },
+  {
+    "event_type": "controller.ptt_stopped",
+    "schema_version": "1.0",
+    "projection_version": "1.0",
+    "status": "reserved"
+  },
+  {
+    "event_type": "audio.received",
+    "schema_version": "1.0",
+    "projection_version": "1.0",
+    "status": "reserved"
+  },
+  {
+    "event_type": "transcript.created",
+    "schema_version": "1.0",
+    "projection_version": "1.0",
+    "status": "reserved"
+  },
+  {
+    "event_type": "transcript.failed",
+    "schema_version": "1.0",
+    "projection_version": "1.0",
+    "status": "reserved"
+  },
+  {
+    "event_type": "command.extracted",
+    "schema_version": "1.0",
+    "projection_version": "1.0",
+    "status": "reserved"
+  },
+  {
+    "event_type": "command.accepted",
+    "schema_version": "1.0",
+    "projection_version": "1.0",
+    "status": "reserved"
+  },
+  {
+    "event_type": "command.rejected",
+    "schema_version": "1.0",
+    "projection_version": "1.0",
+    "status": "reserved"
+  },
+  {
+    "event_type": "command.clarification_required",
+    "schema_version": "1.0",
+    "projection_version": "1.0",
+    "status": "reserved"
+  },
+  {
+    "event_type": "command.dispatched",
+    "schema_version": "1.0",
+    "projection_version": "1.0",
+    "status": "reserved"
+  },
+  {
+    "event_type": "clearance.issued",
+    "schema_version": "1.0",
+    "projection_version": "1.0",
+    "status": "reserved"
+  },
+  {
+    "event_type": "clearance.readback_received",
+    "schema_version": "1.0",
+    "projection_version": "1.0",
+    "status": "reserved"
+  },
+  {
+    "event_type": "clearance.readback_incorrect",
+    "schema_version": "1.0",
+    "projection_version": "1.0",
+    "status": "reserved"
+  },
+  {
+    "event_type": "clearance.corrected",
+    "schema_version": "1.0",
+    "projection_version": "1.0",
+    "status": "reserved"
+  },
+  {
+    "event_type": "clearance.acknowledged",
+    "schema_version": "1.0",
+    "projection_version": "1.0",
+    "status": "reserved"
+  },
+  {
+    "event_type": "instructor.marker_added",
+    "schema_version": "1.0",
+    "projection_version": "1.0",
+    "status": "reserved"
+  },
+  {
+    "event_type": "instructor.override_applied",
+    "schema_version": "1.0",
+    "projection_version": "1.0",
+    "status": "reserved"
+  },
+  {
+    "event_type": "radio.transmission_queued",
+    "schema_version": "1.0",
+    "projection_version": "1.0",
+    "status": "reserved"
+  },
+  {
+    "event_type": "radio.transmission_started",
+    "schema_version": "1.0",
+    "projection_version": "1.0",
+    "status": "reserved"
+  },
+  {
+    "event_type": "radio.transmission_finished",
+    "schema_version": "1.0",
+    "projection_version": "1.0",
+    "status": "reserved"
+  },
+  {
+    "event_type": "radio.transmission_blocked",
+    "schema_version": "1.0",
+    "projection_version": "1.0",
+    "status": "reserved"
+  },
+  {
+    "event_type": "aircraft.spawned",
+    "schema_version": "1.0",
+    "projection_version": "1.0",
+    "status": "reserved"
+  },
+  {
+    "event_type": "aircraft.state_changed",
+    "schema_version": "1.0",
+    "projection_version": "1.0",
+    "status": "reserved"
+  },
+  {
+    "event_type": "aircraft.route_assigned",
+    "schema_version": "1.0",
+    "projection_version": "1.0",
+    "status": "reserved"
+  },
+  {
+    "event_type": "runway.occupancy_changed",
+    "schema_version": "1.0",
+    "projection_version": "1.0",
+    "status": "reserved"
+  },
+  {
+    "event_type": "simulation.snapshot_created",
+    "schema_version": "1.0",
+    "projection_version": "1.0",
+    "status": "reserved"
+  },
+  {
+    "event_type": "simulation.timing_anomaly",
+    "schema_version": "1.0",
+    "projection_version": "1.0",
+    "status": "reserved"
+  },
+  {
+    "event_type": "competency.observation_detected",
+    "schema_version": "1.0",
+    "projection_version": "1.0",
+    "status": "reserved"
+  },
+  {
+    "event_type": "competency.observation_resolved",
+    "schema_version": "1.0",
+    "projection_version": "1.0",
+    "status": "reserved"
+  },
+  {
+    "event_type": "score.updated",
+    "schema_version": "1.0",
+    "projection_version": "1.0",
+    "status": "reserved"
+  },
+  {
+    "event_type": "debrief.generated",
+    "schema_version": "1.0",
+    "projection_version": "1.0",
+    "status": "reserved"
+  },
+  {
+    "event_type": "component.health_changed",
+    "schema_version": "1.0",
+    "projection_version": "1.0",
+    "status": "reserved"
+  },
+  {
+    "event_type": "adapter.timeout",
+    "schema_version": "1.0",
+    "projection_version": "1.0",
+    "status": "reserved"
+  },
+  {
+    "event_type": "adapter.failed",
+    "schema_version": "1.0",
+    "projection_version": "1.0",
+    "status": "reserved"
+  }
+]
