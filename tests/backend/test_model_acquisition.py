@@ -268,3 +268,21 @@ def test_large_download_requires_confirmation_and_yes_bypasses(tmp_path: Path) -
     require_confirmation(report, True, False, input)
     with pytest.raises(ConfirmationError, match="not confirmed"):
         require_confirmation(report, False, True, lambda _: "no")
+
+
+def test_missing_candidate_assets_fails_before_promotion(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    from scripts import model_acquisition
+
+    original = model_acquisition._candidate_entry
+
+    def without_assets(*args, **kwargs):
+        return original(*args, **kwargs).model_copy(update={"assets": None})
+
+    monkeypatch.setattr(model_acquisition, "_candidate_entry", without_assets)
+    with pytest.raises(AcquisitionError, match="must contain inline assets"):
+        run_acquisition(tmp_path)
+    asset_root = tmp_path / "external-model-zoo"
+    assert not (asset_root / "ASR").exists()
+    assert not list(asset_root.rglob("candidate-manifest.json"))

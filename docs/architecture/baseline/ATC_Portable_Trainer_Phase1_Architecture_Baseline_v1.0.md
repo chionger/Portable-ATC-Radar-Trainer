@@ -1140,7 +1140,7 @@ Benchmark decisions shall be recorded in configuration and an ADR amendment or b
 
 | ID | Blocker | Required resolution | Blocks |
 |---|---|---|---|
-| AB-01 | Atomic consistency between in-memory/domain state, SQLite event append, projections, and client publication | ADR-008 shall select and specify transaction/unit-of-work/outbox or equivalent recovery model, including append failure | Milestone 1 event/state integration and all later state-changing workflows |
+| AB-01 (resolved 2026-09-17) | Atomic consistency between in-memory/domain state, SQLite event append, projections, and client publication | [ADR-008 consistency decision](../ADR-008-persistence-consistency.md) approved under FP-005: atomic unit of work, transactional outbox and recovery rules | Gate cleared for FP-006; implementation must follow the approved decision |
 | AB-02 | Radio partial-overlap audibility semantics | ADR-010 shall define whether Phase 1 supports fully blocked only or deterministic partial audibility, including transcript/audio/debrief representation | Milestone 3 radio contract and acceptance scenario |
 | AB-03 | Instructor override inclusion | Product owner shall decide whether the override endpoint/UI is required in Phase 1 or disabled/deferred; if included, approve audit/action-gate rules | Milestone 5 instructor workflow and final REST contract |
 | AB-04 | Failed-history replay integrity threshold | ADR-008 shall define the minimum valid event/snapshot conditions and behaviour for invalid suffixes | Milestone 6 failed-session replay |
@@ -1213,7 +1213,7 @@ The project shall maintain traceability from non-negotiable requirements to arch
 | ADR-005 | Session lifecycle and separate replay views | Approved |
 | ADR-006 | Neutral simulation provider and provider-effect ownership | Approved |
 | ADR-007 | Event authority, sequencing, schema evolution, and canonical determinism | Approved |
-| ADR-008 | SQLite consistency, projections, snapshots, and replay integrity | **Open: AB-01 and AB-04** |
+| ADR-008 | [SQLite consistency, projections, snapshots, and replay integrity](../ADR-008-persistence-consistency.md) | **Consistency approved (FP-005), 2026-09-17; AB-04 open** |
 | ADR-009 | REST/WebSocket boundaries and reconnection | Approved; override surface depends on AB-03 |
 | ADR-010 | One-frequency radio arbitration and audibility | **Open: AB-02** |
 | ADR-011 | Offline ASR/LLM/TTS adapters, routing, thresholds, and fallback | Approved; provider selections are benchmark decisions |
