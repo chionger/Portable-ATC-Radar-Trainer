@@ -342,11 +342,14 @@ def acquire(
     entry = _candidate_entry(
         metadata, source, inventory, relative_revision, acquired_on or date.today()
     )
+    assets = entry.assets
+    if assets is None:
+        raise AcquisitionError("acquisition candidate must contain inline assets")
     staging_entry = entry.model_copy(
         update={
             "assets": [
                 asset.model_copy(update={"path": item.path})
-                for asset, item in zip(entry.assets, inventory, strict=True)
+                for asset, item in zip(assets, inventory, strict=True)
             ]
         }
     )
