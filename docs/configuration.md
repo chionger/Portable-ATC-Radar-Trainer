@@ -103,3 +103,10 @@ redacted in reports. All new effective fields contribute to the configuration ha
 The health response adds readiness and component observations while preserving its
 existing liveness fields. See [health and structured logging](health.md) for readiness
 meanings, producer integration, privacy rules and troubleshooting.
+
+## FP-008 session requests
+
+Session storage reuses paths.data_root and persistence.database_path. sessions.default_seed
+(ATC_SESSIONS_DEFAULT_SEED) defaults to 0; sessions.max_request_bytes
+(ATC_SESSIONS_MAX_REQUEST_BYTES) defaults to 4096. See [session API](session-api.md)
+for bounds, deterministic seed policy, request contracts and retry behaviour.

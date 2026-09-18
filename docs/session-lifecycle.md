@@ -61,3 +61,10 @@ do not allocate event sequences. Creation returns a session; event construction
 and sequencing belong to FP-004. Persistence, idempotency, initialization and
 durable orchestration remain deferred to their packets, including FP-008. This
 packet adds no routes, database, configuration settings, replay or external adapters.
+
+## FP-008 durable workflows
+
+The pure FP-003 adapter remains available. DurableSessionService now supplies persisted
+creation and all legal lifecycle transitions through the FP-006 unit of work. The
+[session REST API](session-api.md) exposes create/get/start/pause/resume/stop; scenario
+initialisation and readiness remain internal hooks for later scenario wiring.

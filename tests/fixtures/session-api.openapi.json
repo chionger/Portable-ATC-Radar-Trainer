@@ -1,0 +1,1054 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Portable ATC Radar Trainer API",
+    "version": "0.1.0"
+  },
+  "paths": {
+    "/api/v1/sessions": {
+      "post": {
+        "tags": [
+          "sessions"
+        ],
+        "summary": "Create Session Route",
+        "operationId": "create_session_route_api_v1_sessions_post",
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Idempotency-Key"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateSessionBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "413": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Request Entity Too Large"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/api/v1/sessions/{session_id}": {
+      "get": {
+        "tags": [
+          "sessions"
+        ],
+        "summary": "Get Session Route",
+        "operationId": "get_session_route_api_v1_sessions__session_id__get",
+        "parameters": [
+          {
+            "name": "session_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Session Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "413": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Request Entity Too Large"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/api/v1/sessions/{session_id}/start": {
+      "post": {
+        "tags": [
+          "sessions"
+        ],
+        "summary": "Start Session",
+        "operationId": "start_session_api_v1_sessions__session_id__start_post",
+        "parameters": [
+          {
+            "name": "session_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Session Id"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Idempotency-Key"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LifecycleBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "413": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Request Entity Too Large"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/api/v1/sessions/{session_id}/pause": {
+      "post": {
+        "tags": [
+          "sessions"
+        ],
+        "summary": "Pause Session",
+        "operationId": "pause_session_api_v1_sessions__session_id__pause_post",
+        "parameters": [
+          {
+            "name": "session_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Session Id"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Idempotency-Key"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LifecycleBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "413": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Request Entity Too Large"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/api/v1/sessions/{session_id}/resume": {
+      "post": {
+        "tags": [
+          "sessions"
+        ],
+        "summary": "Resume Session",
+        "operationId": "resume_session_api_v1_sessions__session_id__resume_post",
+        "parameters": [
+          {
+            "name": "session_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Session Id"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Idempotency-Key"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LifecycleBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "413": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Request Entity Too Large"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/api/v1/sessions/{session_id}/stop": {
+      "post": {
+        "tags": [
+          "sessions"
+        ],
+        "summary": "Stop Session",
+        "operationId": "stop_session_api_v1_sessions__session_id__stop_post",
+        "parameters": [
+          {
+            "name": "session_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Session Id"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Idempotency-Key"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LifecycleBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "413": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Request Entity Too Large"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/health": {
+      "get": {
+        "summary": "Health",
+        "operationId": "health_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ComponentHealth": {
+        "properties": {
+          "component": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_]{0,47}$",
+            "title": "Component"
+          },
+          "required": {
+            "type": "boolean",
+            "title": "Required"
+          },
+          "status": {
+            "$ref": "#/components/schemas/HealthStatus"
+          },
+          "severity": {
+            "$ref": "#/components/schemas/HealthSeverity"
+          },
+          "reason": {
+            "$ref": "#/components/schemas/HealthReason"
+          },
+          "observed_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Observed At"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "component",
+          "required",
+          "status",
+          "severity",
+          "reason",
+          "observed_at"
+        ],
+        "title": "ComponentHealth"
+      },
+      "CreateSessionBody": {
+        "properties": {
+          "schema_version": {
+            "type": "string",
+            "const": "1.0",
+            "title": "Schema Version",
+            "default": "1.0"
+          },
+          "scenario_id": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[a-zA-Z0-9_.-]+$",
+            "title": "Scenario Id"
+          },
+          "scenario_version": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[a-zA-Z0-9_.-]+$",
+            "title": "Scenario Version"
+          },
+          "seed": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "maximum": 9.223372036854776e+18,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Seed"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "scenario_id",
+          "scenario_version"
+        ],
+        "title": "CreateSessionBody",
+        "examples": [
+          {
+            "scenario_id": "training",
+            "scenario_version": "1.0",
+            "schema_version": "1.0",
+            "seed": 42
+          }
+        ]
+      },
+      "ErrorResponse": {
+        "properties": {
+          "code": {
+            "type": "string",
+            "title": "Code"
+          },
+          "message": {
+            "type": "string",
+            "title": "Message"
+          },
+          "details": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "type": "object",
+            "title": "Details"
+          },
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Correlation Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "code",
+          "message",
+          "correlation_id"
+        ],
+        "title": "ErrorResponse"
+      },
+      "HealthReason": {
+        "type": "string",
+        "enum": [
+          "operational",
+          "starting",
+          "failed",
+          "timeout",
+          "not_configured"
+        ],
+        "title": "HealthReason"
+      },
+      "HealthResponse": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "const": "ok",
+            "title": "Status"
+          },
+          "configuration_version": {
+            "type": "string",
+            "const": "1.0",
+            "title": "Configuration Version"
+          },
+          "readiness": {
+            "$ref": "#/components/schemas/HealthStatus",
+            "default": "healthy"
+          },
+          "components": {
+            "items": {
+              "$ref": "#/components/schemas/ComponentHealth"
+            },
+            "type": "array",
+            "title": "Components",
+            "default": []
+          }
+        },
+        "type": "object",
+        "required": [
+          "status",
+          "configuration_version"
+        ],
+        "title": "HealthResponse",
+        "description": "Readiness and non-sensitive configuration schema version only."
+      },
+      "HealthSeverity": {
+        "type": "string",
+        "enum": [
+          "info",
+          "warning",
+          "error"
+        ],
+        "title": "HealthSeverity"
+      },
+      "HealthStatus": {
+        "type": "string",
+        "enum": [
+          "healthy",
+          "degraded",
+          "unready"
+        ],
+        "title": "HealthStatus"
+      },
+      "LifecycleBody": {
+        "properties": {
+          "schema_version": {
+            "type": "string",
+            "const": "1.0",
+            "title": "Schema Version",
+            "default": "1.0"
+          },
+          "expected_version": {
+            "type": "integer",
+            "maximum": 9.223372036854776e+18,
+            "minimum": 1.0,
+            "title": "Expected Version"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "expected_version"
+        ],
+        "title": "LifecycleBody",
+        "examples": [
+          {
+            "expected_version": 3,
+            "schema_version": "1.0"
+          }
+        ]
+      },
+      "Session": {
+        "properties": {
+          "session_id": {
+            "type": "string",
+            "title": "Session Id"
+          },
+          "scenario_id": {
+            "type": "string",
+            "title": "Scenario Id"
+          },
+          "scenario_version": {
+            "type": "string",
+            "title": "Scenario Version"
+          },
+          "seed": {
+            "type": "integer",
+            "title": "Seed"
+          },
+          "versions": {
+            "$ref": "#/components/schemas/SessionVersions"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          },
+          "lifecycle_state": {
+            "$ref": "#/components/schemas/SessionLifecycleState",
+            "default": "CREATED"
+          },
+          "version": {
+            "type": "integer",
+            "title": "Version",
+            "default": 1
+          },
+          "simulation_time": {
+            "type": "number",
+            "title": "Simulation Time",
+            "default": 0.0
+          },
+          "started_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Started At"
+          },
+          "ended_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ended At"
+          },
+          "outcome": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SessionOutcome"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "failure": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SessionFailure"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "session_id",
+          "scenario_id",
+          "scenario_version",
+          "seed",
+          "versions",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "Session"
+      },
+      "SessionFailure": {
+        "properties": {
+          "category": {
+            "type": "string",
+            "title": "Category"
+          },
+          "reason": {
+            "type": "string",
+            "title": "Reason"
+          }
+        },
+        "type": "object",
+        "required": [
+          "category",
+          "reason"
+        ],
+        "title": "SessionFailure"
+      },
+      "SessionLifecycleState": {
+        "type": "string",
+        "enum": [
+          "CREATED",
+          "INITIALISING",
+          "READY",
+          "RUNNING",
+          "PAUSED",
+          "COMPLETED",
+          "STOPPED",
+          "FAILED"
+        ],
+        "title": "SessionLifecycleState"
+      },
+      "SessionOutcome": {
+        "type": "string",
+        "enum": [
+          "COMPLETED",
+          "STOPPED",
+          "FAILED"
+        ],
+        "title": "SessionOutcome",
+        "description": "Termination disposition, not a training score or competency assessment."
+      },
+      "SessionResponse": {
+        "properties": {
+          "schema_version": {
+            "type": "string",
+            "const": "1.0",
+            "title": "Schema Version",
+            "default": "1.0"
+          },
+          "session": {
+            "$ref": "#/components/schemas/Session"
+          }
+        },
+        "type": "object",
+        "required": [
+          "session"
+        ],
+        "title": "SessionResponse"
+      },
+      "SessionVersions": {
+        "properties": {
+          "configuration_version": {
+            "type": "string",
+            "title": "Configuration Version"
+          },
+          "configuration_hash": {
+            "type": "string",
+            "title": "Configuration Hash"
+          },
+          "rule_version": {
+            "type": "string",
+            "title": "Rule Version"
+          },
+          "schema_version": {
+            "type": "string",
+            "title": "Schema Version"
+          },
+          "adapters": {
+            "items": {
+              "$ref": "#/components/schemas/VersionReference"
+            },
+            "type": "array",
+            "title": "Adapters",
+            "default": []
+          },
+          "models": {
+            "items": {
+              "$ref": "#/components/schemas/VersionReference"
+            },
+            "type": "array",
+            "title": "Models",
+            "default": []
+          }
+        },
+        "type": "object",
+        "required": [
+          "configuration_version",
+          "configuration_hash",
+          "rule_version",
+          "schema_version"
+        ],
+        "title": "SessionVersions"
+      },
+      "VersionReference": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "version": {
+            "type": "string",
+            "title": "Version"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "version"
+        ],
+        "title": "VersionReference"
+      }
+    }
+  }
+}
