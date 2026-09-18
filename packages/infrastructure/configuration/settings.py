@@ -114,6 +114,11 @@ class PersistenceSettings(StrictSettings):
         return absolute_local_path(value) if value is not None else None
 
 
+class SessionSettings(StrictSettings):
+    default_seed: Annotated[int, Field(ge=0, le=2**63 - 1)] = 0
+    max_request_bytes: Annotated[int, Field(ge=256, le=65536)] = 4096
+
+
 class AppSettings(StrictSettings):
     schema_version: Literal["1.0"]
     api: ApiSettings
@@ -122,6 +127,7 @@ class AppSettings(StrictSettings):
     features: FeatureSettings
     persistence: PersistenceSettings = PersistenceSettings()
     health: HealthSettings = HealthSettings()
+    sessions: SessionSettings = SessionSettings()
 
     def database_path(self) -> Path:
         """Resolve configuration only; never create or open storage."""
@@ -201,6 +207,8 @@ def merge(base: dict[str, object], override: Mapping[str, object]) -> dict[str, 
 
 
 ENV_FIELDS = {
+    "ATC_SESSIONS_DEFAULT_SEED": ("sessions", "default_seed"),
+    "ATC_SESSIONS_MAX_REQUEST_BYTES": ("sessions", "max_request_bytes"),
     "ATC_SCHEMA_VERSION": ("schema_version",),
     "ATC_API_HOST": ("api", "host"),
     "ATC_API_PORT": ("api", "port"),
@@ -218,6 +226,8 @@ ENV_FIELDS = {
     "ATC_PERSISTENCE_BUSY_TIMEOUT_MS": ("persistence", "busy_timeout_ms"),
 }
 JSON_ENV_FIELDS = {
+    "ATC_SESSIONS_DEFAULT_SEED",
+    "ATC_SESSIONS_MAX_REQUEST_BYTES",
     "ATC_LOGGING_MAX_BYTES",
     "ATC_LOGGING_BACKUP_COUNT",
     "ATC_HEALTH_TIMEOUT_SECONDS",
