@@ -267,7 +267,7 @@
     "event_type": "component.health_changed",
     "schema_version": "1.0",
     "projection_version": "1.0",
-    "status": "reserved"
+    "status": "implemented"
   },
   {
     "event_type": "adapter.timeout",

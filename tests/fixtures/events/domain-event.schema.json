@@ -1,5 +1,67 @@
 {
   "$defs": {
+    "ComponentHealth": {
+      "additionalProperties": false,
+      "properties": {
+        "component": {
+          "pattern": "^[a-z][a-z0-9_]{0,47}$",
+          "title": "Component",
+          "type": "string"
+        },
+        "required": {
+          "title": "Required",
+          "type": "boolean"
+        },
+        "status": {
+          "$ref": "#/$defs/HealthStatus"
+        },
+        "severity": {
+          "$ref": "#/$defs/HealthSeverity"
+        },
+        "reason": {
+          "$ref": "#/$defs/HealthReason"
+        },
+        "observed_at": {
+          "format": "date-time",
+          "title": "Observed At",
+          "type": "string"
+        }
+      },
+      "required": [
+        "component",
+        "required",
+        "status",
+        "severity",
+        "reason",
+        "observed_at"
+      ],
+      "title": "ComponentHealth",
+      "type": "object"
+    },
+    "ComponentHealthChangedPayload": {
+      "additionalProperties": false,
+      "properties": {
+        "previous_status": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/HealthStatus"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "health": {
+          "$ref": "#/$defs/ComponentHealth"
+        }
+      },
+      "required": [
+        "previous_status",
+        "health"
+      ],
+      "title": "ComponentHealthChangedPayload",
+      "type": "object"
+    },
     "EventActor": {
       "additionalProperties": false,
       "properties": {
@@ -108,6 +170,35 @@
         "adapter.failed"
       ],
       "title": "EventType",
+      "type": "string"
+    },
+    "HealthReason": {
+      "enum": [
+        "operational",
+        "starting",
+        "failed",
+        "timeout",
+        "not_configured"
+      ],
+      "title": "HealthReason",
+      "type": "string"
+    },
+    "HealthSeverity": {
+      "enum": [
+        "info",
+        "warning",
+        "error"
+      ],
+      "title": "HealthSeverity",
+      "type": "string"
+    },
+    "HealthStatus": {
+      "enum": [
+        "healthy",
+        "degraded",
+        "unready"
+      ],
+      "title": "HealthStatus",
       "type": "string"
     },
     "SessionCreatedPayload": {
@@ -383,6 +474,9 @@
         },
         {
           "$ref": "#/$defs/SessionTransitionPayload"
+        },
+        {
+          "$ref": "#/$defs/ComponentHealthChangedPayload"
         }
       ],
       "title": "Payload"

@@ -14,6 +14,8 @@ def test_health_response_model() -> None:
     assert HealthResponse(status="ok", configuration_version="1.0").model_dump() == {
         "status": "ok",
         "configuration_version": "1.0",
+        "readiness": "healthy",
+        "components": (),
     }
 
 
@@ -21,7 +23,10 @@ def test_health_endpoint_returns_http_200() -> None:
     with TestClient(app) as client:
         response = client.get("/health")
     assert response.status_code == 200
-    assert response.json() == {"status": "ok", "configuration_version": "1.0"}
+    assert response.json()["status"] == "ok"
+    assert response.json()["configuration_version"] == "1.0"
+    assert response.json()["readiness"] == "healthy"
+    assert {item["component"] for item in response.json()["components"]} == {"api", "logging"}
 
 
 def test_override_profile_is_injected_and_health_does_not_expose_it() -> None:
@@ -29,7 +34,10 @@ def test_override_profile_is_injected_and_health_does_not_expose_it() -> None:
     custom = create_app(settings)
     assert custom.state.settings is settings
     with TestClient(custom) as client:
-        assert client.get("/health").json() == {"status": "ok", "configuration_version": "1.0"}
+        result = client.get("/health").json()
+        assert result["status"] == "ok" and result["configuration_version"] == "1.0"
+        assert "8123" not in json.dumps(result)
+        assert "DEBUG" not in json.dumps(result)
 
 
 def test_invalid_configuration_prevents_app_creation(monkeypatch: pytest.MonkeyPatch) -> None:

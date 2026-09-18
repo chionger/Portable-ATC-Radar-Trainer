@@ -16,3 +16,5 @@ h1 { margin: .5rem 0 1rem; font-size: clamp(2.4rem, 7vw, 4.5rem); line-height: .
 .health--healthy .health__indicator { background: #49d197; }
 .health--unavailable .health__indicator { background: #ef6b6b; }
 
+.health--degraded .health__indicator { background: #f0b429; }
+.health--unready .health__indicator { background: #e66b6b; }

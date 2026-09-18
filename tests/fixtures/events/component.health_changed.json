@@ -1,0 +1,30 @@
+{
+  "event_id": "health-example-1",
+  "event_type": "component.health_changed",
+  "schema_version": "1.0",
+  "session_id": "session-fixture",
+  "sequence": 2,
+  "sim_time": 0.0,
+  "wall_time_utc": "2026-09-18T00:00:00Z",
+  "actor": {
+    "kind": "system",
+    "identifier": null
+  },
+  "source": {
+    "component": "health",
+    "version": "1.0"
+  },
+  "correlation_id": "00000000-0000-0000-0000-000000000001",
+  "causation_id": null,
+  "payload": {
+    "previous_status": null,
+    "health": {
+      "component": "database",
+      "required": true,
+      "status": "healthy",
+      "severity": "info",
+      "reason": "operational",
+      "observed_at": "2026-09-18T00:00:00Z"
+    }
+  }
+}

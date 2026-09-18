@@ -46,6 +46,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         host=settings.api.host,
         port=settings.api.port,
         log_level=settings.logging.level.lower(),
+        access_log=False,  # Structured middleware excludes raw URLs/query strings.
     )
     return 0
 

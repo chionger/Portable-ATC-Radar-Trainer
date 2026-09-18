@@ -89,3 +89,17 @@ The version identifies the configuration schema; the full effective hash and set
 local. FP-006 adds explicit SQLite persistence settings without opening a database during API
 startup. See the [persistence operating guide](architecture/FP-006-persistence.md) for schema,
 transactions, recovery and backups. Model-specific tuning remains in later feature packets.
+
+## FP-007 logging and health settings
+
+Optional `logging.file_path` selects an absolute local JSON log file; null uses console
+logging. `logging.max_bytes` defaults to 1000000 (1024–100000000) and
+`logging.backup_count` to 3 (1–10). `health.timeout_seconds` defaults to 30 (greater
+than 0, at most 3600). Environment equivalents are `ATC_LOGGING_FILE_PATH`,
+`ATC_LOGGING_MAX_BYTES`, `ATC_LOGGING_BACKUP_COUNT` and `ATC_HEALTH_TIMEOUT_SECONDS`.
+The numeric environment values use JSON; `null` clears the log path. Log paths are
+redacted in reports. All new effective fields contribute to the configuration hash.
+
+The health response adds readiness and component observations while preserving its
+existing liveness fields. See [health and structured logging](health.md) for readiness
+meanings, producer integration, privacy rules and troubleshooting.
