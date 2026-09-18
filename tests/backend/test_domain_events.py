@@ -84,12 +84,12 @@ def test_catalogue_matches_architecture_and_has_no_ticks():
     names = set(re.findall(r"`([a-z_]+\.[a-z_]+)`", section.split("## 15.3")[0]))
     assert len(names) == 47
     assert {entry.event_type.value for entry in EVENT_REGISTRY.entries} == names
-    assert len([entry for entry in EVENT_REGISTRY.entries if entry.payload_type]) == 9
+    assert len([entry for entry in EVENT_REGISTRY.entries if entry.payload_type]) == 10
     assert "simulation.tick" not in names
 
 
 @pytest.mark.parametrize(
-    "name", [kind for kind in EventType if not kind.value.startswith("session.")]
+    "name", [kind for kind in EventType if EVENT_REGISTRY.get(kind).payload_type is None]
 )
 def test_reserved_entries_cannot_emit_placeholder_payloads(name):
     raw = json.loads(created().model_dump_json())

@@ -17,6 +17,7 @@ from pydantic import (
     model_validator,
 )
 
+from packages.domain.health import ComponentHealth, HealthStatus
 from packages.domain.session import (
     SessionFailure,
     SessionLifecycleState,
@@ -149,6 +150,14 @@ class SessionTransitionPayload(ImmutableContract):
         return self.model_dump(mode="json")
 
 
+class ComponentHealthChangedPayload(ImmutableContract):
+    previous_status: HealthStatus | None
+    health: ComponentHealth
+
+    def canonical_fields(self) -> dict[str, object]:
+        return {"previous_status": self.previous_status, "health": self.health.material_fields()}
+
+
 def transition_event_type(payload: SessionTransitionPayload) -> EventType:
     if payload.state == SessionLifecycleState.RUNNING:
         return (
@@ -162,7 +171,12 @@ def transition_event_type(payload: SessionTransitionPayload) -> EventType:
 @dataclass(frozen=True, slots=True)
 class EventSchema:
     event_type: EventType
-    payload_type: type[SessionCreatedPayload] | type[SessionTransitionPayload] | None
+    payload_type: (
+        type[SessionCreatedPayload]
+        | type[SessionTransitionPayload]
+        | type[ComponentHealthChangedPayload]
+        | None
+    )
     schema_version: str = EVENT_SCHEMA_VERSION
     projection_version: str = CANONICAL_PROJECTION_VERSION
 
@@ -178,6 +192,8 @@ class EventSchema:
             if self.event_type == EventType.SESSION_CREATED
             else SessionTransitionPayload
             if self.event_type.value.startswith("session.")
+            else ComponentHealthChangedPayload
+            if self.event_type == EventType.COMPONENT_HEALTH_CHANGED
             else None
         )
         if self.payload_type is not expected:
@@ -211,6 +227,8 @@ EVENT_REGISTRY = EventRegistry(
             if event_type == EventType.SESSION_CREATED
             else SessionTransitionPayload
             if event_type.value.startswith("session.")
+            else ComponentHealthChangedPayload
+            if event_type == EventType.COMPONENT_HEALTH_CHANGED
             else None,
         )
         for event_type in EventType
@@ -230,7 +248,7 @@ class DomainEvent(ImmutableContract):
     source: EventSource
     correlation_id: Text
     causation_id: Text | None = None
-    payload: SessionCreatedPayload | SessionTransitionPayload
+    payload: SessionCreatedPayload | SessionTransitionPayload | ComponentHealthChangedPayload
 
     @field_validator("wall_time_utc")
     @classmethod
@@ -251,6 +269,9 @@ class DomainEvent(ImmutableContract):
         if isinstance(self.payload, SessionCreatedPayload):
             if self.sequence != 1 or self.sim_time != 0:
                 raise ValueError("session.created must be first with zero simulation time")
+        elif isinstance(self.payload, ComponentHealthChangedPayload):
+            if self.sequence <= 1 or self.payload.health.observed_at != self.wall_time_utc:
+                raise ValueError("health event requires a session and matching observation time")
         else:
             if self.sequence <= 1:
                 raise ValueError("session transition must follow session.created")

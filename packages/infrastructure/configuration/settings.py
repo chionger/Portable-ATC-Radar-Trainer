@@ -85,6 +85,18 @@ class PathSettings(StrictSettings):
 
 class LoggingSettings(StrictSettings):
     level: Literal["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"]
+    file_path: str | None = None
+    max_bytes: Annotated[int, Field(ge=1024, le=100_000_000)] = 1_000_000
+    backup_count: Annotated[int, Field(ge=1, le=10)] = 3
+
+    @field_validator("file_path")
+    @classmethod
+    def local_log(cls, value: str | None) -> str | None:
+        return absolute_local_path(value) if value is not None else None
+
+
+class HealthSettings(StrictSettings):
+    timeout_seconds: Annotated[float, Field(gt=0, le=3600, allow_inf_nan=False)] = 30.0
 
 
 class FeatureSettings(StrictSettings):
@@ -109,6 +121,7 @@ class AppSettings(StrictSettings):
     logging: LoggingSettings
     features: FeatureSettings
     persistence: PersistenceSettings = PersistenceSettings()
+    health: HealthSettings = HealthSettings()
 
     def database_path(self) -> Path:
         """Resolve configuration only; never create or open storage."""
@@ -144,6 +157,9 @@ class AppSettings(StrictSettings):
             "model_root": "[REDACTED]" if self.paths.model_root is not None else None,
         }
         report["configuration_hash"] = self.configuration_hash()
+        report["logging"] = self.logging.model_dump(mode="json") | {
+            "file_path": "[REDACTED]" if self.logging.file_path else None,
+        }
         report["persistence"] = {
             "database_path": "[REDACTED]" if self.persistence.database_path is not None else None,
             "migration_mode": self.persistence.migration_mode,
@@ -192,12 +208,19 @@ ENV_FIELDS = {
     "ATC_PATHS_DATA_ROOT": ("paths", "data_root"),
     "ATC_PATHS_MODEL_ROOT": ("paths", "model_root"),
     "ATC_LOGGING_LEVEL": ("logging", "level"),
+    "ATC_LOGGING_FILE_PATH": ("logging", "file_path"),
+    "ATC_LOGGING_MAX_BYTES": ("logging", "max_bytes"),
+    "ATC_LOGGING_BACKUP_COUNT": ("logging", "backup_count"),
+    "ATC_HEALTH_TIMEOUT_SECONDS": ("health", "timeout_seconds"),
     "ATC_FEATURES_REPORT_CONFIGURATION": ("features", "report_configuration"),
     "ATC_PERSISTENCE_DATABASE_PATH": ("persistence", "database_path"),
     "ATC_PERSISTENCE_MIGRATION_MODE": ("persistence", "migration_mode"),
     "ATC_PERSISTENCE_BUSY_TIMEOUT_MS": ("persistence", "busy_timeout_ms"),
 }
 JSON_ENV_FIELDS = {
+    "ATC_LOGGING_MAX_BYTES",
+    "ATC_LOGGING_BACKUP_COUNT",
+    "ATC_HEALTH_TIMEOUT_SECONDS",
     "ATC_API_PORT",
     "ATC_API_CORS_ORIGINS",
     "ATC_FEATURES_REPORT_CONFIGURATION",
@@ -227,7 +250,9 @@ def load_settings(
             raise ConfigurationError("Unknown ATC_ environment setting")
         value: object = raw
         if name in JSON_ENV_FIELDS or (
-            name in {"ATC_PATHS_MODEL_ROOT", "ATC_PERSISTENCE_DATABASE_PATH"} and raw == "null"
+            name
+            in {"ATC_PATHS_MODEL_ROOT", "ATC_PERSISTENCE_DATABASE_PATH", "ATC_LOGGING_FILE_PATH"}
+            and raw == "null"
         ):
             try:
                 value = json.loads(raw)

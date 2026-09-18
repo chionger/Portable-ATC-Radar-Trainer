@@ -5,7 +5,12 @@ from collections.abc import Callable
 from dataclasses import dataclass
 from typing import Protocol
 
-from packages.domain.events import DomainEvent, SessionCreatedPayload, SessionTransitionPayload
+from packages.domain.events import (
+    ComponentHealthChangedPayload,
+    DomainEvent,
+    SessionCreatedPayload,
+    SessionTransitionPayload,
+)
 from packages.domain.session import (
     CreateSessionRequest,
     Session,
@@ -60,6 +65,12 @@ def project_session(events: tuple[DomainEvent, ...]) -> SessionProjection:
                     payload.failure,
                 ),
             ).session
+        elif isinstance(payload, ComponentHealthChangedPayload) and session is not None:
+            if (
+                event.sim_time != session.simulation_time
+                or event.wall_time_utc < session.updated_at
+            ):
+                raise ValueError("health event must retain committed session time")
         else:
             raise ValueError("history must start with one creation event")
     assert session is not None

@@ -10,7 +10,7 @@ context and the `EventRepository` port. No IDs, clocks or storage are allocated.
 The machine-readable catalogue is `tests/fixtures/events/catalogue.json`. It
 contains all 47 names from architecture baseline section 15.2; a contract test
 compares the two. Duplicate names, unknown names and routine clock ticks are
-rejected. The nine implemented names are:
+rejected. The ten implemented names (including FP-007 health) are:
 
 | Event | Fact |
 | --- | --- |
@@ -23,6 +23,7 @@ rejected. The nine implemented names are:
 | session.completed | RUNNING or PAUSED to COMPLETED |
 | session.stopped | RUNNING or PAUSED to STOPPED |
 | session.failed | Any nonterminal state to FAILED, with category and reason |
+| component.health_changed | Material component health change for an existing session (FP-007) |
 
 Other catalogue entries reserve names and version metadata for later producers;
 their payload type is absent and emission/deserialization is rejected. Reserving
@@ -98,3 +99,7 @@ then publish. No database or publication is implemented here. Atomic state/event
 projection consistency and recovery remain gated by FP-005 (ADR-008), followed
 by the persistence implementation in FP-006. This packet adds no application
 settings, routes, WebSocket behavior or business-rule consumers.
+
+## FP-007 extension
+
+The health payload contains previous status and a typed component observation. Canonical comparison excludes its observation wall time. Session projection consumes this event without changing lifecycle state/version or simulation time. See [health and logging](health.md) for the producer, durability, deduplication and correlation contracts. FP-006 implements the approved persistence boundary described above.
