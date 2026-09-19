@@ -119,6 +119,16 @@ class SessionSettings(StrictSettings):
     max_request_bytes: Annotated[int, Field(ge=256, le=65536)] = 4096
 
 
+class ScenarioSettings(StrictSettings):
+    directory: str | None = None
+    validation: Literal["strict"] = "strict"
+
+    @field_validator("directory")
+    @classmethod
+    def local_directory(cls, value: str | None) -> str | None:
+        return absolute_local_path(value) if value is not None else None
+
+
 class AppSettings(StrictSettings):
     schema_version: Literal["1.0"]
     api: ApiSettings
@@ -128,6 +138,7 @@ class AppSettings(StrictSettings):
     persistence: PersistenceSettings = PersistenceSettings()
     health: HealthSettings = HealthSettings()
     sessions: SessionSettings = SessionSettings()
+    scenarios: ScenarioSettings = ScenarioSettings()
 
     def database_path(self) -> Path:
         """Resolve configuration only; never create or open storage."""
@@ -161,6 +172,10 @@ class AppSettings(StrictSettings):
         report["paths"] = {
             "data_root": "[REDACTED]",
             "model_root": "[REDACTED]" if self.paths.model_root is not None else None,
+        }
+        report["scenarios"] = {
+            "directory": "[REDACTED]" if self.scenarios.directory else None,
+            "validation": self.scenarios.validation,
         }
         report["configuration_hash"] = self.configuration_hash()
         report["logging"] = self.logging.model_dump(mode="json") | {
@@ -207,6 +222,8 @@ def merge(base: dict[str, object], override: Mapping[str, object]) -> dict[str, 
 
 
 ENV_FIELDS = {
+    "ATC_SCENARIOS_DIRECTORY": ("scenarios", "directory"),
+    "ATC_SCENARIOS_VALIDATION": ("scenarios", "validation"),
     "ATC_SESSIONS_DEFAULT_SEED": ("sessions", "default_seed"),
     "ATC_SESSIONS_MAX_REQUEST_BYTES": ("sessions", "max_request_bytes"),
     "ATC_SCHEMA_VERSION": ("schema_version",),

@@ -9,7 +9,15 @@ from uuid import NAMESPACE_URL, UUID, uuid4, uuid5
 
 from packages.application.events import EventContext, SessionEventFactory
 from packages.application.persistence import SessionUnitOfWork, WriteRequest
+from packages.application.scenarios import (
+    ScenarioCatalogue,
+    ScenarioInvalid,
+    ScenarioIssue,
+    ScenarioMissing,
+    validate_references,
+)
 from packages.domain.events import DomainEvent, EventActor, EventSource
+from packages.domain.scenario import Scenario
 from packages.domain.session import (
     CreateSessionRequest,
     Session,
@@ -54,11 +62,13 @@ class DurableSessionService:
         versions: SessionVersions,
         *,
         default_seed: int = 0,
+        scenario_catalogue: ScenarioCatalogue | None = None,
         clock: Callable[[], datetime] = lambda: datetime.now(UTC),
     ) -> None:
         self.store = store
         self.versions = versions
         self.default_seed = default_seed
+        self.scenario_catalogue = scenario_catalogue
         self.clock = clock
         self.events = SessionEventFactory()
 
@@ -91,8 +101,15 @@ class DurableSessionService:
         seed: int | None,
         idempotency_key: UUID,
         correlation_id: UUID,
+        resolve_scenario: Callable[[], Scenario] | None = None,
     ) -> Session:
         session_id = self.identity(idempotency_key)
+        prior = self.store.get_session(session_id)
+        captured = resolve_scenario() if prior is None and resolve_scenario else None
+        if captured:
+            validate_references(captured)
+        if captured and (captured.id, captured.version) != (scenario_id, scenario_version):
+            raise ScenarioInvalid(ScenarioIssue("scenario", "identity_mismatch"))
         observed_at, event_id = self.clock(), str(uuid4())
         request = WriteRequest(
             session_id,
@@ -111,9 +128,12 @@ class DurableSessionService:
                     session_id,
                     scenario_id,
                     scenario_version,
-                    self.default_seed if seed is None else seed,
+                    (captured.default_seed if captured else self.default_seed)
+                    if seed is None
+                    else seed,
                     self.versions,
                     observed_at,
+                    captured.content_hash() if captured else None,
                 )
             )
             return (self.events.created(session, self.context(sequence, correlation_id, event_id)),)
@@ -134,6 +154,19 @@ class DurableSessionService:
     ) -> Session:
         # Validate the loaded version under the write lock, after retry lookup.
         current = self.get(session_id)
+        scenario_error: ScenarioInvalid | None = None
+        if target == SessionLifecycleState.READY and current.scenario_hash is not None:
+            try:
+                if self.scenario_catalogue is None:
+                    raise ScenarioMissing("Scenario catalogue unavailable")
+                captured = self.scenario_catalogue.get(
+                    current.scenario_id, current.scenario_version
+                )
+                validate_references(captured)
+                if captured.content_hash() != current.scenario_hash:
+                    raise ScenarioInvalid(ScenarioIssue("scenario_hash", "hash_mismatch"))
+            except (ScenarioInvalid, ScenarioMissing):
+                scenario_error = ScenarioInvalid(ScenarioIssue("scenario", "readiness_blocked"))
         observed_at, event_id = self.clock(), str(uuid4())
         request = WriteRequest(
             session_id,
@@ -152,6 +185,8 @@ class DurableSessionService:
         )
 
         def build(sequence: int) -> tuple[DomainEvent, ...]:
+            if scenario_error is not None:
+                raise scenario_error
             if required_state is not None and current.lifecycle_state != required_state:
                 raise SessionTransitionError(
                     TransitionErrorCode.ILLEGAL_TRANSITION, "Illegal lifecycle command"
@@ -172,3 +207,42 @@ class DurableSessionService:
             )
 
         return self.store.commit(request, build).projection.session
+
+    def prepare_scenario(
+        self,
+        session_id: str,
+        catalogue: ScenarioCatalogue,
+        *,
+        idempotency_key: UUID,
+        correlation_id: UUID,
+    ) -> Session:
+        """Validate the pinned scenario; readiness awaits later adapter wiring.
+
+        A rejected scenario leaves a durable FAILED session, never READY. The
+        same key can retry this preparation without duplicating transitions.
+        """
+        current = self.get(session_id)
+        if current.lifecycle_state == SessionLifecycleState.CREATED:
+            current = self.transition(
+                session_id,
+                SessionLifecycleState.INITIALISING,
+                expected_version=current.version,
+                idempotency_key=uuid5(idempotency_key, "initialising"),
+                correlation_id=correlation_id,
+            )
+        if current.lifecycle_state != SessionLifecycleState.INITIALISING:
+            return current
+        try:
+            scenario = catalogue.get(current.scenario_id, current.scenario_version)
+            if current.scenario_hash is None or current.scenario_hash != scenario.content_hash():
+                raise ScenarioInvalid(ScenarioIssue("scenario_hash", "hash_mismatch"))
+        except (ScenarioInvalid, ScenarioMissing):
+            return self.transition(
+                session_id,
+                SessionLifecycleState.FAILED,
+                expected_version=current.version,
+                idempotency_key=uuid5(idempotency_key, "invalid_scenario"),
+                correlation_id=correlation_id,
+                failure=SessionFailure("scenario", "SCENARIO_VALIDATION_FAILED"),
+            )
+        return current

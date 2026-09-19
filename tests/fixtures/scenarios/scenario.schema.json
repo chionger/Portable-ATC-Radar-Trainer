@@ -1,0 +1,506 @@
+{
+  "$defs": {
+    "EndConditions": {
+      "additionalProperties": false,
+      "properties": {
+        "time_limit_seconds": {
+          "exclusiveMinimum": 0,
+          "maximum": 86400,
+          "title": "Time Limit Seconds",
+          "type": "number"
+        },
+        "success_objectives": {
+          "items": {
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]{0,63}$",
+            "type": "string"
+          },
+          "maxItems": 256,
+          "minItems": 1,
+          "title": "Success Objectives",
+          "type": "array"
+        },
+        "failure_on_timeout": {
+          "default": true,
+          "title": "Failure On Timeout",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "time_limit_seconds",
+        "success_objectives"
+      ],
+      "title": "EndConditions",
+      "type": "object"
+    },
+    "Entity": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]{0,63}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "callsign": {
+          "pattern": "^[A-Z0-9][A-Z0-9 -]{0,31}$",
+          "title": "Callsign",
+          "type": "string"
+        },
+        "position": {
+          "$ref": "#/$defs/Point"
+        },
+        "state": {
+          "enum": [
+            "PARKED",
+            "TAXIING",
+            "HOLDING",
+            "INBOUND",
+            "FINAL"
+          ],
+          "title": "State",
+          "type": "string"
+        },
+        "route": {
+          "default": [],
+          "items": {
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]{0,63}$",
+            "type": "string"
+          },
+          "maxItems": 256,
+          "title": "Route",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "callsign",
+        "position",
+        "state"
+      ],
+      "title": "Entity",
+      "type": "object"
+    },
+    "Environment": {
+      "additionalProperties": false,
+      "properties": {
+        "wind_direction_deg": {
+          "default": 0,
+          "exclusiveMaximum": 360,
+          "minimum": 0,
+          "title": "Wind Direction Deg",
+          "type": "number"
+        },
+        "wind_speed_kt": {
+          "default": 0,
+          "maximum": 100,
+          "minimum": 0,
+          "title": "Wind Speed Kt",
+          "type": "number"
+        },
+        "visibility_m": {
+          "default": 10000,
+          "exclusiveMinimum": 0,
+          "maximum": 100000,
+          "title": "Visibility M",
+          "type": "number"
+        },
+        "frequency_mhz": {
+          "maximum": 137,
+          "minimum": 118,
+          "title": "Frequency Mhz",
+          "type": "number"
+        }
+      },
+      "required": [
+        "frequency_mhz"
+      ],
+      "title": "Environment",
+      "type": "object"
+    },
+    "ErrorInjection": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]{0,63}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "entity_id": {
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]{0,63}$",
+          "title": "Entity Id",
+          "type": "string"
+        },
+        "at_seconds": {
+          "maximum": 86400,
+          "minimum": 0,
+          "title": "At Seconds",
+          "type": "number"
+        },
+        "kind": {
+          "enum": [
+            "incorrect_readback",
+            "delayed_response"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "probability": {
+          "default": 1,
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Probability",
+          "type": "number"
+        }
+      },
+      "required": [
+        "id",
+        "entity_id",
+        "at_seconds",
+        "kind"
+      ],
+      "title": "ErrorInjection",
+      "type": "object"
+    },
+    "Geometry": {
+      "additionalProperties": false,
+      "properties": {
+        "coordinate_system": {
+          "const": "local_metres",
+          "default": "local_metres",
+          "title": "Coordinate System",
+          "type": "string"
+        },
+        "runways": {
+          "items": {
+            "$ref": "#/$defs/Runway"
+          },
+          "maxItems": 16,
+          "minItems": 1,
+          "title": "Runways",
+          "type": "array"
+        },
+        "taxiways": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/Taxiway"
+          },
+          "maxItems": 256,
+          "title": "Taxiways",
+          "type": "array"
+        },
+        "holding_points": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/HoldingPoint"
+          },
+          "maxItems": 256,
+          "title": "Holding Points",
+          "type": "array"
+        }
+      },
+      "required": [
+        "runways"
+      ],
+      "title": "Geometry",
+      "type": "object"
+    },
+    "HoldingPoint": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]{0,63}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "position": {
+          "$ref": "#/$defs/Point"
+        },
+        "runway_id": {
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]{0,63}$",
+          "title": "Runway Id",
+          "type": "string"
+        },
+        "taxiway_id": {
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]{0,63}$",
+          "title": "Taxiway Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "position",
+        "runway_id",
+        "taxiway_id"
+      ],
+      "title": "HoldingPoint",
+      "type": "object"
+    },
+    "Objective": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]{0,63}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "description": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Description",
+          "type": "string"
+        },
+        "entity_id": {
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]{0,63}$",
+          "title": "Entity Id",
+          "type": "string"
+        },
+        "target_id": {
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]{0,63}$",
+          "title": "Target Id",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "reach",
+            "hold",
+            "vacate"
+          ],
+          "title": "Kind",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "description",
+        "entity_id",
+        "target_id",
+        "kind"
+      ],
+      "title": "Objective",
+      "type": "object"
+    },
+    "Point": {
+      "additionalProperties": false,
+      "properties": {
+        "x": {
+          "maximum": 1000000,
+          "minimum": -1000000,
+          "title": "X",
+          "type": "number"
+        },
+        "y": {
+          "maximum": 1000000,
+          "minimum": -1000000,
+          "title": "Y",
+          "type": "number"
+        }
+      },
+      "required": [
+        "x",
+        "y"
+      ],
+      "title": "Point",
+      "type": "object"
+    },
+    "Presentation": {
+      "additionalProperties": false,
+      "properties": {
+        "title": {
+          "maxLength": 128,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "description": {
+          "default": "",
+          "maxLength": 2048,
+          "title": "Description",
+          "type": "string"
+        }
+      },
+      "required": [
+        "title"
+      ],
+      "title": "Presentation",
+      "type": "object"
+    },
+    "Runway": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]{0,63}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "threshold": {
+          "$ref": "#/$defs/Point"
+        },
+        "end": {
+          "$ref": "#/$defs/Point"
+        },
+        "width_m": {
+          "exclusiveMinimum": 0,
+          "maximum": 200,
+          "title": "Width M",
+          "type": "number"
+        }
+      },
+      "required": [
+        "id",
+        "threshold",
+        "end",
+        "width_m"
+      ],
+      "title": "Runway",
+      "type": "object"
+    },
+    "ScheduledEvent": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]{0,63}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "at_seconds": {
+          "maximum": 86400,
+          "minimum": 0,
+          "title": "At Seconds",
+          "type": "number"
+        },
+        "entity_id": {
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]{0,63}$",
+          "title": "Entity Id",
+          "type": "string"
+        },
+        "action": {
+          "enum": [
+            "activate",
+            "request_taxi",
+            "report_inbound"
+          ],
+          "title": "Action",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "at_seconds",
+        "entity_id",
+        "action"
+      ],
+      "title": "ScheduledEvent",
+      "type": "object"
+    },
+    "Taxiway": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]{0,63}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "points": {
+          "items": {
+            "$ref": "#/$defs/Point"
+          },
+          "maxItems": 256,
+          "minItems": 2,
+          "title": "Points",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "points"
+      ],
+      "title": "Taxiway",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "id": {
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]{0,63}$",
+      "title": "Id",
+      "type": "string"
+    },
+    "version": {
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]{0,63}$",
+      "title": "Version",
+      "type": "string"
+    },
+    "default_seed": {
+      "maximum": 9223372036854775807,
+      "minimum": 0,
+      "title": "Default Seed",
+      "type": "integer"
+    },
+    "presentation": {
+      "$ref": "#/$defs/Presentation"
+    },
+    "geometry": {
+      "$ref": "#/$defs/Geometry"
+    },
+    "environment": {
+      "$ref": "#/$defs/Environment"
+    },
+    "entities": {
+      "items": {
+        "$ref": "#/$defs/Entity"
+      },
+      "maxItems": 256,
+      "minItems": 1,
+      "title": "Entities",
+      "type": "array"
+    },
+    "schedules": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/ScheduledEvent"
+      },
+      "maxItems": 1024,
+      "title": "Schedules",
+      "type": "array"
+    },
+    "objectives": {
+      "items": {
+        "$ref": "#/$defs/Objective"
+      },
+      "maxItems": 256,
+      "minItems": 1,
+      "title": "Objectives",
+      "type": "array"
+    },
+    "error_injections": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/ErrorInjection"
+      },
+      "maxItems": 1024,
+      "title": "Error Injections",
+      "type": "array"
+    },
+    "end_conditions": {
+      "$ref": "#/$defs/EndConditions"
+    }
+  },
+  "required": [
+    "schema_version",
+    "id",
+    "version",
+    "default_seed",
+    "presentation",
+    "geometry",
+    "environment",
+    "entities",
+    "objectives",
+    "end_conditions"
+  ],
+  "title": "Scenario",
+  "type": "object"
+}

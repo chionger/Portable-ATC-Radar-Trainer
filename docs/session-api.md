@@ -117,3 +117,11 @@ Reopening validates retained history and rebuilds projections. Rolling back thes
 to FP-007 leaves compatible lifecycle events in place; retain the database and pending
 outbox records. An older API without these routes cannot operate existing sessions.
 AB-04 failed-history replay remains open. A live failed session is terminal.
+
+## FP-009 configured scenario validation
+
+When scenarios.directory is configured, new sessions resolve the requested ID/version,
+pin the validated scenario hash and use its default seed when omitted. Existing retry
+results remain unchanged. [Scenario preparation](scenarios.md) is an internal hook:
+it records failure for invalid/mismatched data and leaves valid preparation INITIALISING
+until later adapter wiring. No public readiness route is introduced.

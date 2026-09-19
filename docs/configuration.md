@@ -110,3 +110,9 @@ Session storage reuses paths.data_root and persistence.database_path. sessions.d
 (ATC_SESSIONS_DEFAULT_SEED) defaults to 0; sessions.max_request_bytes
 (ATC_SESSIONS_MAX_REQUEST_BYTES) defaults to 4096. See [session API](session-api.md)
 for bounds, deterministic seed policy, request contracts and retry behaviour.
+
+## FP-009 scenarios
+
+scenarios.directory (ATC_SCENARIOS_DIRECTORY) defaults to null; scenarios.validation
+(ATC_SCENARIOS_VALIDATION) supports strict only. See the [scenario guide](scenarios.md)
+for immutable catalogue capture, validation limits and session hash pinning.

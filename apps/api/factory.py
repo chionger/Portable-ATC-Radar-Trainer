@@ -3,7 +3,9 @@ import logging
 import sqlite3
 from collections.abc import AsyncIterator, Awaitable, Callable
 from contextlib import asynccontextmanager
+from dataclasses import asdict
 from pathlib import Path
+from threading import RLock
 from time import perf_counter
 from uuid import UUID, uuid4
 
@@ -14,8 +16,10 @@ from starlette.exceptions import HTTPException
 from starlette.responses import JSONResponse, Response
 
 from apps.api.models import HealthResponse
+from apps.api.scenarios import router as scenario_router
 from apps.api.sessions import SessionBodyLimit, error_response, router
 from packages.application.health import HealthRegistry
+from packages.application.scenarios import ScenarioInvalid, ScenarioMissing
 from packages.application.sessions import SessionNotFound
 from packages.domain.health import HealthReason, HealthStatus, MetricName, MetricObservation
 from packages.domain.session import SessionTransitionError
@@ -65,6 +69,9 @@ def create_app(
         title="Portable ATC Radar Trainer API", version="0.1.0", lifespan=lifespan
     )
     application.include_router(router)
+    application.include_router(scenario_router)
+    application.state.scenario_lock = RLock()
+    application.state.scenario_catalogue = None
     application.add_middleware(SessionBodyLimit, limit=effective.sessions.max_request_bytes)
     application.state.settings = effective
     application.state.health_registry = registry
@@ -80,6 +87,22 @@ def create_app(
         logging.getLogger(__name__).info(
             "Effective configuration: %s", json.dumps(effective.redacted_report(), sort_keys=True)
         )
+
+    @application.exception_handler(ScenarioInvalid)
+    async def scenario_invalid(request: Request, error: ScenarioInvalid) -> JSONResponse:
+        return JSONResponse(
+            {
+                "code": "INVALID_SCENARIO",
+                "message": "Scenario validation failed",
+                "details": {"issues": [asdict(issue) for issue in error.issues]},
+                "correlation_id": str(request.state.correlation_id),
+            },
+            status_code=422,
+        )
+
+    @application.exception_handler(ScenarioMissing)
+    async def scenario_missing(request: Request, error: ScenarioMissing) -> JSONResponse:
+        return error_response(request, 404, "SCENARIO_NOT_FOUND", "Scenario not found")
 
     @application.exception_handler(SessionNotFound)
     async def not_found(request: Request, error: SessionNotFound) -> JSONResponse:

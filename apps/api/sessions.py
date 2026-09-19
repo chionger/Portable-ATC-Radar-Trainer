@@ -1,5 +1,6 @@
 """Versioned session REST boundary. Storage is opened only for session requests."""
 
+from pathlib import Path
 from typing import Annotated, Any, Literal
 from uuid import UUID
 
@@ -8,10 +9,12 @@ from pydantic import BaseModel, ConfigDict, Field
 from starlette.responses import JSONResponse
 from starlette.types import ASGIApp, Message, Receive, Scope, Send
 
+from apps.api.scenarios import catalogue
 from packages.application.sessions import DurableSessionService
 from packages.domain.session import Session, SessionLifecycleState, SessionVersions
 from packages.infrastructure.configuration import AppSettings
 from packages.infrastructure.persistence.sqlite import SQLiteEventStore
+from packages.infrastructure.scenarios import LocalScenarioCatalogue
 
 
 class CreateSessionBody(BaseModel):
@@ -119,6 +122,9 @@ def service(store: SQLiteEventStore, settings: AppSettings) -> DurableSessionSer
         store,
         SessionVersions(settings.schema_version, settings.configuration_hash(), "1.0", "1.0"),
         default_seed=settings.sessions.default_seed,
+        scenario_catalogue=LocalScenarioCatalogue(Path(settings.scenarios.directory))
+        if settings.scenarios.directory
+        else None,
     )
 
 
@@ -151,6 +157,11 @@ def create_session_route(
             scenario_id=body.scenario_id,
             scenario_version=body.scenario_version,
             seed=body.seed,
+            resolve_scenario=(
+                lambda: catalogue(request).get(body.scenario_id, body.scenario_version)
+            )
+            if settings.scenarios.directory
+            else None,
             idempotency_key=idempotency_key,
             correlation_id=request.state.correlation_id,
         )

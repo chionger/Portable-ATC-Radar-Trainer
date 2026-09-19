@@ -110,8 +110,14 @@ class Session:
     ended_at: datetime | None = None
     outcome: SessionOutcome | None = None
     failure: SessionFailure | None = None
+    scenario_hash: str | None = None
 
     def __post_init__(self) -> None:
+        if self.scenario_hash is not None and (
+            not isinstance(self.scenario_hash, str)
+            or not re.fullmatch(r"[0-9a-f]{64}", self.scenario_hash)
+        ):
+            raise ValueError("invalid scenario hash")
         for field in ("session_id", "scenario_id", "scenario_version"):
             _text(getattr(self, field), field)
         if type(self.seed) is not int or self.seed < 0:
@@ -187,6 +193,7 @@ class CreateSessionRequest:
     seed: int
     versions: SessionVersions
     created_at: datetime
+    scenario_hash: str | None = None
 
 
 def create_session(request: CreateSessionRequest) -> Session:
@@ -199,6 +206,7 @@ def create_session(request: CreateSessionRequest) -> Session:
         versions=request.versions,
         created_at=request.created_at,
         updated_at=request.created_at,
+        scenario_hash=request.scenario_hash,
     )
 
 

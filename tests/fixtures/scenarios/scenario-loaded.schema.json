@@ -1,0 +1,34 @@
+{
+  "additionalProperties": false,
+  "description": "Future initialisation event contract; not activated/emitted by FP-009.",
+  "properties": {
+    "scenario_id": {
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]{0,63}$",
+      "title": "Scenario Id",
+      "type": "string"
+    },
+    "scenario_version": {
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]{0,63}$",
+      "title": "Scenario Version",
+      "type": "string"
+    },
+    "scenario_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Scenario Hash",
+      "type": "string"
+    },
+    "scenario_schema_version": {
+      "const": "1.0",
+      "default": "1.0",
+      "title": "Scenario Schema Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "scenario_id",
+    "scenario_version",
+    "scenario_hash"
+  ],
+  "title": "ScenarioLoadedPayload",
+  "type": "object"
+}

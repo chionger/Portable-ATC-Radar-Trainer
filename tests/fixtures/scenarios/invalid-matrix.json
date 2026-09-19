@@ -1,0 +1,162 @@
+[
+  {
+    "path": [
+      "schema_version"
+    ],
+    "value": "2.0",
+    "location": "schema_version"
+  },
+  {
+    "path": [
+      "geometry",
+      "runways",
+      0,
+      "width_m"
+    ],
+    "value": -1,
+    "location": "geometry.runways.0.width_m"
+  },
+  {
+    "path": [
+      "geometry",
+      "runways",
+      0,
+      "end"
+    ],
+    "value": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "location": "geometry.runways.0"
+  },
+  {
+    "path": [
+      "geometry",
+      "runways",
+      0,
+      "threshold",
+      "x"
+    ],
+    "value": "nan",
+    "location": "geometry.runways.0.threshold.x"
+  },
+  {
+    "path": [
+      "geometry",
+      "holding_points",
+      0,
+      "runway_id"
+    ],
+    "value": "missing",
+    "location": "geometry.holding_points.0.runway_id"
+  },
+  {
+    "path": [
+      "geometry",
+      "holding_points",
+      0,
+      "taxiway_id"
+    ],
+    "value": "missing",
+    "location": "geometry.holding_points.0.taxiway_id"
+  },
+  {
+    "path": [
+      "entities",
+      0,
+      "route"
+    ],
+    "value": [
+      "missing"
+    ],
+    "location": "entities.0.route.0"
+  },
+  {
+    "path": [
+      "objectives",
+      0,
+      "entity_id"
+    ],
+    "value": "missing",
+    "location": "objectives.0.entity_id"
+  },
+  {
+    "path": [
+      "objectives",
+      0,
+      "target_id"
+    ],
+    "value": "missing",
+    "location": "objectives.0.target_id"
+  },
+  {
+    "path": [
+      "schedules",
+      0,
+      "entity_id"
+    ],
+    "value": "missing",
+    "location": "schedules.0.entity_id"
+  },
+  {
+    "path": [
+      "schedules",
+      0,
+      "action"
+    ],
+    "value": "exec",
+    "location": "schedules.0.action"
+  },
+  {
+    "path": [
+      "error_injections",
+      0,
+      "probability"
+    ],
+    "value": 1.1,
+    "location": "error_injections.0.probability"
+  },
+  {
+    "path": [
+      "end_conditions",
+      "success_objectives"
+    ],
+    "value": [
+      "missing"
+    ],
+    "location": "end_conditions.success_objectives.0"
+  },
+  {
+    "path": [
+      "schedules",
+      0,
+      "at_seconds"
+    ],
+    "value": 601,
+    "location": "schedules.0.at_seconds"
+  },
+  {
+    "path": [
+      "geometry",
+      "taxiways",
+      0,
+      "id"
+    ],
+    "value": "runway-09",
+    "location": "geometry.taxiways.0.id"
+  },
+  {
+    "path": [
+      "default_seed"
+    ],
+    "value": true,
+    "location": "default_seed"
+  },
+  {
+    "path": [
+      "execute"
+    ],
+    "value": "arbitrary code",
+    "location": "execute"
+  }
+]

@@ -593,6 +593,91 @@
         }
       }
     },
+    "/api/v1/scenarios": {
+      "get": {
+        "tags": [
+          "scenarios"
+        ],
+        "summary": "List Scenarios",
+        "operationId": "list_scenarios_api_v1_scenarios_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/ScenarioMetadata"
+                  },
+                  "type": "array",
+                  "title": "Response List Scenarios Api V1 Scenarios Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/scenarios/{scenario_id}": {
+      "get": {
+        "tags": [
+          "scenarios"
+        ],
+        "summary": "Get Scenario",
+        "operationId": "get_scenario_api_v1_scenarios__scenario_id__get",
+        "parameters": [
+          {
+            "name": "scenario_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]{0,63}$",
+              "title": "Scenario Id"
+            }
+          },
+          {
+            "name": "version",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]{0,63}$"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Version"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ScenarioMetadata"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/health": {
       "get": {
         "summary": "Health",
@@ -735,6 +820,19 @@
         ],
         "title": "ErrorResponse"
       },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
       "HealthReason": {
         "type": "string",
         "enum": [
@@ -825,6 +923,50 @@
           }
         ]
       },
+      "ScenarioMetadata": {
+        "properties": {
+          "schema_version": {
+            "type": "string",
+            "const": "1.0",
+            "title": "Schema Version",
+            "default": "1.0"
+          },
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "version": {
+            "type": "string",
+            "title": "Version"
+          },
+          "content_hash": {
+            "type": "string",
+            "title": "Content Hash"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "description": {
+            "type": "string",
+            "title": "Description"
+          },
+          "default_seed": {
+            "type": "integer",
+            "title": "Default Seed"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "version",
+          "content_hash",
+          "title",
+          "description",
+          "default_seed"
+        ],
+        "title": "ScenarioMetadata"
+      },
       "Session": {
         "properties": {
           "session_id": {
@@ -913,6 +1055,17 @@
                 "type": "null"
               }
             ]
+          },
+          "scenario_hash": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Scenario Hash"
           }
         },
         "type": "object",
@@ -1030,6 +1183,39 @@
           "schema_version"
         ],
         "title": "SessionVersions"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
       },
       "VersionReference": {
         "properties": {
