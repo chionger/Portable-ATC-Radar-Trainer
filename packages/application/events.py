@@ -55,6 +55,7 @@ class SessionEventFactory:
             payload=SessionCreatedPayload(
                 scenario_id=session.scenario_id,
                 scenario_version=session.scenario_version,
+                scenario_hash=session.scenario_hash,
                 seed=session.seed,
                 versions=session.versions,
             ),

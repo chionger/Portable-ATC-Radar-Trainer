@@ -12,8 +12,10 @@ from pydantic import (
     BaseModel,
     ConfigDict,
     Field,
+    SerializerFunctionWrapHandler,
     StringConstraints,
     field_validator,
+    model_serializer,
     model_validator,
 )
 
@@ -103,10 +105,18 @@ class TypedPayload(Protocol):
 class SessionCreatedPayload(ImmutableContract):
     scenario_id: Text
     scenario_version: Text
+    scenario_hash: Annotated[str, Field(pattern=r"^[0-9a-f]{64}$")] | None = None
     seed: Annotated[int, Field(strict=True, ge=0)]
     versions: SessionVersions
     state: Literal[SessionLifecycleState.CREATED] = SessionLifecycleState.CREATED
     version: Literal[1] = 1
+
+    @model_serializer(mode="wrap")
+    def compatible_document(self, handler: SerializerFunctionWrapHandler) -> dict[str, object]:
+        result: dict[str, object] = handler(self)
+        if self.scenario_hash is None:
+            result.pop("scenario_hash", None)
+        return result
 
     @field_validator("version", mode="before")
     @classmethod

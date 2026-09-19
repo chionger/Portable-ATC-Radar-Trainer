@@ -48,6 +48,7 @@ def project_session(events: tuple[DomainEvent, ...]) -> SessionProjection:
                     payload.seed,
                     payload.versions,
                     event.wall_time_utc,
+                    payload.scenario_hash,
                 )
             )
         elif isinstance(payload, SessionTransitionPayload) and session is not None:

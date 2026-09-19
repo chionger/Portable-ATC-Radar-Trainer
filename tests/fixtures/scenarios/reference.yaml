@@ -1,0 +1,54 @@
+schema_version: "1.0"
+id: reference-tower
+version: "1.0"
+default_seed: 42
+presentation:
+  title: Reference tower training skeleton
+  description: Synthetic local geometry; no operational aerodrome data.
+geometry:
+  coordinate_system: local_metres
+  runways:
+    - id: runway-09
+      threshold: {x: 0.0, y: 0.0}
+      end: {x: 1800.0, y: 0.0}
+      width_m: 45.0
+  taxiways:
+    - id: taxiway-a
+      points: [{x: 100.0, y: 200.0}, {x: 100.0, y: 60.0}]
+  holding_points:
+    - id: hold-a
+      position: {x: 100.0, y: 60.0}
+      runway_id: runway-09
+      taxiway_id: taxiway-a
+environment:
+  wind_direction_deg: 90.0
+  wind_speed_kt: 5.0
+  visibility_m: 10000.0
+  frequency_mhz: 118.7
+entities:
+  - id: aircraft-1
+    callsign: TRAINER 1
+    position: {x: 100.0, y: 200.0}
+    state: PARKED
+    route: [taxiway-a, hold-a, runway-09]
+schedules:
+  - id: request-1
+    at_seconds: 10.0
+    entity_id: aircraft-1
+    action: request_taxi
+objectives:
+  - id: hold-safely
+    description: Hold at the designated holding point.
+    entity_id: aircraft-1
+    target_id: hold-a
+    kind: hold
+error_injections:
+  - id: readback-error-1
+    entity_id: aircraft-1
+    at_seconds: 20.0
+    kind: incorrect_readback
+    probability: 1.0
+end_conditions:
+  time_limit_seconds: 600.0
+  success_objectives: [hold-safely]
+  failure_on_timeout: true
