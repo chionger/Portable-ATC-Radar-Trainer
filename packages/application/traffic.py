@@ -13,6 +13,7 @@ from packages.domain.events import DomainEvent, EventActor, EventSource, EventTy
 from packages.domain.scenario import Scenario
 from packages.domain.session import SessionLifecycleState
 from packages.domain.traffic import (
+    AircraftRouteAssignedPayload,
     AircraftSpawnedPayload,
     AircraftState,
     AircraftStateChangedPayload,
@@ -50,11 +51,14 @@ class TrafficService:
             [],
             tuple[
                 AircraftSpawnedPayload
+                | AircraftRouteAssignedPayload
                 | AircraftStateChangedPayload
                 | RunwayOccupancyChangedPayload,
                 ...,
             ],
         ],
+        *,
+        causation_id: str | None = None,
     ) -> CommitResult:
         current = self.store.get_session(session_id)
         if current is None:
@@ -88,6 +92,8 @@ class TrafficService:
                     if isinstance(payload, AircraftSpawnedPayload)
                     else EventType.AIRCRAFT_STATE_CHANGED
                     if isinstance(payload, AircraftStateChangedPayload)
+                    else EventType.AIRCRAFT_ROUTE_ASSIGNED
+                    if isinstance(payload, AircraftRouteAssignedPayload)
                     else EventType.RUNWAY_OCCUPANCY_CHANGED
                 )
                 result.append(
@@ -102,6 +108,7 @@ class TrafficService:
                         source=EventSource(component="traffic", version="1.0"),
                         correlation_id=str(correlation_id),
                         payload=payload,
+                        causation_id=causation_id,
                     )
                 )
             return tuple(result)

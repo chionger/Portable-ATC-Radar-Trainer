@@ -1,0 +1,110 @@
+{
+  "$defs": {
+    "SimulationAction": {
+      "enum": [
+        "TAXI",
+        "HOLD",
+        "LINE_UP",
+        "TAKE_OFF",
+        "CONTINUE_APPROACH",
+        "LAND",
+        "GO_AROUND",
+        "VACATE"
+      ],
+      "title": "SimulationAction",
+      "type": "string"
+    },
+    "SimulationParameters": {
+      "additionalProperties": false,
+      "properties": {
+        "route": {
+          "default": [],
+          "items": {
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]{0,63}$",
+            "type": "string"
+          },
+          "maxItems": 256,
+          "title": "Route",
+          "type": "array"
+        },
+        "holding_point_id": {
+          "anyOf": [
+            {
+              "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]{0,63}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Holding Point Id"
+        },
+        "runway_id": {
+          "anyOf": [
+            {
+              "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]{0,63}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Runway Id"
+        }
+      },
+      "title": "SimulationParameters",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "1.0",
+      "default": "1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "command_id": {
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]{0,63}$",
+      "title": "Command Id",
+      "type": "string"
+    },
+    "aircraft_id": {
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]{0,63}$",
+      "title": "Aircraft Id",
+      "type": "string"
+    },
+    "action": {
+      "$ref": "#/$defs/SimulationAction"
+    },
+    "parameters": {
+      "$ref": "#/$defs/SimulationParameters",
+      "default": {
+        "route": [],
+        "holding_point_id": null,
+        "runway_id": null
+      }
+    },
+    "expected_entity_version": {
+      "minimum": 1,
+      "title": "Expected Entity Version",
+      "type": "integer"
+    },
+    "issued_at_sim_time": {
+      "minimum": 0,
+      "title": "Issued At Sim Time",
+      "type": "number"
+    }
+  },
+  "required": [
+    "command_id",
+    "aircraft_id",
+    "action",
+    "expected_entity_version",
+    "issued_at_sim_time"
+  ],
+  "title": "SimulationCommand",
+  "type": "object"
+}

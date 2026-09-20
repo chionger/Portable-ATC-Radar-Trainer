@@ -284,6 +284,48 @@ class RunwayOccupancyChangedPayload(TrafficData):
         return self
 
 
+def assign_route(before: Aircraft, route: tuple[str, ...], expected_version: int) -> Aircraft:
+    if type(expected_version) is not int or expected_version != before.version:
+        raise TrafficConflict("aircraft version changed")
+    if before.occupied_runway_id or before.state not in {S.READY_TO_TAXI, S.TAXIING, S.HOLDING}:
+        raise TrafficConflict("route assignment requires a ground aircraft outside the runway")
+    if not route or len(route) > 256 or route == before.route:
+        raise TrafficConflict("route assignment requires a material non-empty route")
+    return Aircraft.model_validate(
+        before.model_dump()
+        | {
+            "route": route,
+            "route_progress": 0,
+            "version": before.version + 1,
+        }
+    )
+
+
+class AircraftRouteAssignedPayload(TrafficData):
+    before: Aircraft
+    after: Aircraft
+
+    @model_validator(mode="after")
+    def legal(self) -> Self:
+        if self.after != assign_route(self.before, self.after.route, self.before.version):
+            raise ValueError("route assignment modifies unrelated aircraft fields")
+        return self
+
+
+def route_traffic(
+    state: TrafficState, aircraft_id: str, route: tuple[str, ...], expected_version: int
+) -> tuple[TrafficState, AircraftRouteAssignedPayload]:
+    before = next((a for a in state.aircraft if a.aircraft_id == aircraft_id), None)
+    if before is None:
+        raise TrafficConflict("unknown aircraft")
+    after = assign_route(before, route, expected_version)
+    updated = TrafficState(
+        aerodrome=state.aerodrome,
+        aircraft=tuple(after if a.aircraft_id == aircraft_id else a for a in state.aircraft),
+    )
+    return updated, AircraftRouteAssignedPayload(before=before, after=after)
+
+
 def transition_traffic(
     state: TrafficState,
     aircraft_id: str,

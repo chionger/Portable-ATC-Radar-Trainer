@@ -28,6 +28,7 @@ from packages.domain.session import (
     allowed_transitions,
 )
 from packages.domain.traffic import (
+    AircraftRouteAssignedPayload,
     AircraftSpawnedPayload,
     AircraftStateChangedPayload,
     RunwayOccupancyChangedPayload,
@@ -190,6 +191,7 @@ class EventSchema:
         type[SessionCreatedPayload]
         | type[SessionTransitionPayload]
         | type[ComponentHealthChangedPayload]
+        | type[AircraftRouteAssignedPayload]
         | type[AircraftSpawnedPayload]
         | type[AircraftStateChangedPayload]
         | type[RunwayOccupancyChangedPayload]
@@ -212,6 +214,8 @@ class EventSchema:
             if self.event_type.value.startswith("session.")
             else ComponentHealthChangedPayload
             if self.event_type == EventType.COMPONENT_HEALTH_CHANGED
+            else AircraftRouteAssignedPayload
+            if self.event_type == EventType.AIRCRAFT_ROUTE_ASSIGNED
             else AircraftSpawnedPayload
             if self.event_type == EventType.AIRCRAFT_SPAWNED
             else AircraftStateChangedPayload
@@ -253,6 +257,8 @@ EVENT_REGISTRY = EventRegistry(
             if event_type.value.startswith("session.")
             else ComponentHealthChangedPayload
             if event_type == EventType.COMPONENT_HEALTH_CHANGED
+            else AircraftRouteAssignedPayload
+            if event_type == EventType.AIRCRAFT_ROUTE_ASSIGNED
             else AircraftSpawnedPayload
             if event_type == EventType.AIRCRAFT_SPAWNED
             else AircraftStateChangedPayload
@@ -282,6 +288,7 @@ class DomainEvent(ImmutableContract):
         SessionCreatedPayload
         | SessionTransitionPayload
         | ComponentHealthChangedPayload
+        | AircraftRouteAssignedPayload
         | AircraftSpawnedPayload
         | AircraftStateChangedPayload
         | RunwayOccupancyChangedPayload
@@ -311,7 +318,10 @@ class DomainEvent(ImmutableContract):
                 raise ValueError("health event requires a session and matching observation time")
         elif isinstance(
             self.payload,
-            AircraftSpawnedPayload | AircraftStateChangedPayload | RunwayOccupancyChangedPayload,
+            AircraftSpawnedPayload
+            | AircraftStateChangedPayload
+            | AircraftRouteAssignedPayload
+            | RunwayOccupancyChangedPayload,
         ):
             if self.sequence <= 1:
                 raise ValueError("traffic event requires a session")

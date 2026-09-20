@@ -10,7 +10,7 @@ context and the `EventRepository` port. No IDs, clocks or storage are allocated.
 The machine-readable catalogue is `tests/fixtures/events/catalogue.json`. It
 contains all 47 names from architecture baseline section 15.2; a contract test
 compares the two. Duplicate names, unknown names and routine clock ticks are
-rejected. The thirteen implemented names (including FP-007 health and FP-010 traffic) are:
+rejected. The fourteen implemented names (including health and traffic) are:
 
 | Event | Fact |
 | --- | --- |
@@ -26,6 +26,7 @@ rejected. The thirteen implemented names (including FP-007 health and FP-010 tra
 | component.health_changed | Material component health change for an existing session (FP-007) |
 | aircraft.spawned | Initial aircraft; first spawn also captures shared aerodrome geometry (FP-010) |
 | aircraft.state_changed | Legal versioned aircraft transition (FP-010) |
+| aircraft.route_assigned | Versioned ground route assignment, preserving other aircraft fields (FP-011) |
 | runway.occupancy_changed | Versioned membership change paired with its aircraft effect (FP-010) |
 
 Other catalogue entries reserve names and version metadata for later producers;
@@ -114,3 +115,11 @@ fields. The application traffic service produces them through the existing unit 
 Session projection validates traffic lifecycle/time constraints and traffic replay checks
 paired occupancy effects. See [traffic state](traffic-state.md) for the canonical matrix,
 scenario mapping, atomicity, replay and compatibility limits.
+
+## FP-011 extension
+
+The neutral simulation provider returns effects without event identities or persistence.
+The application validates and translates accepted effects to route/state/occupancy events,
+then commits before invoking its notification hook. The route-assigned payload retains
+before/after aircraft state and permits only a material route/progress/version change.
+See [simulation port](simulation-port.md) for contracts, adapter conformance and retry rules.
