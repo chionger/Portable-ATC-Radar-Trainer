@@ -10,7 +10,7 @@ context and the `EventRepository` port. No IDs, clocks or storage are allocated.
 The machine-readable catalogue is `tests/fixtures/events/catalogue.json`. It
 contains all 47 names from architecture baseline section 15.2; a contract test
 compares the two. Duplicate names, unknown names and routine clock ticks are
-rejected. The ten implemented names (including FP-007 health) are:
+rejected. The thirteen implemented names (including FP-007 health and FP-010 traffic) are:
 
 | Event | Fact |
 | --- | --- |
@@ -24,6 +24,9 @@ rejected. The ten implemented names (including FP-007 health) are:
 | session.stopped | RUNNING or PAUSED to STOPPED |
 | session.failed | Any nonterminal state to FAILED, with category and reason |
 | component.health_changed | Material component health change for an existing session (FP-007) |
+| aircraft.spawned | Initial aircraft; first spawn also captures shared aerodrome geometry (FP-010) |
+| aircraft.state_changed | Legal versioned aircraft transition (FP-010) |
+| runway.occupancy_changed | Versioned membership change paired with its aircraft effect (FP-010) |
 
 Other catalogue entries reserve names and version metadata for later producers;
 their payload type is absent and emission/deserialization is rejected. Reserving
@@ -103,3 +106,11 @@ settings, routes, WebSocket behavior or business-rule consumers.
 ## FP-007 extension
 
 The health payload contains previous status and a typed component observation. Canonical comparison excludes its observation wall time. Session projection consumes this event without changing lifecycle state/version or simulation time. See [health and logging](health.md) for the producer, durability, deduplication and correlation contracts. FP-006 implements the approved persistence boundary described above.
+
+## FP-010 extension
+
+Traffic payloads and their canonical projections retain all aircraft and aerodrome state
+fields. The application traffic service produces them through the existing unit of work.
+Session projection validates traffic lifecycle/time constraints and traffic replay checks
+paired occupancy effects. See [traffic state](traffic-state.md) for the canonical matrix,
+scenario mapping, atomicity, replay and compatibility limits.

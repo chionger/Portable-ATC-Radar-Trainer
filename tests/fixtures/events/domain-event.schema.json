@@ -1,5 +1,258 @@
 {
   "$defs": {
+    "Aerodrome": {
+      "additionalProperties": false,
+      "properties": {
+        "geometry": {
+          "$ref": "#/$defs/Geometry"
+        },
+        "runways": {
+          "items": {
+            "$ref": "#/$defs/RunwayState"
+          },
+          "title": "Runways",
+          "type": "array"
+        }
+      },
+      "required": [
+        "geometry",
+        "runways"
+      ],
+      "title": "Aerodrome",
+      "type": "object"
+    },
+    "Aircraft": {
+      "additionalProperties": false,
+      "properties": {
+        "aircraft_id": {
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]{0,63}$",
+          "title": "Aircraft Id",
+          "type": "string"
+        },
+        "callsign": {
+          "pattern": "^[A-Z0-9][A-Z0-9 -]{0,31}$",
+          "title": "Callsign",
+          "type": "string"
+        },
+        "aircraft_type": {
+          "default": "GENERIC",
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]{0,63}$",
+          "title": "Aircraft Type",
+          "type": "string"
+        },
+        "wake_category": {
+          "anyOf": [
+            {
+              "enum": [
+                "LIGHT",
+                "MEDIUM",
+                "HEAVY",
+                "SUPER"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Wake Category"
+        },
+        "position": {
+          "$ref": "#/$defs/Point"
+        },
+        "heading_deg": {
+          "default": 0.0,
+          "exclusiveMaximum": 360,
+          "minimum": 0,
+          "title": "Heading Deg",
+          "type": "number"
+        },
+        "ground_speed_kt": {
+          "default": 0.0,
+          "maximum": 1000,
+          "minimum": 0,
+          "title": "Ground Speed Kt",
+          "type": "number"
+        },
+        "altitude_ft": {
+          "default": 0.0,
+          "maximum": 100000,
+          "minimum": -2000,
+          "title": "Altitude Ft",
+          "type": "number"
+        },
+        "state": {
+          "$ref": "#/$defs/AircraftState"
+        },
+        "version": {
+          "default": 1,
+          "minimum": 1,
+          "title": "Version",
+          "type": "integer"
+        },
+        "route": {
+          "default": [],
+          "items": {
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]{0,63}$",
+            "type": "string"
+          },
+          "title": "Route",
+          "type": "array"
+        },
+        "route_progress": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Route Progress",
+          "type": "integer"
+        },
+        "assigned_runway_id": {
+          "anyOf": [
+            {
+              "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]{0,63}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Assigned Runway Id"
+        },
+        "holding_point_id": {
+          "anyOf": [
+            {
+              "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]{0,63}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Holding Point Id"
+        },
+        "occupied_runway_id": {
+          "anyOf": [
+            {
+              "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]{0,63}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Occupied Runway Id"
+        },
+        "clearance_id": {
+          "anyOf": [
+            {
+              "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]{0,63}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Clearance Id"
+        },
+        "clearance_state": {
+          "default": "NONE",
+          "enum": [
+            "NONE",
+            "ACTIVE",
+            "CANCELLED"
+          ],
+          "title": "Clearance State",
+          "type": "string"
+        },
+        "pilot_profile": {
+          "default": "default",
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]{0,63}$",
+          "title": "Pilot Profile",
+          "type": "string"
+        },
+        "response_state": {
+          "default": "IDLE",
+          "enum": [
+            "IDLE",
+            "PENDING",
+            "RESPONDING"
+          ],
+          "title": "Response State",
+          "type": "string"
+        }
+      },
+      "required": [
+        "aircraft_id",
+        "callsign",
+        "position",
+        "state"
+      ],
+      "title": "Aircraft",
+      "type": "object"
+    },
+    "AircraftSpawnedPayload": {
+      "additionalProperties": false,
+      "properties": {
+        "aircraft": {
+          "$ref": "#/$defs/Aircraft"
+        },
+        "aerodrome": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Aerodrome"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "required": [
+        "aircraft"
+      ],
+      "title": "AircraftSpawnedPayload",
+      "type": "object"
+    },
+    "AircraftState": {
+      "enum": [
+        "PARKED",
+        "READY_TO_TAXI",
+        "TAXIING",
+        "HOLDING",
+        "LINED_UP",
+        "TAKEOFF_ROLL",
+        "AIRBORNE",
+        "INBOUND",
+        "FINAL",
+        "LANDING_ROLL",
+        "VACATING",
+        "STOPPED"
+      ],
+      "title": "AircraftState",
+      "type": "string"
+    },
+    "AircraftStateChangedPayload": {
+      "additionalProperties": false,
+      "properties": {
+        "before": {
+          "$ref": "#/$defs/Aircraft"
+        },
+        "after": {
+          "$ref": "#/$defs/Aircraft"
+        }
+      },
+      "required": [
+        "before",
+        "after"
+      ],
+      "title": "AircraftStateChangedPayload",
+      "type": "object"
+    },
     "ComponentHealth": {
       "additionalProperties": false,
       "properties": {
@@ -172,6 +425,49 @@
       "title": "EventType",
       "type": "string"
     },
+    "Geometry": {
+      "additionalProperties": false,
+      "properties": {
+        "coordinate_system": {
+          "const": "local_metres",
+          "default": "local_metres",
+          "title": "Coordinate System",
+          "type": "string"
+        },
+        "runways": {
+          "items": {
+            "$ref": "#/$defs/Runway"
+          },
+          "maxItems": 16,
+          "minItems": 1,
+          "title": "Runways",
+          "type": "array"
+        },
+        "taxiways": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/Taxiway"
+          },
+          "maxItems": 256,
+          "title": "Taxiways",
+          "type": "array"
+        },
+        "holding_points": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/HoldingPoint"
+          },
+          "maxItems": 256,
+          "title": "Holding Points",
+          "type": "array"
+        }
+      },
+      "required": [
+        "runways"
+      ],
+      "title": "Geometry",
+      "type": "object"
+    },
     "HealthReason": {
       "enum": [
         "operational",
@@ -200,6 +496,161 @@
       ],
       "title": "HealthStatus",
       "type": "string"
+    },
+    "HoldingPoint": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]{0,63}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "position": {
+          "$ref": "#/$defs/Point"
+        },
+        "runway_id": {
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]{0,63}$",
+          "title": "Runway Id",
+          "type": "string"
+        },
+        "taxiway_id": {
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]{0,63}$",
+          "title": "Taxiway Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "position",
+        "runway_id",
+        "taxiway_id"
+      ],
+      "title": "HoldingPoint",
+      "type": "object"
+    },
+    "Point": {
+      "additionalProperties": false,
+      "properties": {
+        "x": {
+          "maximum": 1000000,
+          "minimum": -1000000,
+          "title": "X",
+          "type": "number"
+        },
+        "y": {
+          "maximum": 1000000,
+          "minimum": -1000000,
+          "title": "Y",
+          "type": "number"
+        }
+      },
+      "required": [
+        "x",
+        "y"
+      ],
+      "title": "Point",
+      "type": "object"
+    },
+    "Runway": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]{0,63}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "threshold": {
+          "$ref": "#/$defs/Point"
+        },
+        "end": {
+          "$ref": "#/$defs/Point"
+        },
+        "width_m": {
+          "exclusiveMinimum": 0,
+          "maximum": 200,
+          "title": "Width M",
+          "type": "number"
+        }
+      },
+      "required": [
+        "id",
+        "threshold",
+        "end",
+        "width_m"
+      ],
+      "title": "Runway",
+      "type": "object"
+    },
+    "RunwayOccupancyChangedPayload": {
+      "additionalProperties": false,
+      "properties": {
+        "before": {
+          "$ref": "#/$defs/RunwayState"
+        },
+        "after": {
+          "$ref": "#/$defs/RunwayState"
+        },
+        "aircraft_id": {
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]{0,63}$",
+          "title": "Aircraft Id",
+          "type": "string"
+        },
+        "present": {
+          "title": "Present",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "before",
+        "after",
+        "aircraft_id",
+        "present"
+      ],
+      "title": "RunwayOccupancyChangedPayload",
+      "type": "object"
+    },
+    "RunwayState": {
+      "additionalProperties": false,
+      "properties": {
+        "geometry": {
+          "$ref": "#/$defs/Runway"
+        },
+        "designator": {
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]{0,63}$",
+          "title": "Designator",
+          "type": "string"
+        },
+        "operational_status": {
+          "default": "OPEN",
+          "enum": [
+            "OPEN",
+            "CLOSED"
+          ],
+          "title": "Operational Status",
+          "type": "string"
+        },
+        "version": {
+          "default": 1,
+          "minimum": 1,
+          "title": "Version",
+          "type": "integer"
+        },
+        "occupants": {
+          "default": [],
+          "items": {
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]{0,63}$",
+            "type": "string"
+          },
+          "title": "Occupants",
+          "type": "array"
+        }
+      },
+      "required": [
+        "geometry",
+        "designator"
+      ],
+      "title": "RunwayState",
+      "type": "object"
     },
     "SessionCreatedPayload": {
       "additionalProperties": false,
@@ -396,6 +847,31 @@
       "title": "SessionVersions",
       "type": "object"
     },
+    "Taxiway": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]{0,63}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "points": {
+          "items": {
+            "$ref": "#/$defs/Point"
+          },
+          "maxItems": 256,
+          "minItems": 2,
+          "title": "Points",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "points"
+      ],
+      "title": "Taxiway",
+      "type": "object"
+    },
     "VersionReference": {
       "properties": {
         "name": {
@@ -490,6 +966,15 @@
         },
         {
           "$ref": "#/$defs/ComponentHealthChangedPayload"
+        },
+        {
+          "$ref": "#/$defs/AircraftSpawnedPayload"
+        },
+        {
+          "$ref": "#/$defs/AircraftStateChangedPayload"
+        },
+        {
+          "$ref": "#/$defs/RunwayOccupancyChangedPayload"
         }
       ],
       "title": "Payload"

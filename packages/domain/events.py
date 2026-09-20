@@ -27,6 +27,11 @@ from packages.domain.session import (
     SessionVersions,
     allowed_transitions,
 )
+from packages.domain.traffic import (
+    AircraftSpawnedPayload,
+    AircraftStateChangedPayload,
+    RunwayOccupancyChangedPayload,
+)
 
 EVENT_SCHEMA_VERSION = "1.0"
 CANONICAL_PROJECTION_VERSION = "1.0"
@@ -185,6 +190,9 @@ class EventSchema:
         type[SessionCreatedPayload]
         | type[SessionTransitionPayload]
         | type[ComponentHealthChangedPayload]
+        | type[AircraftSpawnedPayload]
+        | type[AircraftStateChangedPayload]
+        | type[RunwayOccupancyChangedPayload]
         | None
     )
     schema_version: str = EVENT_SCHEMA_VERSION
@@ -204,6 +212,12 @@ class EventSchema:
             if self.event_type.value.startswith("session.")
             else ComponentHealthChangedPayload
             if self.event_type == EventType.COMPONENT_HEALTH_CHANGED
+            else AircraftSpawnedPayload
+            if self.event_type == EventType.AIRCRAFT_SPAWNED
+            else AircraftStateChangedPayload
+            if self.event_type == EventType.AIRCRAFT_STATE_CHANGED
+            else RunwayOccupancyChangedPayload
+            if self.event_type == EventType.RUNWAY_OCCUPANCY_CHANGED
             else None
         )
         if self.payload_type is not expected:
@@ -239,6 +253,12 @@ EVENT_REGISTRY = EventRegistry(
             if event_type.value.startswith("session.")
             else ComponentHealthChangedPayload
             if event_type == EventType.COMPONENT_HEALTH_CHANGED
+            else AircraftSpawnedPayload
+            if event_type == EventType.AIRCRAFT_SPAWNED
+            else AircraftStateChangedPayload
+            if event_type == EventType.AIRCRAFT_STATE_CHANGED
+            else RunwayOccupancyChangedPayload
+            if event_type == EventType.RUNWAY_OCCUPANCY_CHANGED
             else None,
         )
         for event_type in EventType
@@ -258,7 +278,14 @@ class DomainEvent(ImmutableContract):
     source: EventSource
     correlation_id: Text
     causation_id: Text | None = None
-    payload: SessionCreatedPayload | SessionTransitionPayload | ComponentHealthChangedPayload
+    payload: (
+        SessionCreatedPayload
+        | SessionTransitionPayload
+        | ComponentHealthChangedPayload
+        | AircraftSpawnedPayload
+        | AircraftStateChangedPayload
+        | RunwayOccupancyChangedPayload
+    )
 
     @field_validator("wall_time_utc")
     @classmethod
@@ -282,6 +309,12 @@ class DomainEvent(ImmutableContract):
         elif isinstance(self.payload, ComponentHealthChangedPayload):
             if self.sequence <= 1 or self.payload.health.observed_at != self.wall_time_utc:
                 raise ValueError("health event requires a session and matching observation time")
+        elif isinstance(
+            self.payload,
+            AircraftSpawnedPayload | AircraftStateChangedPayload | RunwayOccupancyChangedPayload,
+        ):
+            if self.sequence <= 1:
+                raise ValueError("traffic event requires a session")
         else:
             if self.sequence <= 1:
                 raise ValueError("session transition must follow session.created")

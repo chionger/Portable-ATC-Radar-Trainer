@@ -84,7 +84,7 @@ def test_catalogue_matches_architecture_and_has_no_ticks():
     names = set(re.findall(r"`([a-z_]+\.[a-z_]+)`", section.split("## 15.3")[0]))
     assert len(names) == 47
     assert {entry.event_type.value for entry in EVENT_REGISTRY.entries} == names
-    assert len([entry for entry in EVENT_REGISTRY.entries if entry.payload_type]) == 10
+    assert len([entry for entry in EVENT_REGISTRY.entries if entry.payload_type]) == 13
     assert "simulation.tick" not in names
 
 

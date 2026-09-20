@@ -5,6 +5,7 @@ from collections.abc import Callable
 from dataclasses import dataclass
 from typing import Protocol
 
+from packages.application.traffic_projection import project_traffic
 from packages.domain.events import (
     ComponentHealthChangedPayload,
     DomainEvent,
@@ -14,9 +15,15 @@ from packages.domain.events import (
 from packages.domain.session import (
     CreateSessionRequest,
     Session,
+    SessionLifecycleState,
     TransitionRequest,
     create_session,
     transition_session,
+)
+from packages.domain.traffic import (
+    AircraftSpawnedPayload,
+    AircraftStateChangedPayload,
+    RunwayOccupancyChangedPayload,
 )
 
 PROJECTION_VERSION = "1.0"
@@ -72,9 +79,30 @@ def project_session(events: tuple[DomainEvent, ...]) -> SessionProjection:
                 or event.wall_time_utc < session.updated_at
             ):
                 raise ValueError("health event must retain committed session time")
+        elif (
+            isinstance(
+                payload,
+                AircraftSpawnedPayload
+                | AircraftStateChangedPayload
+                | RunwayOccupancyChangedPayload,
+            )
+            and session is not None
+        ):
+            required = (
+                SessionLifecycleState.INITIALISING
+                if isinstance(payload, AircraftSpawnedPayload)
+                else SessionLifecycleState.RUNNING
+            )
+            if (
+                session.lifecycle_state != required
+                or event.sim_time != session.simulation_time
+                or event.wall_time_utc < session.updated_at
+            ):
+                raise ValueError("traffic event conflicts with committed session lifecycle/time")
         else:
             raise ValueError("history must start with one creation event")
     assert session is not None
+    project_traffic(events)
     return SessionProjection(session, len(events))
 
 
