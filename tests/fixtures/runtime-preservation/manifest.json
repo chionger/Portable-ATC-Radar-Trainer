@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0",
+  "catalog_version": "1.0.0",
+  "models": [
+    {
+      "entry_id": "synthetic-runtime-asr",
+      "identity": {
+        "family": "Whisper",
+        "name": "synthetic-runtime-asr",
+        "revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "variant": "original-huggingface-snapshot"
+      },
+      "category": "ASR",
+      "intended_role": "multilingual speech recognition candidate",
+      "format": "safetensors-transformers",
+      "quantisation": null,
+      "source": {
+        "publisher": "OpenAI",
+        "original_uri": "https://huggingface.co/openai/whisper-large-v3-turbo"
+      },
+      "acquisition": {
+        "acquired_on": "2026-08-22",
+        "method": "Hugging Face CLI pinned to exact revision",
+        "notes": "Preserved as an offline candidate model asset."
+      },
+      "licence": {
+        "name": "MIT License",
+        "spdx_id": "MIT",
+        "reference_uri": "https://huggingface.co/openai/whisper-large-v3-turbo",
+        "usage_notes": "Licence recorded from upstream model repository. Commercial/runtime approval remains separately governed."
+      },
+      "runtime_compatibility": [
+        "Transformers-compatible Whisper ASR",
+        "Offline use after acquisition"
+      ],
+      "lifecycle": {
+        "available": true,
+        "benchmarked": false,
+        "approved_for_runtime": false
+      },
+      "assets": [
+        {
+          "path": "synthetic/model.txt",
+          "size_bytes": 15,
+          "sha256": "d6f253802b5a822eac1a17afa3baee2086709294c696a8a4cb1debd39f070450"
+        }
+      ]
+    }
+  ]
+}

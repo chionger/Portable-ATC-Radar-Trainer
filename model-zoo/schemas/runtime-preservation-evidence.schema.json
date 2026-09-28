@@ -1,0 +1,384 @@
+{
+  "$defs": {
+    "DefinitionReference": {
+      "additionalProperties": false,
+      "properties": {
+        "preservation_id": {
+          "pattern": "^[a-z0-9][a-z0-9._-]*$",
+          "title": "Preservation Id",
+          "type": "string"
+        },
+        "preservation_version": {
+          "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+          "title": "Preservation Version",
+          "type": "string"
+        },
+        "sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Sha256",
+          "type": "string"
+        }
+      },
+      "required": [
+        "preservation_id",
+        "preservation_version",
+        "sha256"
+      ],
+      "title": "DefinitionReference",
+      "type": "object"
+    },
+    "EvidenceFile": {
+      "additionalProperties": false,
+      "properties": {
+        "path": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Path",
+          "type": "string"
+        },
+        "sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Sha256",
+          "type": "string"
+        },
+        "size_bytes": {
+          "exclusiveMinimum": 0,
+          "title": "Size Bytes",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "path",
+        "size_bytes",
+        "sha256"
+      ],
+      "title": "EvidenceFile",
+      "type": "object"
+    },
+    "ModelReference": {
+      "additionalProperties": false,
+      "properties": {
+        "entry_id": {
+          "pattern": "^[a-z0-9][a-z0-9._-]*$",
+          "title": "Entry Id",
+          "type": "string"
+        },
+        "revision": {
+          "pattern": "^[0-9a-f]{40}$",
+          "title": "Revision",
+          "type": "string"
+        }
+      },
+      "required": [
+        "entry_id",
+        "revision"
+      ],
+      "title": "ModelReference",
+      "type": "object"
+    },
+    "NetworkEvidence": {
+      "additionalProperties": false,
+      "properties": {
+        "covers_restoration_and_inference": {
+          "title": "Covers Restoration And Inference",
+          "type": "boolean"
+        },
+        "external_retrievals": {
+          "minimum": 0,
+          "title": "External Retrievals",
+          "type": "integer"
+        },
+        "log": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/EvidenceFile"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "mechanism": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Mechanism",
+          "type": "string"
+        },
+        "method": {
+          "enum": [
+            "OS-enforced",
+            "not-executed"
+          ],
+          "title": "Method",
+          "type": "string"
+        }
+      },
+      "required": [
+        "method",
+        "mechanism",
+        "covers_restoration_and_inference",
+        "external_retrievals",
+        "log"
+      ],
+      "title": "NetworkEvidence",
+      "type": "object"
+    },
+    "PlatformRequirements": {
+      "additionalProperties": false,
+      "properties": {
+        "accelerator": {
+          "enum": [
+            "none",
+            "GPU"
+          ],
+          "title": "Accelerator",
+          "type": "string"
+        },
+        "architecture": {
+          "enum": [
+            "AMD64",
+            "x86_64",
+            "arm64",
+            "aarch64"
+          ],
+          "title": "Architecture",
+          "type": "string"
+        },
+        "cpu_requirements": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Cpu Requirements",
+          "type": "string"
+        },
+        "cuda_requirements": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Cuda Requirements",
+          "type": "string"
+        },
+        "driver_requirements": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Driver Requirements",
+          "type": "string"
+        },
+        "gpu_requirements": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Gpu Requirements",
+          "type": "string"
+        },
+        "minimum_ram_bytes": {
+          "exclusiveMinimum": 0,
+          "title": "Minimum Ram Bytes",
+          "type": "integer"
+        },
+        "operating_system": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Operating System",
+          "type": "string"
+        },
+        "os_version": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Os Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "operating_system",
+        "os_version",
+        "architecture",
+        "cpu_requirements",
+        "minimum_ram_bytes",
+        "accelerator",
+        "gpu_requirements",
+        "driver_requirements",
+        "cuda_requirements"
+      ],
+      "title": "PlatformRequirements",
+      "type": "object"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "approved_for_runtime": {
+      "const": false,
+      "title": "Approved For Runtime",
+      "type": "boolean"
+    },
+    "benchmarked": {
+      "const": false,
+      "title": "Benchmarked",
+      "type": "boolean"
+    },
+    "clean_environment": {
+      "title": "Clean Environment",
+      "type": "boolean"
+    },
+    "component_versions": {
+      "patternProperties": {
+        "^[a-z0-9][a-z0-9._-]*$": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "type": "string"
+        }
+      },
+      "title": "Component Versions",
+      "type": "object"
+    },
+    "definition": {
+      "$ref": "#/$defs/DefinitionReference"
+    },
+    "inference_completed": {
+      "title": "Inference Completed",
+      "type": "boolean"
+    },
+    "inference_log": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/EvidenceFile"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "input_sha256": {
+      "anyOf": [
+        {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Input Sha256"
+    },
+    "model": {
+      "$ref": "#/$defs/ModelReference"
+    },
+    "model_integrity_record": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/EvidenceFile"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "model_loaded": {
+      "title": "Model Loaded",
+      "type": "boolean"
+    },
+    "network": {
+      "$ref": "#/$defs/NetworkEvidence"
+    },
+    "observed_platform": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/PlatformRequirements"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "output_sha256": {
+      "anyOf": [
+        {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Output Sha256"
+    },
+    "reason": {
+      "minLength": 1,
+      "pattern": "\\S",
+      "title": "Reason",
+      "type": "string"
+    },
+    "recorded_at": {
+      "format": "date-time",
+      "title": "Recorded At",
+      "type": "string"
+    },
+    "restoration_log": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/EvidenceFile"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "restored": {
+      "title": "Restored",
+      "type": "boolean"
+    },
+    "run_id": {
+      "pattern": "^[a-z0-9][a-z0-9._-]*$",
+      "title": "Run Id",
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "PASSED",
+        "FAILED",
+        "BLOCKED"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "verified_artifacts": {
+      "patternProperties": {
+        "^[a-z0-9][a-z0-9._-]*$": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        }
+      },
+      "title": "Verified Artifacts",
+      "type": "object"
+    }
+  },
+  "required": [
+    "schema_version",
+    "run_id",
+    "model",
+    "definition",
+    "recorded_at",
+    "status",
+    "reason",
+    "restored",
+    "model_loaded",
+    "inference_completed",
+    "clean_environment",
+    "observed_platform",
+    "component_versions",
+    "verified_artifacts",
+    "network",
+    "restoration_log",
+    "inference_log",
+    "model_integrity_record",
+    "input_sha256",
+    "output_sha256",
+    "benchmarked",
+    "approved_for_runtime"
+  ],
+  "title": "RuntimeEvidence",
+  "type": "object"
+}

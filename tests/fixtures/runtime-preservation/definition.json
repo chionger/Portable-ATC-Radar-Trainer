@@ -1,0 +1,134 @@
+{
+  "schema_version": "1.0",
+  "preservation_id": "synthetic-only",
+  "preservation_version": "1.0.0",
+  "model": {
+    "entry_id": "synthetic-runtime-asr",
+    "revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  },
+  "runtime": {
+    "name": "transformers",
+    "version": "0.0.1",
+    "source_uri": "https://example.invalid/synthetic",
+    "artifact_ids": [
+      "engine"
+    ]
+  },
+  "interpreter": {
+    "name": "cpython",
+    "version": "0.0.1",
+    "source_uri": "https://example.invalid/synthetic",
+    "artifact_ids": [
+      "python"
+    ]
+  },
+  "dependencies": [
+    {
+      "name": "torch",
+      "version": "0.0.1",
+      "source_uri": "https://example.invalid/synthetic",
+      "artifact_ids": [
+        "torch"
+      ]
+    }
+  ],
+  "artifacts": [
+    {
+      "artifact_id": "python",
+      "role": "bootstrap",
+      "path": "synthetic/python.txt",
+      "size_bytes": 15,
+      "sha256": "d6f253802b5a822eac1a17afa3baee2086709294c696a8a4cb1debd39f070450",
+      "source_uri": "https://example.invalid/synthetic"
+    },
+    {
+      "artifact_id": "engine",
+      "role": "wheel",
+      "path": "synthetic/engine.txt",
+      "size_bytes": 15,
+      "sha256": "d6f253802b5a822eac1a17afa3baee2086709294c696a8a4cb1debd39f070450",
+      "source_uri": "https://example.invalid/synthetic"
+    },
+    {
+      "artifact_id": "torch",
+      "role": "wheel",
+      "path": "synthetic/torch.txt",
+      "size_bytes": 15,
+      "sha256": "d6f253802b5a822eac1a17afa3baee2086709294c696a8a4cb1debd39f070450",
+      "source_uri": "https://example.invalid/synthetic"
+    },
+    {
+      "artifact_id": "audio",
+      "role": "input",
+      "path": "synthetic/audio.txt",
+      "size_bytes": 15,
+      "sha256": "d6f253802b5a822eac1a17afa3baee2086709294c696a8a4cb1debd39f070450",
+      "source_uri": "https://example.invalid/synthetic"
+    },
+    {
+      "artifact_id": "recipe",
+      "role": "procedure",
+      "path": "synthetic/recipe.txt",
+      "size_bytes": 15,
+      "sha256": "d6f253802b5a822eac1a17afa3baee2086709294c696a8a4cb1debd39f070450",
+      "source_uri": "https://example.invalid/synthetic"
+    },
+    {
+      "artifact_id": "licence",
+      "role": "licence",
+      "path": "synthetic/licence.txt",
+      "size_bytes": 15,
+      "sha256": "d6f253802b5a822eac1a17afa3baee2086709294c696a8a4cb1debd39f070450",
+      "source_uri": "https://example.invalid/synthetic"
+    },
+    {
+      "artifact_id": "tooling",
+      "role": "source",
+      "path": "synthetic/tooling.txt",
+      "size_bytes": 15,
+      "sha256": "d6f253802b5a822eac1a17afa3baee2086709294c696a8a4cb1debd39f070450",
+      "source_uri": "https://example.invalid/synthetic"
+    }
+  ],
+  "platform": {
+    "operating_system": "SyntheticOS",
+    "os_version": "1",
+    "architecture": "AMD64",
+    "cpu_requirements": "Synthetic CPU",
+    "minimum_ram_bytes": 1024,
+    "accelerator": "none",
+    "gpu_requirements": "not required",
+    "driver_requirements": "not required",
+    "cuda_requirements": "not required"
+  },
+  "configuration": {
+    "device": "cpu",
+    "dtype": "float32",
+    "task": "transcribe",
+    "language": "en",
+    "sample_rate_hz": 16000,
+    "max_new_tokens": 32,
+    "local_files_only": true,
+    "trust_remote_code": false
+  },
+  "restoration": {
+    "bootstrap_artifact_id": "python",
+    "bootstrap_install_steps": [
+      "Synthetic only"
+    ],
+    "environment_steps": [
+      "Synthetic only"
+    ],
+    "start_steps": [
+      "Synthetic only"
+    ],
+    "offline_only": true,
+    "clean_environment_required": true
+  },
+  "acceptance": {
+    "input_artifact_id": "audio",
+    "network_isolation": "OS-enforced",
+    "checks": "restore-load-small-inference"
+  },
+  "scope": "offline-restoration-and-inference-only"
+}

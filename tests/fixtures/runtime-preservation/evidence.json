@@ -1,0 +1,75 @@
+{
+  "schema_version": "1.0",
+  "run_id": "synthetic-only",
+  "model": {
+    "entry_id": "synthetic-runtime-asr",
+    "revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  },
+  "definition": {
+    "preservation_id": "synthetic-only",
+    "preservation_version": "1.0.0",
+    "sha256": "700f5ceceab04d733f93a5e4a1edf9d6f0d151c4c7568c8e9b933774447d5753"
+  },
+  "recorded_at": "2026-01-01T00:00:00Z",
+  "status": "PASSED",
+  "reason": "SYNTHETIC CONTRACT FIXTURE: no model or runtime was executed.",
+  "restored": true,
+  "model_loaded": true,
+  "inference_completed": true,
+  "clean_environment": true,
+  "observed_platform": {
+    "operating_system": "SyntheticOS",
+    "os_version": "1",
+    "architecture": "AMD64",
+    "cpu_requirements": "Synthetic CPU",
+    "minimum_ram_bytes": 1024,
+    "accelerator": "none",
+    "gpu_requirements": "not required",
+    "driver_requirements": "not required",
+    "cuda_requirements": "not required"
+  },
+  "component_versions": {
+    "transformers": "0.0.1",
+    "cpython": "0.0.1",
+    "torch": "0.0.1"
+  },
+  "verified_artifacts": {
+    "python": "d6f253802b5a822eac1a17afa3baee2086709294c696a8a4cb1debd39f070450",
+    "engine": "d6f253802b5a822eac1a17afa3baee2086709294c696a8a4cb1debd39f070450",
+    "torch": "d6f253802b5a822eac1a17afa3baee2086709294c696a8a4cb1debd39f070450",
+    "audio": "d6f253802b5a822eac1a17afa3baee2086709294c696a8a4cb1debd39f070450",
+    "recipe": "d6f253802b5a822eac1a17afa3baee2086709294c696a8a4cb1debd39f070450",
+    "licence": "d6f253802b5a822eac1a17afa3baee2086709294c696a8a4cb1debd39f070450",
+    "tooling": "d6f253802b5a822eac1a17afa3baee2086709294c696a8a4cb1debd39f070450"
+  },
+  "network": {
+    "method": "OS-enforced",
+    "mechanism": "Synthetic only",
+    "covers_restoration_and_inference": true,
+    "external_retrievals": 0,
+    "log": {
+      "path": "synthetic/log.txt",
+      "size_bytes": 15,
+      "sha256": "d6f253802b5a822eac1a17afa3baee2086709294c696a8a4cb1debd39f070450"
+    }
+  },
+  "restoration_log": {
+    "path": "synthetic/log.txt",
+    "size_bytes": 15,
+    "sha256": "d6f253802b5a822eac1a17afa3baee2086709294c696a8a4cb1debd39f070450"
+  },
+  "inference_log": {
+    "path": "synthetic/log.txt",
+    "size_bytes": 15,
+    "sha256": "d6f253802b5a822eac1a17afa3baee2086709294c696a8a4cb1debd39f070450"
+  },
+  "model_integrity_record": {
+    "path": "synthetic/log.txt",
+    "size_bytes": 15,
+    "sha256": "d6f253802b5a822eac1a17afa3baee2086709294c696a8a4cb1debd39f070450"
+  },
+  "input_sha256": "d6f253802b5a822eac1a17afa3baee2086709294c696a8a4cb1debd39f070450",
+  "output_sha256": "d6f253802b5a822eac1a17afa3baee2086709294c696a8a4cb1debd39f070450",
+  "benchmarked": false,
+  "approved_for_runtime": false
+}
