@@ -1,4 +1,4 @@
-# FP-001D — Offline runtime preservation
+# FP-001D â€” Offline runtime preservation
 
 `Runtime Preserved != Benchmarked != Approved for runtime`.
 
@@ -9,9 +9,19 @@ FP-027/028/030 remain out of scope.
 
 The single reference is `openai-whisper-large-v3-turbo-41f01f3`, revision
 `41f01f3fe87f28c78e2fbf8b568835947dd65ed9`. Its current local snapshot was found.
-Real runtime acceptance is **BLOCKED** pending a durable runtime bundle and an
-isolated restoration run. See the [change record](../../docs/feature-packets/FP-001D.md).
-There is deliberately no fabricated production runtime definition or passing run.
+Runtime artifacts are now assembled for the frozen Windows x64 / CPython 3.12.10 /
+Torch 2.7.1+cpu / Transformers 4.53.3 reference. Real acceptance remains **BLOCKED**
+pending the new-account, manually disconnected operator run. See the
+[assembly record](../../docs/evidence/fp001d/FP-001D-CODE-EVIDENCE.md),
+[real definition](definitions/whisper-turbo-win64-cpu-1.0.0.json), and
+[operator procedure](../../docs/evidence/fp001d/OFFLINE-OPERATOR.md).
+No passing run or runtime approval is claimed.
+
+CPython 3.12.10 is the last official Python 3.12 Windows binary release and an
+accepted compatibility-preservation reference, not the current-security 3.12
+release. Later production/runtime approval must reassess interpreter security.
+This run permits the existing host-native Windows baseline and cannot prove
+clean-OS/bare-machine native dependency restoration.
 
 ## Preservation layers and scope
 
@@ -57,10 +67,11 @@ Definition identity hashes canonical validated JSON (`sort_keys=True`, ASCII,
 compact separators). Evidence must change whenever definition content changes.
 `PASSED` requires a clean restoration, model load, a completed small inference,
 zero external retrievals, OS isolation covering both restoration and inference,
-observed versions matching every component, the exact supported platform profile,
+observed versions matching every component, an observed supported OS/architecture
+and sufficient actual RAM,
 verified durable artifacts, and retained integrity/restoration/inference/network
-records. A profile records the OS/architecture and the satisfied compatibility
-requirements; detailed observed hardware identifiers belong in the restoration log.
+records. Observed hardware facts are recorded separately from requirements. Native
+prerequisites explicitly use the existing-host-baseline restoration scope.
 
 Evidence validation checks a claim's consistency; it is not an attestation service
 and cannot prove that manually entered logs describe a real run. Review the logs
@@ -78,8 +89,8 @@ execution from metadata or changes catalogue lifecycle flags.
    the full transitive closure on an assembly machine. Include pip and its needed
    bootstrap resources, NumPy, safetensors, tokenizer dependencies, applicable
    native libraries/redistributables and licences. Source distributions requiring
-   an online build are not supported. Version selection is still pending for the
-   real reference bundle; synthetic fixture versions are never recommendations.
+   an online build are not supported. The frozen reference selection is recorded above; synthetic fixture versions
+   are never recommendations.
 3. Inventory every preserved file with size, SHA-256 and original source URI;
    reference required files from each component. Record non-Python installers as
    bootstrap artifacts and their exact installation commands in the bootstrap
@@ -94,7 +105,7 @@ execution from metadata or changes catalogue lifecycle flags.
 6. Write a real definition only after those facts and artifacts exist. Validate
    metadata and exact model linkage. Missing artifacts, new large downloads,
    unsupported host compatibility or ambiguous restoration steps stop acceptance
-   and require an owner decision. This task has not authorized a runtime download.
+   and require an owner decision. The bounded reference assembly was authorized and is now recorded above.
 
 Example layout outside Git:
 
@@ -150,7 +161,7 @@ using the definition and run each only after the previous command succeeds:
 & <new-environment-python> <preserved-source>/scripts/offline_runtime_probe.py check
 & <new-environment-python> <preserved-source>/scripts/offline_runtime_probe.py infer `
   --model <exact-local-whisper-snapshot> --audio <runtime-root>/input/acceptance.wav `
-  --manifest <preserved-source>/model-zoo/manifest.json --max-new-tokens 32
+  --manifest <preserved-source>/model-zoo/manifest.json --definition <definition.json> --max-new-tokens 32
 ```
 
 Retain complete stdout/stderr and exit statuses outside Git. The installer uses

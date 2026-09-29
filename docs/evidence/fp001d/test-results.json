@@ -1,0 +1,63 @@
+{
+  "recorded_at": "2026-09-29T14:36:20.758712+00:00",
+  "checks": [
+    {
+      "name": "focused",
+      "exit_code": 0,
+      "log": "focused.txt"
+    },
+    {
+      "name": "ruff",
+      "exit_code": 0,
+      "log": "ruff.txt"
+    },
+    {
+      "name": "mypy",
+      "exit_code": 0,
+      "log": "mypy.txt"
+    },
+    {
+      "name": "schemas",
+      "exit_code": 0,
+      "log": "schemas.txt"
+    },
+    {
+      "name": "architecture",
+      "exit_code": 0,
+      "log": "architecture.txt"
+    },
+    {
+      "name": "git-safety",
+      "exit_code": 0,
+      "log": "git-safety.txt"
+    },
+    {
+      "name": "frontend-test",
+      "exit_code": 0,
+      "log": "frontend-test.txt"
+    },
+    {
+      "name": "frontend-lint",
+      "exit_code": 0,
+      "log": "frontend-lint.txt"
+    },
+    {
+      "name": "frontend-types",
+      "exit_code": 0,
+      "log": "frontend-types.txt"
+    },
+    {
+      "name": "frontend-build",
+      "exit_code": 0,
+      "log": "frontend-build.txt"
+    }
+  ],
+  "backend": {
+    "passed": 811,
+    "warning": "Existing Starlette/AnyIO deprecation",
+    "log": "backend-final.txt"
+  },
+  "focused_passed": 75,
+  "frontend_passed": 6,
+  "powershell": "Both scripts parsed successfully; actual acceptance not executed"
+}
