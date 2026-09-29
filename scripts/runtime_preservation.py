@@ -77,6 +77,22 @@ class Configuration(StrictModel):
     max_new_tokens: Annotated[int, Field(ge=1, le=128)]
     local_files_only: Literal[True]
     trust_remote_code: Literal[False]
+    threads: Literal[1] = 1
+    do_sample: Literal[False] = False
+
+
+class NativePrerequisite(Component):
+    restoration_scope: Literal["existing-host-baseline"]
+
+
+class ObservedPlatform(StrictModel):
+    operating_system: Text
+    os_version: Text
+    architecture: Literal["AMD64", "x86_64", "arm64", "aarch64"]
+    cpu: Text
+    total_ram_bytes: Annotated[int, Field(gt=0)]
+    available_ram_bytes_before_load: Annotated[int, Field(gt=0)]
+    native_versions: dict[Identifier, Text]
 
 
 class Restoration(StrictModel):
@@ -102,6 +118,9 @@ class RuntimeDefinition(StrictModel):
     runtime: Component
     interpreter: Component
     dependencies: Annotated[list[Component], Field(min_length=1)]
+    native_prerequisites: list[NativePrerequisite] = Field(default_factory=list)
+    source_revision: Annotated[str, Field(pattern=r"^[0-9a-f]{40}$")]
+    interpreter_security_note: Text
     artifacts: Annotated[list[Artifact], Field(min_length=1)]
     platform: PlatformRequirements
     configuration: Configuration
@@ -134,6 +153,15 @@ class RuntimeDefinition(StrictModel):
                 raise ValueError(
                     f"component requires durable {expected} artifact; image is optional"
                 )
+        for native in self.native_prerequisites:
+            if native.name in names:
+                raise ValueError("duplicate native component name")
+            names.append(native.name)
+            if not native.artifact_ids or any(
+                key not in artifacts or artifacts[key].role != "bootstrap"
+                for key in native.artifact_ids
+            ):
+                raise ValueError("native prerequisite requires preserved bootstrap")
         bootstrap = artifacts.get(self.restoration.bootstrap_artifact_id)
         if bootstrap is None or bootstrap.role != "bootstrap":
             raise ValueError("restoration requires bootstrap artifact")
@@ -174,6 +202,33 @@ class NetworkEvidence(StrictModel):
     covers_restoration_and_inference: bool
     external_retrievals: Annotated[int, Field(ge=0)]
     log: EvidenceFile | None
+    started_at: AwareDatetime | None = None
+    ended_at: AwareDatetime | None = None
+
+
+class ExecutionEvidence(StrictModel):
+    account_sid: Text
+    controller_sid: Text
+    new_account: Literal[True]
+    python_location: Text
+    environment_location: Text
+    system_site_packages: Literal[False]
+    bootstrap_exit_code: Literal[0]
+    venv_exit_code: Literal[0]
+    install_exit_code: Literal[0]
+    dependency_check_exit_code: Literal[0]
+    inference_exit_code: Literal[0]
+    started_at: AwareDatetime
+    ended_at: AwareDatetime
+    native_restoration_proven: Literal[False]
+
+    @model_validator(mode="after")
+    def separate_account(self) -> Self:
+        if self.account_sid == self.controller_sid:
+            raise ValueError("acceptance requires a new Windows account")
+        if self.ended_at < self.started_at:
+            raise ValueError("invalid execution timestamps")
+        return self
 
 
 class RuntimeEvidence(StrictModel):
@@ -188,7 +243,11 @@ class RuntimeEvidence(StrictModel):
     model_loaded: bool
     inference_completed: bool
     clean_environment: bool
-    observed_platform: PlatformRequirements | None
+    observed_platform: ObservedPlatform | None
+    observed_configuration: Configuration | None
+    source_revision: Annotated[str, Field(pattern=r"^[0-9a-f]{40}$")]
+    execution: ExecutionEvidence | None
+    execution_log: EvidenceFile | None
     component_versions: dict[Identifier, Text]
     verified_artifacts: dict[Identifier, Digest]
     network: NetworkEvidence
@@ -221,6 +280,9 @@ class RuntimeEvidence(StrictModel):
                     self.input_sha256,
                     self.output_sha256,
                     self.network.log,
+                    self.observed_configuration,
+                    self.execution,
+                    self.execution_log,
                 )
             ):
                 raise ValueError("PASSED requires complete evidence")
@@ -230,6 +292,16 @@ class RuntimeEvidence(StrictModel):
                 or self.network.external_retrievals != 0
             ):
                 raise ValueError("PASSED requires offline restoration and inference")
+            if self.network.started_at is None or self.network.ended_at is None:
+                raise ValueError("PASSED requires network timestamps")
+            assert self.execution is not None
+            if not (
+                self.network.started_at
+                <= self.execution.started_at
+                <= self.execution.ended_at
+                <= self.network.ended_at
+            ):
+                raise ValueError("network isolation must cover all execution")
         if self.status == "BLOCKED" and any(
             (self.restored, self.model_loaded, self.inference_completed)
         ):
@@ -279,17 +351,37 @@ def validate_evidence(
             raise ValueError("evidence artifact digest mismatch")
     if evidence.status != "PASSED":
         return
+    if evidence.source_revision != definition.source_revision:
+        raise ValueError("source revision mismatch")
+    if evidence.observed_configuration != definition.configuration:
+        raise ValueError("observed inference configuration mismatch")
     required = {item.artifact_id for item in definition.artifacts if item.role != "image"}
     if not required.issubset(evidence.verified_artifacts):
         raise ValueError("PASSED requires verification of every durable artifact")
     components = [definition.runtime, definition.interpreter, *definition.dependencies]
-    if evidence.component_versions != {item.name: item.version for item in components}:
+
+    def normalized(values: dict[str, str]) -> dict[str, str]:
+        result = {re.sub(r"[-_.]+", "-", k).lower(): v for k, v in values.items()}
+        if len(result) != len(values):
+            raise ValueError("duplicate normalized component name")
+        return result
+
+    if normalized(evidence.component_versions) != {item.name: item.version for item in components}:
         raise ValueError("observed component versions differ from definition")
     if evidence.input_sha256 != artifacts[definition.acceptance.input_artifact_id].sha256:
         raise ValueError("acceptance input digest mismatch")
-    # This bounded packet uses exact declared platform profiles. New platforms need new definitions.
-    if evidence.observed_platform != definition.platform:
-        raise ValueError("observed platform does not satisfy exact supported profile")
+    observed = evidence.observed_platform
+    assert observed is not None
+    required_platform = definition.platform
+    if (
+        observed.operating_system != required_platform.operating_system
+        or observed.os_version != required_platform.os_version
+        or observed.architecture != required_platform.architecture
+        or observed.total_ram_bytes < required_platform.minimum_ram_bytes
+        or observed.available_ram_bytes_before_load < required_platform.minimum_ram_bytes
+        or observed.native_versions != {n.name: n.version for n in definition.native_prerequisites}
+    ):
+        raise ValueError("observed platform does not satisfy supported profile")
 
 
 def load_definition(path: Path) -> RuntimeDefinition:

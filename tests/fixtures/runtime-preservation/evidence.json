@@ -8,7 +8,7 @@
   "definition": {
     "preservation_id": "synthetic-only",
     "preservation_version": "1.0.0",
-    "sha256": "700f5ceceab04d733f93a5e4a1edf9d6f0d151c4c7568c8e9b933774447d5753"
+    "sha256": "28a83fa649bc08ed0e71d9378d0ae31235a42f0a846fecd7c896bed81384121e"
   },
   "recorded_at": "2026-01-01T00:00:00Z",
   "status": "PASSED",
@@ -21,12 +21,10 @@
     "operating_system": "SyntheticOS",
     "os_version": "1",
     "architecture": "AMD64",
-    "cpu_requirements": "Synthetic CPU",
-    "minimum_ram_bytes": 1024,
-    "accelerator": "none",
-    "gpu_requirements": "not required",
-    "driver_requirements": "not required",
-    "cuda_requirements": "not required"
+    "cpu": "Synthetic CPU",
+    "total_ram_bytes": 2048,
+    "available_ram_bytes_before_load": 1024,
+    "native_versions": {}
   },
   "component_versions": {
     "transformers": "0.0.1",
@@ -51,7 +49,9 @@
       "path": "synthetic/log.txt",
       "size_bytes": 15,
       "sha256": "d6f253802b5a822eac1a17afa3baee2086709294c696a8a4cb1debd39f070450"
-    }
+    },
+    "started_at": "2026-01-01T00:00:00Z",
+    "ended_at": "2026-01-01T00:03:00Z"
   },
   "restoration_log": {
     "path": "synthetic/log.txt",
@@ -71,5 +71,39 @@
   "input_sha256": "d6f253802b5a822eac1a17afa3baee2086709294c696a8a4cb1debd39f070450",
   "output_sha256": "d6f253802b5a822eac1a17afa3baee2086709294c696a8a4cb1debd39f070450",
   "benchmarked": false,
-  "approved_for_runtime": false
+  "approved_for_runtime": false,
+  "observed_configuration": {
+    "device": "cpu",
+    "dtype": "float32",
+    "task": "transcribe",
+    "language": "en",
+    "sample_rate_hz": 16000,
+    "max_new_tokens": 32,
+    "local_files_only": true,
+    "trust_remote_code": false,
+    "threads": 1,
+    "do_sample": false
+  },
+  "source_revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "execution": {
+    "account_sid": "synthetic-new",
+    "controller_sid": "synthetic-controller",
+    "new_account": true,
+    "python_location": "synthetic/python",
+    "environment_location": "synthetic/venv",
+    "system_site_packages": false,
+    "bootstrap_exit_code": 0,
+    "venv_exit_code": 0,
+    "install_exit_code": 0,
+    "dependency_check_exit_code": 0,
+    "inference_exit_code": 0,
+    "started_at": "2026-01-01T00:01:00Z",
+    "ended_at": "2026-01-01T00:02:00Z",
+    "native_restoration_proven": false
+  },
+  "execution_log": {
+    "path": "synthetic/log.txt",
+    "size_bytes": 15,
+    "sha256": "d6f253802b5a822eac1a17afa3baee2086709294c696a8a4cb1debd39f070450"
+  }
 }

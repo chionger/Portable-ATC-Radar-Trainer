@@ -12,6 +12,7 @@ import importlib.metadata
 import json
 import os
 import platform
+import re
 import runpy
 import sys
 import wave
@@ -45,7 +46,7 @@ def enable_offline() -> None:
     sys.addaudithook(deny_network)
 
 
-def reference_snapshot(model_path: Path, manifest_path: Path) -> None:
+def reference_snapshot(model_path: Path, manifest_path: Path) -> list[dict[str, Any]]:
     if not model_path.is_dir():
         raise ValueError("model must be an existing local snapshot directory")
     if model_path.name != REFERENCE_REVISION:
@@ -58,6 +59,7 @@ def reference_snapshot(model_path: Path, manifest_path: Path) -> None:
     if not assets:
         raise ValueError("reference snapshot requires inline catalogue inventory")
     prefix = f"ASR/OpenAI/whisper-large-v3-turbo/{REFERENCE_REVISION}/"
+    checks = []
     for asset in assets:
         if not asset["path"].startswith(prefix):
             raise ValueError("reference asset path does not match immutable snapshot")
@@ -73,9 +75,20 @@ def reference_snapshot(model_path: Path, manifest_path: Path) -> None:
         if asset["size_bytes"] <= 4 * 1024 * 1024:
             if hashlib.sha256(local.read_bytes()).hexdigest() != asset["sha256"]:
                 raise ValueError("reference metadata digest mismatch")
+        checks.append(
+            {
+                "path": relative,
+                "size_bytes": local.stat().st_size,
+                "catalogue_sha256": asset["sha256"],
+                "check": "SIZE_AND_SHA256"
+                if asset["size_bytes"] <= 4 * 1024 * 1024
+                else "SIZE_ONLY_HISTORICAL_DIGEST_NOT_REHASHED",
+            }
+        )
     config = json.loads((model_path / "config.json").read_text(encoding="utf-8"))
     if config.get("model_type") != "whisper":
         raise ValueError("reference config must identify Whisper")
+    return checks
 
 
 def infer(
@@ -84,7 +97,7 @@ def infer(
     max_new_tokens: int,
     manifest_path: Path,
 ) -> dict[str, Any]:
-    reference_snapshot(model_path, manifest_path)
+    model_checks = reference_snapshot(model_path, manifest_path)
     required = (
         "config.json",
         "model.safetensors",
@@ -139,15 +152,32 @@ def infer(
     return {
         "model": {"entry_id": REFERENCE_ENTRY, "revision": REFERENCE_REVISION},
         "weight_integrity": "size only; historical integrity evidence required separately",
+        "model_integrity": model_checks,
         "model_loaded": True,
         "inference_completed": True,
         "input_sha256": hashlib.sha256(audio_path.read_bytes()).hexdigest(),
-        "output_sha256": hashlib.sha256(transcript.encode("utf-8")).hexdigest(),
+        "output_sha256": hashlib.sha256(
+            json.dumps(tokens.tolist(), separators=(",", ":")).encode("utf-8")
+        ).hexdigest(),
+        "generated_tokens": tokens.tolist(),
         "transcript": transcript,
         "generated_token_count": int(tokens.numel()),
         "python": platform.python_version(),
         "packages": {
-            item.metadata["Name"]: item.version for item in importlib.metadata.distributions()
+            re.sub(r"[-_.]+", "-", item.metadata["Name"]).lower(): item.version
+            for item in importlib.metadata.distributions()
+        },
+        "observed_configuration": {
+            "device": str(next(model.parameters()).device),
+            "dtype": str(next(model.parameters()).dtype).removeprefix("torch."),
+            "task": "transcribe",
+            "language": "en",
+            "sample_rate_hz": 16000,
+            "max_new_tokens": max_new_tokens,
+            "local_files_only": True,
+            "trust_remote_code": False,
+            "threads": torch.get_num_threads(),
+            "do_sample": False,
         },
         "network_guard": "Python audit hook; OS isolation evidence required separately",
         "benchmarked": False,
@@ -167,6 +197,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     probe.add_argument("--audio", type=Path, required=True)
     probe.add_argument("--manifest", type=Path, required=True)
     probe.add_argument("--max-new-tokens", type=int, default=32, choices=range(1, 129))
+    probe.add_argument("--definition", type=Path)
     args = parser.parse_args(argv)
     enable_offline()
     try:
@@ -200,7 +231,33 @@ def main(argv: Sequence[str] | None = None) -> int:
                 sys.argv = ["pip", "--isolated", "check"]
             runpy.run_module("pip", run_name="__main__")
             return 0
-        result = infer(args.model, args.audio, args.max_new_tokens, args.manifest)
+        reference_snapshot(args.model, args.manifest)
+        if args.definition is None:
+            raise ValueError("inference requires a validated definition")
+        # Imported only after offline package restoration. The bootstrap remains stdlib-only.
+        from scripts.runtime_preservation import definition_digest, load_definition, validate_link
+        from scripts.verify_model_zoo import load_manifest
+
+        definition = load_definition(args.definition)
+        validate_link(definition, load_manifest(args.manifest))
+        if definition.model.entry_id != REFERENCE_ENTRY:
+            raise ValueError("unsupported reference")
+        if args.max_new_tokens != definition.configuration.max_new_tokens:
+            raise ValueError("token cap differs from definition")
+        artifact = next(
+            a
+            for a in definition.artifacts
+            if a.artifact_id == definition.acceptance.input_artifact_id
+        )
+        if hashlib.sha256(args.audio.read_bytes()).hexdigest() != artifact.sha256:
+            raise ValueError("input differs from definition")
+        result = infer(
+            args.model, args.audio, definition.configuration.max_new_tokens, args.manifest
+        )
+        if result["observed_configuration"] != definition.configuration.model_dump():
+            raise ValueError("executed configuration differs from definition")
+        result["definition_sha256"] = definition_digest(definition)
+        result["source_revision"] = definition.source_revision
         print(json.dumps(result, sort_keys=True))
         return 0
     except (OSError, ValueError, RuntimeError, ImportError, KeyError, TypeError) as error:

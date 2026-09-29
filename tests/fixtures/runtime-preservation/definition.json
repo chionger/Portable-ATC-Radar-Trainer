@@ -109,7 +109,9 @@
     "sample_rate_hz": 16000,
     "max_new_tokens": 32,
     "local_files_only": true,
-    "trust_remote_code": false
+    "trust_remote_code": false,
+    "threads": 1,
+    "do_sample": false
   },
   "restoration": {
     "bootstrap_artifact_id": "python",
@@ -130,5 +132,8 @@
     "network_isolation": "OS-enforced",
     "checks": "restore-load-small-inference"
   },
-  "scope": "offline-restoration-and-inference-only"
+  "scope": "offline-restoration-and-inference-only",
+  "source_revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "interpreter_security_note": "Synthetic only; no interpreter approval",
+  "native_prerequisites": []
 }

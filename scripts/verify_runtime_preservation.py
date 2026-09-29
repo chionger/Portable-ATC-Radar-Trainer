@@ -43,12 +43,21 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser.add_argument("--artifact-root", type=Path)
     parser.add_argument("--evidence-root", type=Path)
     parser.add_argument(
+        "--acceptance",
+        action="store_true",
+        help="Require passing execution evidence and hash every retained file",
+    )
+    parser.add_argument(
         "--hash-files",
         action="store_true",
         help="Explicitly hash referenced runtime/evidence files, never model weights",
     )
     args = parser.parse_args(argv)
     try:
+        if args.acceptance and not all(
+            (args.evidence, args.artifact_root, args.evidence_root, args.hash_files)
+        ):
+            raise ValueError("--acceptance requires evidence, both roots and --hash-files")
         if args.hash_files and args.artifact_root is None:
             raise ValueError("--hash-files requires --artifact-root")
         definition = load_definition(args.definition)
@@ -77,10 +86,23 @@ def main(argv: Sequence[str] | None = None) -> int:
                 evidence.inference_log,
                 evidence.model_integrity_record,
                 evidence.network.log,
+                evidence.execution_log,
             ]
             for record in records:
                 if record is not None:
                     check_file(root, record.path, record.size_bytes, record.sha256, args.hash_files)
+        if args.acceptance:
+            assert evidence is not None
+            if evidence.status != "PASSED":
+                raise ValueError("acceptance requires PASSED execution")
+            from scripts.collect_runtime_evidence import collect
+
+            collected = collect(args.artifact_root, args.evidence_root)
+            # Timestamp is assigned on collection; all substantive claims must reproduce.
+            if collected.model_dump(exclude={"recorded_at"}) != evidence.model_dump(
+                exclude={"recorded_at"}
+            ):
+                raise ValueError("retained logs do not reproduce evidence")
         print(
             json.dumps(
                 {
@@ -91,7 +113,9 @@ def main(argv: Sequence[str] | None = None) -> int:
                     if args.artifact_root
                     else "NOT_CHECKED",
                     "evidence_files_checked": bool(args.evidence_root),
-                    "runtime_preserved": "NOT_ESTABLISHED_BY_METADATA_VALIDATION",
+                    "runtime_preserved": "EVIDENCE_VERIFIED_HOST_BASELINE_ONLY"
+                    if args.acceptance
+                    else "NOT_ESTABLISHED_BY_METADATA_VALIDATION",
                 },
                 sort_keys=True,
             )

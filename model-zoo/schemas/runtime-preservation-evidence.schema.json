@@ -1,5 +1,75 @@
 {
   "$defs": {
+    "Configuration": {
+      "additionalProperties": false,
+      "properties": {
+        "device": {
+          "const": "cpu",
+          "title": "Device",
+          "type": "string"
+        },
+        "do_sample": {
+          "const": false,
+          "default": false,
+          "title": "Do Sample",
+          "type": "boolean"
+        },
+        "dtype": {
+          "const": "float32",
+          "title": "Dtype",
+          "type": "string"
+        },
+        "language": {
+          "const": "en",
+          "title": "Language",
+          "type": "string"
+        },
+        "local_files_only": {
+          "const": true,
+          "title": "Local Files Only",
+          "type": "boolean"
+        },
+        "max_new_tokens": {
+          "maximum": 128,
+          "minimum": 1,
+          "title": "Max New Tokens",
+          "type": "integer"
+        },
+        "sample_rate_hz": {
+          "const": 16000,
+          "title": "Sample Rate Hz",
+          "type": "integer"
+        },
+        "task": {
+          "const": "transcribe",
+          "title": "Task",
+          "type": "string"
+        },
+        "threads": {
+          "const": 1,
+          "default": 1,
+          "title": "Threads",
+          "type": "integer"
+        },
+        "trust_remote_code": {
+          "const": false,
+          "title": "Trust Remote Code",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "device",
+        "dtype",
+        "task",
+        "language",
+        "sample_rate_hz",
+        "max_new_tokens",
+        "local_files_only",
+        "trust_remote_code"
+      ],
+      "title": "Configuration",
+      "type": "object"
+    },
     "DefinitionReference": {
       "additionalProperties": false,
       "properties": {
@@ -55,6 +125,103 @@
       "title": "EvidenceFile",
       "type": "object"
     },
+    "ExecutionEvidence": {
+      "additionalProperties": false,
+      "properties": {
+        "account_sid": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Account Sid",
+          "type": "string"
+        },
+        "bootstrap_exit_code": {
+          "const": 0,
+          "title": "Bootstrap Exit Code",
+          "type": "integer"
+        },
+        "controller_sid": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Controller Sid",
+          "type": "string"
+        },
+        "dependency_check_exit_code": {
+          "const": 0,
+          "title": "Dependency Check Exit Code",
+          "type": "integer"
+        },
+        "ended_at": {
+          "format": "date-time",
+          "title": "Ended At",
+          "type": "string"
+        },
+        "environment_location": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Environment Location",
+          "type": "string"
+        },
+        "inference_exit_code": {
+          "const": 0,
+          "title": "Inference Exit Code",
+          "type": "integer"
+        },
+        "install_exit_code": {
+          "const": 0,
+          "title": "Install Exit Code",
+          "type": "integer"
+        },
+        "native_restoration_proven": {
+          "const": false,
+          "title": "Native Restoration Proven",
+          "type": "boolean"
+        },
+        "new_account": {
+          "const": true,
+          "title": "New Account",
+          "type": "boolean"
+        },
+        "python_location": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Python Location",
+          "type": "string"
+        },
+        "started_at": {
+          "format": "date-time",
+          "title": "Started At",
+          "type": "string"
+        },
+        "system_site_packages": {
+          "const": false,
+          "title": "System Site Packages",
+          "type": "boolean"
+        },
+        "venv_exit_code": {
+          "const": 0,
+          "title": "Venv Exit Code",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "account_sid",
+        "controller_sid",
+        "new_account",
+        "python_location",
+        "environment_location",
+        "system_site_packages",
+        "bootstrap_exit_code",
+        "venv_exit_code",
+        "install_exit_code",
+        "dependency_check_exit_code",
+        "inference_exit_code",
+        "started_at",
+        "ended_at",
+        "native_restoration_proven"
+      ],
+      "title": "ExecutionEvidence",
+      "type": "object"
+    },
     "ModelReference": {
       "additionalProperties": false,
       "properties": {
@@ -82,6 +249,19 @@
         "covers_restoration_and_inference": {
           "title": "Covers Restoration And Inference",
           "type": "boolean"
+        },
+        "ended_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Ended At"
         },
         "external_retrievals": {
           "minimum": 0,
@@ -111,6 +291,19 @@
           ],
           "title": "Method",
           "type": "string"
+        },
+        "started_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Started At"
         }
       },
       "required": [
@@ -123,17 +316,9 @@
       "title": "NetworkEvidence",
       "type": "object"
     },
-    "PlatformRequirements": {
+    "ObservedPlatform": {
       "additionalProperties": false,
       "properties": {
-        "accelerator": {
-          "enum": [
-            "none",
-            "GPU"
-          ],
-          "title": "Accelerator",
-          "type": "string"
-        },
         "architecture": {
           "enum": [
             "AMD64",
@@ -144,34 +329,27 @@
           "title": "Architecture",
           "type": "string"
         },
-        "cpu_requirements": {
-          "minLength": 1,
-          "pattern": "\\S",
-          "title": "Cpu Requirements",
-          "type": "string"
-        },
-        "cuda_requirements": {
-          "minLength": 1,
-          "pattern": "\\S",
-          "title": "Cuda Requirements",
-          "type": "string"
-        },
-        "driver_requirements": {
-          "minLength": 1,
-          "pattern": "\\S",
-          "title": "Driver Requirements",
-          "type": "string"
-        },
-        "gpu_requirements": {
-          "minLength": 1,
-          "pattern": "\\S",
-          "title": "Gpu Requirements",
-          "type": "string"
-        },
-        "minimum_ram_bytes": {
+        "available_ram_bytes_before_load": {
           "exclusiveMinimum": 0,
-          "title": "Minimum Ram Bytes",
+          "title": "Available Ram Bytes Before Load",
           "type": "integer"
+        },
+        "cpu": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Cpu",
+          "type": "string"
+        },
+        "native_versions": {
+          "patternProperties": {
+            "^[a-z0-9][a-z0-9._-]*$": {
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            }
+          },
+          "title": "Native Versions",
+          "type": "object"
         },
         "operating_system": {
           "minLength": 1,
@@ -184,20 +362,23 @@
           "pattern": "\\S",
           "title": "Os Version",
           "type": "string"
+        },
+        "total_ram_bytes": {
+          "exclusiveMinimum": 0,
+          "title": "Total Ram Bytes",
+          "type": "integer"
         }
       },
       "required": [
         "operating_system",
         "os_version",
         "architecture",
-        "cpu_requirements",
-        "minimum_ram_bytes",
-        "accelerator",
-        "gpu_requirements",
-        "driver_requirements",
-        "cuda_requirements"
+        "cpu",
+        "total_ram_bytes",
+        "available_ram_bytes_before_load",
+        "native_versions"
       ],
-      "title": "PlatformRequirements",
+      "title": "ObservedPlatform",
       "type": "object"
     }
   },
@@ -231,6 +412,26 @@
     },
     "definition": {
       "$ref": "#/$defs/DefinitionReference"
+    },
+    "execution": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ExecutionEvidence"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "execution_log": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/EvidenceFile"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "inference_completed": {
       "title": "Inference Completed",
@@ -278,10 +479,20 @@
     "network": {
       "$ref": "#/$defs/NetworkEvidence"
     },
+    "observed_configuration": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Configuration"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
     "observed_platform": {
       "anyOf": [
         {
-          "$ref": "#/$defs/PlatformRequirements"
+          "$ref": "#/$defs/ObservedPlatform"
         },
         {
           "type": "null"
@@ -335,6 +546,11 @@
       "title": "Schema Version",
       "type": "string"
     },
+    "source_revision": {
+      "pattern": "^[0-9a-f]{40}$",
+      "title": "Source Revision",
+      "type": "string"
+    },
     "status": {
       "enum": [
         "PASSED",
@@ -368,6 +584,10 @@
     "inference_completed",
     "clean_environment",
     "observed_platform",
+    "observed_configuration",
+    "source_revision",
+    "execution",
+    "execution_log",
     "component_versions",
     "verified_artifacts",
     "network",

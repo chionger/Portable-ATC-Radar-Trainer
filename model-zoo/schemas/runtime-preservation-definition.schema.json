@@ -126,6 +126,12 @@
           "title": "Device",
           "type": "string"
         },
+        "do_sample": {
+          "const": false,
+          "default": false,
+          "title": "Do Sample",
+          "type": "boolean"
+        },
         "dtype": {
           "const": "float32",
           "title": "Dtype",
@@ -156,6 +162,12 @@
           "const": "transcribe",
           "title": "Task",
           "type": "string"
+        },
+        "threads": {
+          "const": 1,
+          "default": 1,
+          "title": "Threads",
+          "type": "integer"
         },
         "trust_remote_code": {
           "const": false,
@@ -195,6 +207,49 @@
         "revision"
       ],
       "title": "ModelReference",
+      "type": "object"
+    },
+    "NativePrerequisite": {
+      "additionalProperties": false,
+      "properties": {
+        "artifact_ids": {
+          "items": {
+            "pattern": "^[a-z0-9][a-z0-9._-]*$",
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Artifact Ids",
+          "type": "array"
+        },
+        "name": {
+          "pattern": "^[a-z0-9][a-z0-9._-]*$",
+          "title": "Name",
+          "type": "string"
+        },
+        "restoration_scope": {
+          "const": "existing-host-baseline",
+          "title": "Restoration Scope",
+          "type": "string"
+        },
+        "source_uri": {
+          "pattern": "^https://[^\\s]+$",
+          "title": "Source Uri",
+          "type": "string"
+        },
+        "version": {
+          "pattern": "^[0-9][a-zA-Z0-9.+_-]*$",
+          "title": "Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "version",
+        "source_uri",
+        "artifact_ids",
+        "restoration_scope"
+      ],
+      "title": "NativePrerequisite",
       "type": "object"
     },
     "PlatformRequirements": {
@@ -363,8 +418,21 @@
     "interpreter": {
       "$ref": "#/$defs/Component"
     },
+    "interpreter_security_note": {
+      "minLength": 1,
+      "pattern": "\\S",
+      "title": "Interpreter Security Note",
+      "type": "string"
+    },
     "model": {
       "$ref": "#/$defs/ModelReference"
+    },
+    "native_prerequisites": {
+      "items": {
+        "$ref": "#/$defs/NativePrerequisite"
+      },
+      "title": "Native Prerequisites",
+      "type": "array"
     },
     "platform": {
       "$ref": "#/$defs/PlatformRequirements"
@@ -394,6 +462,11 @@
       "const": "offline-restoration-and-inference-only",
       "title": "Scope",
       "type": "string"
+    },
+    "source_revision": {
+      "pattern": "^[0-9a-f]{40}$",
+      "title": "Source Revision",
+      "type": "string"
     }
   },
   "required": [
@@ -404,6 +477,8 @@
     "runtime",
     "interpreter",
     "dependencies",
+    "source_revision",
+    "interpreter_security_note",
     "artifacts",
     "platform",
     "configuration",
