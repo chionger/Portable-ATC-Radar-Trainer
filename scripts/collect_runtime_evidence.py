@@ -24,10 +24,22 @@ def validate_observations(network: list[dict[str, Any]], inference: dict[str, An
         raise ValueError("network coverage failed")
     previous = None
     for row in network:
+        inert = {"WAN Miniport (Network Monitor)", "WAN Miniport (IP)", "WAN Miniport (IPv6)"}
+        active = [
+            adapter
+            for adapter in row["adapters"]
+            if adapter["Status"] == "Up"
+            and not (
+                adapter.get("InterfaceDescription") in inert
+                and not any(
+                    route.get("InterfaceIndex") == adapter.get("ifIndex") for route in row["routes"]
+                )
+            )
+        ]
         if (
             not row["isolated"]
             or not row["adapters"]
-            or any(a["Status"] == "Up" for a in row["adapters"])
+            or active
             or any(r["DestinationPrefix"] in {"0.0.0.0/0", "::/0"} for r in row["routes"])
         ):
             raise ValueError("network coverage failed")

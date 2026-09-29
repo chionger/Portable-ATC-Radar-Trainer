@@ -36,6 +36,31 @@ networking, VPN/virtual adapters and every other network-capable adapter.
 Airplane mode alone is insufficient. Keep everything disconnected until the
 runner explicitly ends. Do not enable networking to resolve an error.
 
+### Read-only network preflight
+
+Two blocked preflights were preserved; neither installed Python nor attempted inference.
+The corrected guard tolerates only the three named Windows bookkeeping WAN miniports
+when they have no routes. Every other Up adapter, every routed Up miniport, and every
+default route still blocks acceptance. Do not disable/uninstall Windows WAN miniports.
+
+Before switching accounts, open `ncpa.cpl` from Win+R in your usual administrator
+account, right-click **Wi-Fi**, and select **Disable**. Disable Ethernet/tethering
+or other transport adapters too. This is stronger than Disconnect from a Wi-Fi
+network. Then switch into FP001DReference without re-enabling networking.
+
+First run this read-only check; it creates no run directory and does not restore
+or load anything, so it may be repeated after correcting networking:
+
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File "D:\ATC-Runtime-Preservation\whisper-turbo-win64-cpu\1.0.0\procedure\run_fp001d_offline.ps1" -CheckNetworkOnly
+```
+
+Proceed to acceptance only if it prints **NETWORK PREFLIGHT READY**. If blocked,
+retain the displayed reasons. Do not keep invoking the acceptance command.
+The bundle remains at its original directory; revised definition version 1.0.1
+and hashes identify the corrected procedure. Version 1.0.0 source/definition and
+both blocked network logs remain preserved as historical evidence.
+
 ## 3. Run exactly once from the new account
 
 Open ordinary Windows PowerShell in `FP001DReference`:

@@ -1,5 +1,5 @@
 # Windows PowerShell 5.1 compatible. Run in the NEW standard account after MANUAL disconnection.
-param([switch]$ConfirmManuallyDisconnected)
+param([switch]$ConfirmManuallyDisconnected, [switch]$CheckNetworkOnly)
 $ErrorActionPreference = 'Stop'
 $Bundle = 'D:\ATC-Runtime-Preservation\whisper-turbo-win64-cpu\1.0.0'
 $Restore = 'D:\ATC-Runtime-Restore\fp001d-reference-001'
@@ -25,21 +25,26 @@ function Budget {
     @{timestamp=(UTC); d_assets_bytes=$DBytes; c_test_profile_bytes=$CBytes} |
         ConvertTo-Json -Compress | Add-Content -Encoding UTF8 "$Run\storage.jsonl"
 }
+$NetworkPolicy = Join-Path $PSScriptRoot 'fp001d_network.ps1'
 $NetworkSnapshot = {
-    param($Log, $Violation)
+    param($Log, $Violation, $PolicyPath)
     $ErrorActionPreference = 'Stop'
     try {
-        $Adapters = @(Get-NetAdapter -IncludeHidden | Select-Object Name,InterfaceDescription,Status,ifIndex,MacAddress)
-        $Routes = @(Get-NetRoute -ErrorAction Stop | Select-Object DestinationPrefix,NextHop,InterfaceIndex,State)
-        $Active = @($Adapters | Where-Object { $_.Status -eq 'Up' })
-        $Default = @($Routes | Where-Object { $_.DestinationPrefix -in @('0.0.0.0/0','::/0') })
-        $Isolated = $Adapters.Count -gt 0 -and $Active.Count -eq 0 -and $Default.Count -eq 0
-        @{timestamp=[DateTime]::UtcNow.ToString('o'); isolated=$Isolated; adapters=$Adapters; routes=$Routes} |
-            ConvertTo-Json -Depth 6 -Compress | Add-Content -Encoding UTF8 -LiteralPath $Log
-        if (!$Isolated) { 'Active adapter/default route detected' | Set-Content -LiteralPath $Violation }
+        . $PolicyPath
+        $Snapshot = Get-Fp001dNetworkSnapshot
+        $Snapshot | ConvertTo-Json -Depth 6 -Compress | Add-Content -Encoding UTF8 -LiteralPath $Log
+        if (!$Snapshot.isolated) { $Snapshot.reasons | Set-Content -LiteralPath $Violation }
     } catch {
         $_.Exception.Message | Set-Content -LiteralPath $Violation
     }
+}
+if ($CheckNetworkOnly) {
+    . $NetworkPolicy
+    $Snapshot = Get-Fp001dNetworkSnapshot
+    $Snapshot | ConvertTo-Json -Depth 6
+    if ($Snapshot.isolated) { Write-Host 'NETWORK PREFLIGHT READY (no restoration/inference executed)'; exit 0 }
+    Write-Host 'NETWORK PREFLIGHT BLOCKED (no restoration/inference executed)'
+    exit 1
 }
 function Isolated {
     if (Test-Path -LiteralPath "$Run\network-violation.txt") { throw 'Network isolation failed; inspect network log.' }
@@ -88,16 +93,16 @@ try {
             throw "Preserved artifact verification failed: $($Artifact.path)"
         }
     }
-    & $NetworkSnapshot "$Run\network.jsonl" "$Run\network-violation.txt"
+    & $NetworkSnapshot "$Run\network.jsonl" "$Run\network-violation.txt" $NetworkPolicy
     Isolated
     $Watch = Start-Job -ScriptBlock {
-        param($Snapshot, $Log, $Violation, $Stop)
+        param($Snapshot, $Log, $Violation, $Stop, $PolicyPath)
         $Block = [scriptblock]::Create($Snapshot)
         while (!(Test-Path -LiteralPath $Stop)) {
-            & $Block $Log $Violation
+            & $Block $Log $Violation $PolicyPath
             Start-Sleep -Seconds 1
         }
-    } -ArgumentList $NetworkSnapshot.ToString(),"$Run\network.jsonl","$Run\network-violation.txt","$Run\stop-monitor.txt"
+    } -ArgumentList $NetworkSnapshot.ToString(),"$Run\network.jsonl","$Run\network-violation.txt","$Run\stop-monitor.txt",$NetworkPolicy
     $ExecutionStarted = (Get-Date).ToUniversalTime()
     $FinalStatus = 'FAILED'
     $Native = Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\VisualStudio\14.0\VC\Runtimes\x64'
@@ -142,7 +147,7 @@ try {
     Wait-Job $Watch -Timeout 10 | Out-Null
     Receive-Job $Watch -ErrorAction Stop | Out-Null
     $Watch = $null
-    & $NetworkSnapshot "$Run\network.jsonl" "$Run\network-violation.txt"
+    & $NetworkSnapshot "$Run\network.jsonl" "$Run\network-violation.txt" $NetworkPolicy
     Isolated
     & $EnvPython -m scripts.collect_runtime_evidence --bundle $Bundle --run $Run *> "$Run\collection.txt"
     if ($LASTEXITCODE -ne 0) { throw 'Evidence collection failed' }
