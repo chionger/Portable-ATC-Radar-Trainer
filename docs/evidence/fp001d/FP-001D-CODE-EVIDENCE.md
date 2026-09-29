@@ -1,3 +1,5 @@
+> Current update: [network recovery and definition 1.0.1](NETWORK-RECOVERY.md). The assembly record below is historical; acceptance remains pending.
+
 # FP-001D — CODE + EVIDENCE, operator handoff
 
 **Runtime assembly complete; offline acceptance BLOCKED / NOT RUN. PR #37 remains draft and must not be merged.**

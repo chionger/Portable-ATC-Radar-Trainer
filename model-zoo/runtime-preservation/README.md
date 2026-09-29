@@ -13,7 +13,7 @@ Runtime artifacts are now assembled for the frozen Windows x64 / CPython 3.12.10
 Torch 2.7.1+cpu / Transformers 4.53.3 reference. Real acceptance remains **BLOCKED**
 pending the new-account, manually disconnected operator run. See the
 [assembly record](../../docs/evidence/fp001d/FP-001D-CODE-EVIDENCE.md),
-[real definition](definitions/whisper-turbo-win64-cpu-1.0.0.json), and
+[real definition](definitions/whisper-turbo-win64-cpu-1.0.1.json), and
 [operator procedure](../../docs/evidence/fp001d/OFFLINE-OPERATOR.md).
 No passing run or runtime approval is claimed.
 
@@ -205,3 +205,6 @@ directories and archives under `model-zoo`, including force-added ignored files.
 proof that Whisper ran. Tests exercise missing/mismatched revisions and hashes,
 unsafe paths, false success claims, schema drift, Git safety, blocked retrieval and
 fail-closed probe behavior without downloading, reading or hashing model weights.
+
+
+Network preflight recovery: see [current procedure and evidence](../../docs/evidence/fp001d/NETWORK-RECOVERY.md). Definition 1.0.1 supersedes 1.0.0 for the pending run; no inference has occurred.
