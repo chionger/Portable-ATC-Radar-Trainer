@@ -1,6 +1,6 @@
 # FP-001D: one offline acceptance run
 
-Current state: runtime bytes assembled; acceptance NOT RUN. Do not merge PR #37.
+Current state: bootstrap attempt 001 FAILED before installation/inference. Help-only diagnostic passed; controlled attempt 002 is prepared, not executed. Do not merge PR #37.
 
 The frozen reference is Windows x64, CPython 3.12.10, Torch 2.7.1+cpu,
 Transformers 4.53.3 and exactly 31 wheels. CPython 3.12.10 is accepted as the
@@ -13,19 +13,15 @@ you to disable/disconnect networking, and the new Windows account needs a passwo
 entered locally. Do not enter that password in chat. Once disconnected, this chat
 may be unavailable; the runner is self-contained.
 
-## 1. Prepare the new account while connected
+## 1. Use the already-created reference account
 
-Open **Windows PowerShell as Administrator** and run:
-
-```powershell
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File "D:\ATC-Runtime-Preservation\whisper-turbo-win64-cpu\1.0.0\procedure\prepare_fp001d_account.ps1"
-```
-
-The script prompts securely for a password, creates the standard local account
-`FP001DReference`, records its SID/time, grants read access to the exact bundle,
-and grants write access to the new restore directory. It does not modify the
-existing model, existing Python installation, or networking. If the account or
-restore directory already exists, stop; do not reuse or delete it.
+Use `FP001DReference`; do not recreate the account or rerun account preparation.
+The failed bootstrap did not create the interpreter or venv. Attempt 002 retains
+the fresh interpreter/venv destination checks and uses separate temp/cache folders.
+Attempt 001 and warning-diagnostic-001 remain unchanged. The help-only diagnostic
+loaded the installer interface and exited 0; the operator reports no Windows or
+antivirus setting changes. The original access-denied cause is still unknown.
+This is one controlled retry, not a claim that the cause has been fixed.
 
 ## 2. Disconnect before any restoration
 
@@ -57,8 +53,8 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File "D:\ATC-Runtime-Preserva
 
 Proceed to acceptance only if it prints **NETWORK PREFLIGHT READY**. If blocked,
 retain the displayed reasons. Do not keep invoking the acceptance command.
-The bundle remains at its original directory; revised definition version 1.0.1
-and hashes identify the corrected procedure. Version 1.0.0 source/definition and
+The bundle remains at its original directory; revised definition version 1.0.2
+and hashes identify the corrected procedure. Versions 1.0.0 and 1.0.1 source/definition and
 both blocked network logs remain preserved as historical evidence.
 
 ## 3. Run exactly once from the new account
@@ -96,7 +92,7 @@ After the runner prints its final status, networking may be restored. Keep all
 files under:
 
 ```text
-D:\ATC-Runtime-Restore\fp001d-reference-001\fp001d-run-001
+D:\ATC-Runtime-Restore\fp001d-reference-001\fp001d-run-002
 ```
 
 Return to this chat and state that the one run ended. Do not rerun acceptance.

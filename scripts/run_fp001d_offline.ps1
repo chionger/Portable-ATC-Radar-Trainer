@@ -4,7 +4,7 @@ $ErrorActionPreference = 'Stop'
 $Bundle = 'D:\ATC-Runtime-Preservation\whisper-turbo-win64-cpu\1.0.0'
 $Restore = 'D:\ATC-Runtime-Restore\fp001d-reference-001'
 $Model = 'D:\ATC-Model-Zoo\ASR\OpenAI\whisper-large-v3-turbo\41f01f3fe87f28c78e2fbf8b568835947dd65ed9'
-$Run = "$Restore\fp001d-run-001"
+$Run = "$Restore\fp001d-run-002"
 $Python = "$Restore\python\python.exe"
 $EnvPython = "$Restore\environment\Scripts\python.exe"
 $Source = "$Bundle\source"
@@ -127,10 +127,10 @@ try {
     if (!$Native.Installed -or ([version]$Native.Version.TrimStart('v')).ToString() -ne '14.51.36247.0') { throw 'Declared native baseline mismatch; no native installation authorized' }
     $OS = Get-CimInstance Win32_OperatingSystem
     if ($OS.Version -ne $Definition.platform.os_version -or $env:PROCESSOR_ARCHITECTURE -ne 'AMD64') { throw 'Host OS/architecture mismatch' }
-    New-Item -ItemType Directory "$Restore\temp","$Restore\cache" | Out-Null
-    $env:TEMP = "$Restore\temp"; $env:TMP = $env:TEMP
+    New-Item -ItemType Directory "$Restore\temp-002","$Restore\cache-002" | Out-Null
+    $env:TEMP = "$Restore\temp-002"; $env:TMP = $env:TEMP
     $env:PYTHONNOUSERSITE = '1'; $env:PYTHONDONTWRITEBYTECODE = '1'; $env:PYTHONPATH = $Source
-    $env:HF_HOME = "$Restore\cache\huggingface"; $env:HF_HUB_DISABLE_XET = '1'
+    $env:HF_HOME = "$Restore\cache-002\huggingface"; $env:HF_HUB_DISABLE_XET = '1'
     $env:HF_HUB_OFFLINE='1'; $env:TRANSFORMERS_OFFLINE='1'; $env:HF_HUB_DISABLE_TELEMETRY='1'
     $env:PIP_NO_INDEX='1'; $env:PIP_DISABLE_PIP_VERSION_CHECK='1'; $env:PIP_CONFIG_FILE='NUL'
     Set-Location -LiteralPath $Source
