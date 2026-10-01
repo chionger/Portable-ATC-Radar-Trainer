@@ -1,0 +1,117 @@
+{
+  "recorded_at": "2026-10-01T15:54:35.408360+00:00",
+  "definition_sha256": "6fef8607d2f3135cbe7597b4b9cb668a36fdad64ed394d584d90604ddeba9843",
+  "source_revision": "c86033f849c91a749b5d6eefed8e994df275d2b3",
+  "retained_logs": [
+    {
+      "path": "fp001d-run-001\\bootstrap.stderr.txt",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "fp001d-run-001\\bootstrap.stdout.txt",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "fp001d-run-001\\network.jsonl",
+      "size_bytes": 12059,
+      "sha256": "db463c8dfc1cb2bb5f2c363eb76f32238f449828ffb3f57f4147a2628cee9812"
+    },
+    {
+      "path": "fp001d-run-001\\operator-result.json",
+      "size_bytes": 402,
+      "sha256": "b78a4248dc42c345f73e454ef72b549f348aaef350e92e4a2ba5921fa94c5bd0"
+    },
+    {
+      "path": "fp001d-run-001\\python-installer.log",
+      "size_bytes": 11646,
+      "sha256": "be2ded823600819096d2e270d14c8639c22857dc6d5952fbb74685ebf64020cd"
+    },
+    {
+      "path": "fp001d-run-001\\restoration.txt",
+      "size_bytes": 574,
+      "sha256": "fec4f44af70b9feb4ded740e9d0396f9aeacb31d3971a0050767f0572079db48"
+    },
+    {
+      "path": "fp001d-run-001\\storage.jsonl",
+      "size_bytes": 110,
+      "sha256": "da9e8ef4a6767231fb2c09cca7e55a25186be944bc7da59de2ef6a2618161b19"
+    },
+    {
+      "path": "warning-diagnostic-001\\capture-procedure.ps1",
+      "size_bytes": 5897,
+      "sha256": "9363683e89a8a6d36f449670d10d479249f3f13a0cfb968566569250e28c03b2"
+    },
+    {
+      "path": "warning-diagnostic-001\\digests.json",
+      "size_bytes": 1565,
+      "sha256": "5ca36b205c5e3be7055383a0d64b6c5cb97c7afd10798b15aacf3e169b9f75f9"
+    },
+    {
+      "path": "warning-diagnostic-001\\installer-help.log",
+      "size_bytes": 11754,
+      "sha256": "157402511da20885670619009ff23e45a657a820b6d70338558f249ac78ad773"
+    },
+    {
+      "path": "warning-diagnostic-001\\Microsoft_Windows_AppLocker_EXE_and_DLL.txt",
+      "size_bytes": 136,
+      "sha256": "6e35c1ec5f94e7509510f807d08c15650917ba427cef523824804c9749eaa8a8"
+    },
+    {
+      "path": "warning-diagnostic-001\\Microsoft_Windows_CodeIntegrity_Operational.txt",
+      "size_bytes": 136,
+      "sha256": "6e35c1ec5f94e7509510f807d08c15650917ba427cef523824804c9749eaa8a8"
+    },
+    {
+      "path": "warning-diagnostic-001\\Microsoft_Windows_Windows_Defender_Operational.txt",
+      "size_bytes": 136,
+      "sha256": "6e35c1ec5f94e7509510f807d08c15650917ba427cef523824804c9749eaa8a8"
+    },
+    {
+      "path": "warning-diagnostic-001\\network.jsonl",
+      "size_bytes": 36171,
+      "sha256": "58e08dc67dc3dfe6ff0dec50a1066924d6227debc3dca1c2c3ceca75da5da6d3"
+    },
+    {
+      "path": "warning-diagnostic-001\\result.json",
+      "size_bytes": 1039,
+      "sha256": "0fc10d633249d35b9276e7e604791b56d00bad9c27584d4c262cb22cc79a6e69"
+    },
+    {
+      "path": "warning-diagnostic-001\\stderr.txt",
+      "size_bytes": 5,
+      "sha256": "f01a374e9c81e3db89b3a42940c4d6a5447684986a1296e42bf13f196eed6295"
+    },
+    {
+      "path": "warning-diagnostic-001\\stdout.txt",
+      "size_bytes": 5,
+      "sha256": "f01a374e9c81e3db89b3a42940c4d6a5447684986a1296e42bf13f196eed6295"
+    }
+  ],
+  "diagnostic": {
+    "purpose": "Installer help-only warning diagnostic; not acceptance",
+    "started_utc": "2026-10-01T15:35:54.4002998Z",
+    "account": "MSI\\FP001DReference",
+    "sid": "S-1-5-21-3089561890-79585510-1054915987-1008",
+    "installer_sha256": "67b5635e80ea51072b87941312d00ec8927c4db9ba18938f7ad2d27b328b95fb",
+    "d_bytes_before": 311063406,
+    "c_profile_bytes_before": 1374276674,
+    "exit_code": 0,
+    "failure": null,
+    "inference_started": false,
+    "isolation": "Operator confirms manual disconnection; adapter and route snapshots (not packet capture)",
+    "source_help_parser": "https://github.com/wixtoolset/wix3/blob/wix3141rtm/src/burn/engine/core.cpp",
+    "source_help_dispatch": "https://github.com/python/cpython/blob/v3.12.10/Tools/msi/bundle/bootstrap/PythonBootstrapperApplication.cpp",
+    "arguments": "/help /norestart /log \"D:\\ATC-Runtime-Restore\\fp001d-reference-001\\warning-diagnostic-001\\installer-help.log\"",
+    "ended_utc": "2026-10-01T15:36:06.8428208Z"
+  },
+  "operator_statement": "Python Help appeared before the later ESET action. Subsequently operator clicked Unblock in ESET; target file and scope unknown. No claim of unchanged protection for retry.",
+  "original_failure_cause": "UNKNOWN; successful help-only mode does not prove bootstrap installation will succeed",
+  "retry": "fp001d-run-002; NOT EXECUTED",
+  "eset_analysis_status": "Latest user screenshot: file still in analysis; no completed result established",
+  "additional_download_bytes": 0,
+  "inference_attempts": 0,
+  "original_definition_archive": "D:\\ATC-Runtime-Preservation\\whisper-turbo-win64-cpu\\1.0.0\\evidence\\revisions\\1.0.1",
+  "large_model_weights_freshly_hashed": false
+}
