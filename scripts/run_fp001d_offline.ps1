@@ -54,8 +54,19 @@ function Execute([string]$Name, [string]$File, [string]$Arguments) {
     Isolated
     Budget
     "$(UTC) START $Name $File $Arguments" | Add-Content -Encoding UTF8 "$Run\restoration.txt"
-    $Process = Start-Process -FilePath $File -ArgumentList $Arguments -PassThru -WindowStyle Hidden `
-        -RedirectStandardOutput "$Run\$Name.stdout.txt" -RedirectStandardError "$Run\$Name.stderr.txt"
+    # Own the process handle from creation; Start-Process redirection can lose ExitCode on PS 5.1.
+    $StartInfo = New-Object System.Diagnostics.ProcessStartInfo
+    $StartInfo.FileName = $File
+    $StartInfo.Arguments = $Arguments
+    $StartInfo.UseShellExecute = $false
+    $StartInfo.CreateNoWindow = $true
+    $StartInfo.RedirectStandardOutput = $true
+    $StartInfo.RedirectStandardError = $true
+    $Process = New-Object System.Diagnostics.Process
+    $Process.StartInfo = $StartInfo
+    if (!$Process.Start()) { throw "$Name could not start" }
+    $Stdout = $Process.StandardOutput.ReadToEndAsync()
+    $Stderr = $Process.StandardError.ReadToEndAsync()
     try {
         while (!$Process.WaitForExit(1000)) {
             Isolated
@@ -63,11 +74,18 @@ function Execute([string]$Name, [string]$File, [string]$Arguments) {
             # Conservative ceilings leave headroom for installer writes between checks.
             if ((SizeOf $Restore) -gt 8GB -or (SizeOf $env:USERPROFILE) -gt 1800MB) { throw 'Storage reserve nearly exhausted; stop before cap' }
         }
-        $Process.Refresh()
+        $Process.WaitForExit()
         $Code = $Process.ExitCode
+        if ($null -eq $Code) { throw "$Name exit code unavailable; success cannot be established" }
     } catch {
         if (!$Process.HasExited) { Stop-Process -Id $Process.Id -Force }
         throw
+    } finally {
+        if ($Process.HasExited) {
+            [IO.File]::WriteAllText("$Run\$Name.stdout.txt", $Stdout.GetAwaiter().GetResult())
+            [IO.File]::WriteAllText("$Run\$Name.stderr.txt", $Stderr.GetAwaiter().GetResult())
+        }
+        $Process.Dispose()
     }
     Get-Content "$Run\$Name.stdout.txt","$Run\$Name.stderr.txt" | Add-Content -Encoding UTF8 "$Run\restoration.txt"
     "$(UTC) END $Name exit=$Code" | Add-Content -Encoding UTF8 "$Run\restoration.txt"

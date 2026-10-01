@@ -1,3 +1,5 @@
+> Latest outcome: [1 October bootstrap failure](../../docs/evidence/fp001d/BOOTSTRAP-FAILURE.md). Installer access denied; no inference. Do not rerun until diagnosed.
+
 # FP-001D â€” Offline runtime preservation
 
 `Runtime Preserved != Benchmarked != Approved for runtime`.

@@ -1,0 +1,63 @@
+{
+  "status": "FAILED",
+  "definition_version": "1.0.1",
+  "installer_error_hex": "0x80070005",
+  "installer_error_signed": -2147024891,
+  "installer_error_meaning": "Access denied",
+  "phase": "Failed to load UX DLL before MSI/package application",
+  "precise_denial_cause": "UNDETERMINED",
+  "inference_attempts": 0,
+  "python_destination_exists": false,
+  "venv_destination_exists": false,
+  "network_snapshots": 4,
+  "all_snapshots_isolated": true,
+  "files": [
+    {
+      "path": "bootstrap.stderr.txt",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "bootstrap.stdout.txt",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "network.jsonl",
+      "size_bytes": 12059,
+      "sha256": "db463c8dfc1cb2bb5f2c363eb76f32238f449828ffb3f57f4147a2628cee9812"
+    },
+    {
+      "path": "operator-result.json",
+      "size_bytes": 402,
+      "sha256": "b78a4248dc42c345f73e454ef72b549f348aaef350e92e4a2ba5921fa94c5bd0"
+    },
+    {
+      "path": "python-installer.log",
+      "size_bytes": 11646,
+      "sha256": "be2ded823600819096d2e270d14c8639c22857dc6d5952fbb74685ebf64020cd"
+    },
+    {
+      "path": "restoration.txt",
+      "size_bytes": 574,
+      "sha256": "fec4f44af70b9feb4ded740e9d0396f9aeacb31d3971a0050767f0572079db48"
+    },
+    {
+      "path": "storage.jsonl",
+      "size_bytes": 110,
+      "sha256": "da9e8ef4a6767231fb2c09cca7e55a25186be944bc7da59de2ef6a2618161b19"
+    }
+  ],
+  "limitations": [
+    "The extracted PythonBA.dll is unsigned, but this alone does not establish why loading was denied.",
+    "Its ACL grants the test account full control; no matching CodeIntegrity/AppLocker/Defender event was found in the inspected installer window.",
+    "ESET and Windows Defender are registered security products; no security product is proven to have caused this failure.",
+    "No security exclusions, policy changes, administrator installation, alternate runtime or retry were performed."
+  ],
+  "storage_before_bootstrap": {
+    "c_test_profile_bytes": 1298377177,
+    "d_assets_bytes": 310303233,
+    "timestamp": "2026-10-01T14:21:23.7652117Z"
+  },
+  "new_download_bytes": 0
+}
