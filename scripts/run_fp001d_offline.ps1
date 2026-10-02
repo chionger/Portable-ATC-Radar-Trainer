@@ -1,10 +1,10 @@
 # Windows PowerShell 5.1 compatible. Run in the NEW standard account after MANUAL disconnection.
-param([switch]$ConfirmManuallyDisconnected, [switch]$CheckNetworkOnly)
+param([switch]$ConfirmManuallyDisconnected, [switch]$CheckNetworkOnly, [switch]$ConfirmProactiveBlockingPaused)
 $ErrorActionPreference = 'Stop'
 $Bundle = 'D:\ATC-Runtime-Preservation\whisper-turbo-win64-cpu\1.0.0'
-$Restore = 'D:\ATC-Runtime-Restore\fp001d-reference-001'
+$Restore = 'D:\ATC-Runtime-Restore\fp001d-final-003'
 $Model = 'D:\ATC-Model-Zoo\ASR\OpenAI\whisper-large-v3-turbo\41f01f3fe87f28c78e2fbf8b568835947dd65ed9'
-$Run = "$Restore\fp001d-run-002"
+$Run = "$Restore\fp001d-run-003"
 $Python = "$Restore\python\python.exe"
 $EnvPython = "$Restore\environment\Scripts\python.exe"
 $Source = "$Bundle\source"
@@ -19,10 +19,10 @@ function SizeOf([string]$Path) {
     [long](Get-ChildItem -LiteralPath $Path -Recurse -Force -File -ErrorAction Stop | Measure-Object -Property Length -Sum).Sum
 }
 function Budget {
-    $DBytes = (SizeOf $Bundle) + (SizeOf $Restore)
-    $CBytes = SizeOf $env:USERPROFILE
-    if ($DBytes -ge 10GB -or $CBytes -ge 2GB) { throw "Storage cap reached: D=$DBytes C-profile=$CBytes" }
-    @{timestamp=(UTC); d_assets_bytes=$DBytes; c_test_profile_bytes=$CBytes} |
+    $DBytes = (SizeOf $Bundle) + (SizeOf 'D:\ATC-Runtime-Restore')
+    $CBytes = (SizeOf $env:USERPROFILE) + 2GB # Reserve 2 GiB for prior account and controller task assets.
+    if ($DBytes -ge 10GB -or $CBytes -ge 4GB) { throw "Storage cap reached: D=$DBytes C-profile=$CBytes" }
+    @{timestamp=(UTC); d_assets_bytes=$DBytes; c_accounted_with_prior_reserve_bytes=$CBytes} |
         ConvertTo-Json -Compress | Add-Content -Encoding UTF8 "$Run\storage.jsonl"
 }
 $NetworkPolicy = Join-Path $PSScriptRoot 'fp001d_network.ps1'
@@ -78,7 +78,7 @@ function Execute([string]$Name, [string]$File, [string]$Arguments) {
         $Code = $Process.ExitCode
         if ($null -eq $Code) { throw "$Name exit code unavailable; success cannot be established" }
     } catch {
-        if (!$Process.HasExited) { Stop-Process -Id $Process.Id -Force }
+        if (!$Process.HasExited) { & "$env:SystemRoot\System32\taskkill.exe" /PID $Process.Id /T /F | Out-File "$Run\termination.txt" }
         throw
     } finally {
         if ($Process.HasExited) {
@@ -97,7 +97,9 @@ if (Test-Path -LiteralPath $Run) { throw 'This one-run location already exists. 
 New-Item -ItemType Directory -Path $Run -ErrorAction Stop | Out-Null
 try {
     if (!$ConfirmManuallyDisconnected) { throw 'First manually disable/disconnect ALL networking, then supply -ConfirmManuallyDisconnected' }
-    $Account = Get-Content -Raw "$Bundle\procedure\account.json" | ConvertFrom-Json
+    $Account = Get-Content -Raw "$Restore\account.json" | ConvertFrom-Json
+    if (!$ConfirmProactiveBlockingPaused) { throw 'Confirm only LiveGuard proactive blocking was paused while offline; other protection remains enabled.' }
+    @{recorded_at=(UTC); operator_confirmed=$true; intervention='ESET LiveGuard proactive blocking paused offline; other protections retained'; restoration_required='Restore original setting and verify protection before reconnecting'; verdict_scope='Historical file verdicts do not establish runtime approval'} | ConvertTo-Json | Set-Content -Encoding UTF8 "$Run\security-context.json"
     $Sid = [Security.Principal.WindowsIdentity]::GetCurrent().User.Value
     if ($Sid -ne $Account.account_sid -or $Sid -eq $Account.controller_sid) { throw 'Must run as the newly prepared account' }
     if (Test-Path "$Restore\python") { throw 'Interpreter destination is not fresh' }
@@ -127,10 +129,10 @@ try {
     if (!$Native.Installed -or ([version]$Native.Version.TrimStart('v')).ToString() -ne '14.51.36247.0') { throw 'Declared native baseline mismatch; no native installation authorized' }
     $OS = Get-CimInstance Win32_OperatingSystem
     if ($OS.Version -ne $Definition.platform.os_version -or $env:PROCESSOR_ARCHITECTURE -ne 'AMD64') { throw 'Host OS/architecture mismatch' }
-    New-Item -ItemType Directory "$Restore\temp-002","$Restore\cache-002" | Out-Null
-    $env:TEMP = "$Restore\temp-002"; $env:TMP = $env:TEMP
+    New-Item -ItemType Directory "$Restore\temp-003","$Restore\cache-003" | Out-Null
+    $env:TEMP = "$Restore\temp-003"; $env:TMP = $env:TEMP
     $env:PYTHONNOUSERSITE = '1'; $env:PYTHONDONTWRITEBYTECODE = '1'; $env:PYTHONPATH = $Source
-    $env:HF_HOME = "$Restore\cache-002\huggingface"; $env:HF_HUB_DISABLE_XET = '1'
+    $env:HF_HOME = "$Restore\cache-003\huggingface"; $env:HF_HUB_DISABLE_XET = '1'
     $env:HF_HUB_OFFLINE='1'; $env:TRANSFORMERS_OFFLINE='1'; $env:HF_HUB_DISABLE_TELEMETRY='1'
     $env:PIP_NO_INDEX='1'; $env:PIP_DISABLE_PIP_VERSION_CHECK='1'; $env:PIP_CONFIG_FILE='NUL'
     Set-Location -LiteralPath $Source
@@ -182,4 +184,4 @@ try {
       benchmarked=$false; approved_for_runtime=$false} | ConvertTo-Json | Set-Content -Encoding UTF8 "$Run\operator-result.json"
 }
 Write-Host "FP-001D $FinalStatus. $Failure"
-Write-Host "Retain all files in $Run. Networking may now be restored. Do not rerun acceptance."
+Write-Host "Retain all files in $Run. Restore ESET proactive blocking and verify protection BEFORE reconnecting. Do not rerun acceptance."
