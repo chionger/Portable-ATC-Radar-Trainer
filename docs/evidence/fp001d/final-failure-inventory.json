@@ -1,0 +1,99 @@
+{
+  "status": "FAILED",
+  "bootstrap_exit": 0,
+  "venv_exit": 0,
+  "install_exit": 1,
+  "inference_attempts": 0,
+  "files": [
+    {
+      "path": "bootstrap.stderr.txt",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "bootstrap.stdout.txt",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "install.stderr.txt",
+      "size_bytes": 413,
+      "sha256": "871c1604a66dfab27d50c4b0b732dc843a91f984618eec369f107962c99486f9"
+    },
+    {
+      "path": "install.stdout.txt",
+      "size_bytes": 6875,
+      "sha256": "196b03a11d25786a346269d1cbe2ab9cbf00e2071c3995add2507a26a66cf1a0"
+    },
+    {
+      "path": "network.jsonl",
+      "size_bytes": 85979,
+      "sha256": "6c9a1ecf77410027fd1e8d9460f7b093367d83a1519d081050832907fab23358"
+    },
+    {
+      "path": "operator-result.json",
+      "size_bytes": 401,
+      "sha256": "2fc14b7a633c553639e29d7348801a09aeb676d7d78dc6e38922fcc40ca0617c"
+    },
+    {
+      "path": "python-installer.log",
+      "size_bytes": 66967,
+      "sha256": "f14fa59474777c1a3e5934445242d41424015bd2fab74ae59631fa9364ffa940"
+    },
+    {
+      "path": "python-installer_000_core_JustForMe.log",
+      "size_bytes": 90280,
+      "sha256": "4ec93d4a0a3b9ea327b1da089a1e1e8b2c58f188fadead57779c19679116bfed"
+    },
+    {
+      "path": "python-installer_001_exe_JustForMe.log",
+      "size_bytes": 118466,
+      "sha256": "5cf4ccef705a475898bd65da638d8af7bbce7ac17caf3f645ba9e01f69cd7ea0"
+    },
+    {
+      "path": "python-installer_002_lib_JustForMe.log",
+      "size_bytes": 1501294,
+      "sha256": "54b498a2c525225ecc68a59095cc14cec05ada31611f22451ee8fed5b81ca136"
+    },
+    {
+      "path": "python-installer_003_pip_JustForMe.log",
+      "size_bytes": 117452,
+      "sha256": "d2f23de01f10116394e4b02289ab5aff2ed4d151b3b0d49632faa094185e8da3"
+    },
+    {
+      "path": "restoration.txt",
+      "size_bytes": 8436,
+      "sha256": "16b0aecb88a1b818ca6f6cf5be9f299cac6db6f25812243eeaf5ae6c687fb05f"
+    },
+    {
+      "path": "security-context.json",
+      "size_bytes": 382,
+      "sha256": "a9f500fae8722a9c73e7e159a472f7f133ba29f460a8671f4293b7526d395aa8"
+    },
+    {
+      "path": "storage.jsonl",
+      "size_bytes": 372,
+      "sha256": "6de9c44cad0e9d72b1c50f929790c6695d2238d155f9af8f4b17a26a426197db"
+    },
+    {
+      "path": "venv.stderr.txt",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "venv.stdout.txt",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "network_snapshots": 44,
+  "all_snapshots_isolated": true,
+  "last_storage": {
+    "c_accounted_with_prior_reserve_bytes": 2254259050,
+    "d_assets_bytes": 450961966,
+    "timestamp": "2026-10-02T14:31:49.1451497Z"
+  },
+  "security_limitation": "Runner received operator confirmation switch. Exact ESET UI change, restoration and reconnection times are not yet independently established.",
+  "new_download_bytes": 0,
+  "cumulative_artifact_download_bytes": 307335801
+}
