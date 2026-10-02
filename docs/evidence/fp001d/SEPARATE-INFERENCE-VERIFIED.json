@@ -1,0 +1,144 @@
+{
+  "status": "SEPARATE_OFFLINE_INFERENCE_VERIFIED",
+  "original_continuous_acceptance": "NOT_SATISFIED",
+  "definition_sha256": "f9111b785e4ad4d9b379be2a30fc80e63e3dd72df0ce5353c75ef6af8cb68881",
+  "source_revision": "9f2faed0117aa18f7a0864c5061a9d14ec5073ae",
+  "model": {
+    "entry_id": "openai-whisper-large-v3-turbo-41f01f3",
+    "revision": "41f01f3fe87f28c78e2fbf8b568835947dd65ed9"
+  },
+  "generated_tokens": [
+    [
+      2411
+    ]
+  ],
+  "transcript": " .",
+  "input_sha256": "5ddf60a351f393ca7122c05f204d1ab3f15b7b75ad63bc81b4aa5ccae618d0c9",
+  "output_sha256": "d6c45206b44ae1c5799cf2a3611befe1863a1663be2b88eae766b5205314b604",
+  "python": "3.12.10",
+  "packages": {
+    "annotated-types": "0.7.0",
+    "certifi": "2025.7.14",
+    "charset-normalizer": "3.4.2",
+    "colorama": "0.4.6",
+    "filelock": "3.18.0",
+    "fsspec": "2025.5.1",
+    "hf-xet": "1.1.5",
+    "huggingface-hub": "0.33.4",
+    "idna": "3.10",
+    "jinja2": "3.1.6",
+    "markupsafe": "3.0.2",
+    "mpmath": "1.3.0",
+    "networkx": "3.5",
+    "numpy": "2.2.6",
+    "packaging": "25.0",
+    "pip": "25.1.1",
+    "pydantic": "2.11.4",
+    "pydantic-core": "2.33.2",
+    "pyyaml": "6.0.2",
+    "regex": "2024.11.6",
+    "requests": "2.32.4",
+    "safetensors": "0.5.3",
+    "setuptools": "80.9.0",
+    "sympy": "1.14.0",
+    "tokenizers": "0.21.2",
+    "torch": "2.7.1+cpu",
+    "tqdm": "4.67.1",
+    "transformers": "4.53.3",
+    "typing-extensions": "4.14.1",
+    "typing-inspection": "0.4.1",
+    "urllib3": "2.5.0"
+  },
+  "configuration": {
+    "device": "cpu",
+    "do_sample": false,
+    "dtype": "float32",
+    "language": "en",
+    "local_files_only": true,
+    "max_new_tokens": 32,
+    "sample_rate_hz": 16000,
+    "task": "transcribe",
+    "threads": 1,
+    "trust_remote_code": false
+  },
+  "network": {
+    "snapshots": 73,
+    "all_isolated": true,
+    "first": "2026-10-02T16:22:01.3919031Z",
+    "last": "2026-10-02T16:23:59.5100675Z",
+    "method": "Operator manual disconnection plus adapter/route snapshots and Python audit hook; no packet capture",
+    "external_retrievals": "No external retrieval observed; local-only operations and isolated snapshots. Not a native-code packet audit."
+  },
+  "artifacts_verified": 151,
+  "files": [
+    {
+      "path": "definition.json",
+      "size_bytes": 77522,
+      "sha256": "9d3895cef171f5a381212551bfa61158bfcd4cdada50510ee4789d329e5aec6e"
+    },
+    {
+      "path": "dependency-check.stderr.txt",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "dependency-check.stdout.txt",
+      "size_bytes": 31,
+      "sha256": "672aec65a45bed50e70229c70934a7eebf0462595c459b83023027645d57cccf"
+    },
+    {
+      "path": "inference.json",
+      "size_bytes": 3987,
+      "sha256": "b49602cf9df392d92ea0571b8f7ae8283acfcb772462192efd2fcd2a8d1816bf"
+    },
+    {
+      "path": "inference.stderr.txt",
+      "size_bytes": 230,
+      "sha256": "43bc3738c6d121d71d3dbfc5ea5f2f0ee58e16a8daf0adb4e9d67febe5322812"
+    },
+    {
+      "path": "inference.stdout.txt",
+      "size_bytes": 3984,
+      "sha256": "c42637440960bbef343de7d9717f396fef8fe4132be04d2c6282144537b25de9"
+    },
+    {
+      "path": "log-digests.json",
+      "size_bytes": 1506,
+      "sha256": "25e4a9dd09ca6f660632c61b4e79167268888f99ffe5690680d59b99464c3e20"
+    },
+    {
+      "path": "network.jsonl",
+      "size_bytes": 220025,
+      "sha256": "d8bee427a0ade3f905a94dee86b7ded0d7676b003c2a2ffa893e174d02c09531"
+    },
+    {
+      "path": "procedure.ps1",
+      "size_bytes": 7397,
+      "sha256": "bfff39b7dd2ca08abf34df1c9562935f1c12483178149fd1ef94d6489270bbda"
+    },
+    {
+      "path": "result.json",
+      "size_bytes": 1915,
+      "sha256": "ce0bf3f6488a8ba8937d47900818da5cd4ff883590bcbbebef6e0416f97b1ef1"
+    }
+  ],
+  "restoration": "fp001d-run-004: bootstrap/venv/install/dependency-check all exit 0; stopped at RAM guard",
+  "available_ram_before_load_bytes": 9306894336,
+  "storage": {
+    "d_assets_bytes": 2061545288,
+    "c_accounted_before_inference_bytes": 3027448018,
+    "c_method": "Current reference profile plus conservative 2 GiB prior-account/controller reserve; field name in raw result is misleading",
+    "download_bytes": 307335801,
+    "new_download_bytes": 0
+  },
+  "limitations": [
+    "Restoration and inference were separate offline sessions with reconnection/restart between them; never report continuous acceptance PASSED.",
+    "Large weights checked for size only using historical SHA-256/provenance; 12 small model files freshly hashed during inference.",
+    "Existing host-native Windows libraries; no clean-OS/bare-machine proof.",
+    "ESET enabled was instructed for inference; no independent security-setting audit. Prior restoration used operator-confirmed proactive-blocking intervention.",
+    "CPython 3.12.10 is a compatibility reference, not current-security Python 3.12; later runtime approval must reassess security.",
+    "Attention-mask warning retained; this single synthetic result is execution evidence, not quality assessment."
+  ],
+  "benchmarked": false,
+  "approved_for_runtime": false
+}
