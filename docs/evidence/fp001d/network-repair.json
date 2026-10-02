@@ -1,0 +1,28 @@
+{
+  "recorded_at": "2026-09-29T22:25:21.075373+00:00",
+  "preserved_attempt": "D:\\ATC-Runtime-Restore\\fp001d-reference-001\\fp001d-blocked-network-20260929T153153Z",
+  "retained_files": [
+    {
+      "path": "network-violation.txt",
+      "size_bytes": 39,
+      "sha256": "03fea6047a30aba11a867f5118e03f210fd4bb4fa6761eee1ef2cf0e81f5c0a4"
+    },
+    {
+      "path": "network.jsonl",
+      "size_bytes": 4961,
+      "sha256": "9c41173ea896437cf18d20dce16cb6beac710947f8d0dc3ec0dc6cd71780ffcd"
+    },
+    {
+      "path": "operator-result.json",
+      "size_bytes": 382,
+      "sha256": "1f25b055c564f7814ca1bfea302bc7e1bb1ca1d14727b212490641f78c2f6932"
+    }
+  ],
+  "prior_definition_sha256": "e05bc39471d80cc8d20fa800672a7b4578408a7e52f6722fdefd783384b0693f",
+  "definition_sha256": "454ff84551f00a575e13190645b75074e528e0909c18daf1478f3b5f4239da61",
+  "source_revision": "1b9749b34d45bfb1e410e41273db3a074d9f7454",
+  "new_download_bytes": 0,
+  "inference_attempts": 0,
+  "original_definition_archive": "D:\\ATC-Runtime-Preservation\\whisper-turbo-win64-cpu\\1.0.0\\evidence\\revisions\\1.0.0",
+  "note": "Existing root path retained; definition version is 1.0.1. New standard account remains unused for runtime restoration. No networking settings changed by agent."
+}

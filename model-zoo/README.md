@@ -1,6 +1,6 @@
 # Local model zoo operating guide
 
-The model zoo is an offline asset-preservation and provenance facility. It is not part of the ATC application runtime and does not select, benchmark, discover, load, or run models. FP-001B provides a separate, operator-invoked acquisition command for a model that a human has already selected.
+The model zoo is an offline asset-preservation and provenance facility. It is not part of the ATC application runtime and does not select or benchmark models. FP-001B provides a separate, operator-invoked acquisition command for a model that a human has already selected. [FP-001D runtime preservation](runtime-preservation/README.md) adds separate restoration/evidence contracts and an operator-invoked small offline inference probe; it does not integrate models into the application.
 
 ## State boundaries
 
@@ -12,6 +12,10 @@ The following states are deliberately separate:
 - **Approved for runtime:** a later decision has explicitly selected it for an application role.
 
 `Available != Verified != Benchmarked != Approved for runtime`.
+
+`Runtime Preserved != Benchmarked != Approved for runtime`. Runtime preservation
+has separate definition and evidence contracts; metadata validation alone does
+not establish successful restoration or execution.
 
 The manifest records catalogue facts and later lifecycle decisions. `VERIFIED` is always computed from current local bytes; it is not inferred from a stored lifecycle flag. FP-027, FP-028, and FP-030 retain ASR, LLM, and TTS benchmark and integration responsibility.
 

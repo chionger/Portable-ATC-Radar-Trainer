@@ -1,0 +1,1534 @@
+{
+  "schema_version": "1.0",
+  "preservation_id": "whisper-turbo-win64-cpu",
+  "preservation_version": "1.0.3",
+  "model": {
+    "entry_id": "openai-whisper-large-v3-turbo-41f01f3",
+    "revision": "41f01f3fe87f28c78e2fbf8b568835947dd65ed9"
+  },
+  "runtime": {
+    "name": "transformers",
+    "version": "4.53.3",
+    "source_uri": "https://files.pythonhosted.org/packages/41/b1/d7520cc5cb69c825599042eb3a7c986fa9baa8a8d2dea9acd78e152c81e2/transformers-4.53.3-py3-none-any.whl",
+    "artifact_ids": [
+      "file-de5533f10df7c24b18f4"
+    ]
+  },
+  "interpreter": {
+    "name": "cpython",
+    "version": "3.12.10",
+    "source_uri": "https://www.python.org/ftp/python/3.12.10/python-3.12.10-amd64.exe",
+    "artifact_ids": [
+      "file-71c2f3f24884ad1f8013"
+    ]
+  },
+  "dependencies": [
+    {
+      "name": "annotated-types",
+      "version": "0.7.0",
+      "source_uri": "https://files.pythonhosted.org/packages/78/b6/6307fbef88d9b5ee7421e68d78a9f162e0da4900bc5f5793f6d3d0e34fb8/annotated_types-0.7.0-py3-none-any.whl",
+      "artifact_ids": [
+        "file-cf59fd4cc5fa6f2d4158"
+      ]
+    },
+    {
+      "name": "certifi",
+      "version": "2025.7.14",
+      "source_uri": "https://files.pythonhosted.org/packages/4f/52/34c6cf5bb9285074dc3531c437b3919e825d976fde097a7a73f79e726d03/certifi-2025.7.14-py3-none-any.whl",
+      "artifact_ids": [
+        "file-1f53218140f9817abc00"
+      ]
+    },
+    {
+      "name": "charset-normalizer",
+      "version": "3.4.2",
+      "source_uri": "https://files.pythonhosted.org/packages/6c/4f/c02d5c493967af3eda9c771ad4d2bbc8df6f99ddbeb37ceea6e8716a32bc/charset_normalizer-3.4.2-cp312-cp312-win_amd64.whl",
+      "artifact_ids": [
+        "file-b3ccc890e7965981cb22"
+      ]
+    },
+    {
+      "name": "colorama",
+      "version": "0.4.6",
+      "source_uri": "https://files.pythonhosted.org/packages/d1/d6/3965ed04c63042e047cb6a3e6ed1a63a35087b6a609aa3a15ed8ac56c221/colorama-0.4.6-py2.py3-none-any.whl",
+      "artifact_ids": [
+        "file-2975bfd538871fec9007"
+      ]
+    },
+    {
+      "name": "filelock",
+      "version": "3.18.0",
+      "source_uri": "https://files.pythonhosted.org/packages/4d/36/2a115987e2d8c300a974597416d9de88f2444426de9571f4b59b2cca3acc/filelock-3.18.0-py3-none-any.whl",
+      "artifact_ids": [
+        "file-b3a9ca83be37753957a1"
+      ]
+    },
+    {
+      "name": "fsspec",
+      "version": "2025.5.1",
+      "source_uri": "https://files.pythonhosted.org/packages/bb/61/78c7b3851add1481b048b5fdc29067397a1784e2910592bc81bb3f608635/fsspec-2025.5.1-py3-none-any.whl",
+      "artifact_ids": [
+        "file-430312e82a43a2fe05c0"
+      ]
+    },
+    {
+      "name": "hf-xet",
+      "version": "1.1.5",
+      "source_uri": "https://files.pythonhosted.org/packages/f0/55/ef77a85ee443ae05a9e9cba1c9f0dd9241eb42da2aeba1dc50f51154c81a/hf_xet-1.1.5-cp37-abi3-win_amd64.whl",
+      "artifact_ids": [
+        "file-668d8280b07a2b2994d1"
+      ]
+    },
+    {
+      "name": "huggingface-hub",
+      "version": "0.33.4",
+      "source_uri": "https://files.pythonhosted.org/packages/46/7b/98daa50a2db034cab6cd23a3de04fa2358cb691593d28e9130203eb7a805/huggingface_hub-0.33.4-py3-none-any.whl",
+      "artifact_ids": [
+        "file-6ca0dd203bd5cdf7d70d"
+      ]
+    },
+    {
+      "name": "idna",
+      "version": "3.10",
+      "source_uri": "https://files.pythonhosted.org/packages/76/c6/c88e154df9c4e1a2a66ccf0005a88dfb2650c1dffb6f5ce603dfbd452ce3/idna-3.10-py3-none-any.whl",
+      "artifact_ids": [
+        "file-bfe77b7f768f40df5be5"
+      ]
+    },
+    {
+      "name": "jinja2",
+      "version": "3.1.6",
+      "source_uri": "https://files.pythonhosted.org/packages/62/a1/3d680cbfd5f4b8f15abc1d571870c5fc3e594bb582bc3b64ea099db13e56/jinja2-3.1.6-py3-none-any.whl",
+      "artifact_ids": [
+        "file-4b0108600c9fdb333f70"
+      ]
+    },
+    {
+      "name": "markupsafe",
+      "version": "3.0.2",
+      "source_uri": "https://files.pythonhosted.org/packages/c1/80/a61f99dc3a936413c3ee4e1eecac96c0da5ed07ad56fd975f1a9da5bc630/MarkupSafe-3.0.2-cp312-cp312-win_amd64.whl",
+      "artifact_ids": [
+        "file-bfb915ed1b0f4d35639c"
+      ]
+    },
+    {
+      "name": "mpmath",
+      "version": "1.3.0",
+      "source_uri": "https://files.pythonhosted.org/packages/43/e3/7d92a15f894aa0c9c4b49b8ee9ac9850d6e63b03c9c32c0367a13ae62209/mpmath-1.3.0-py3-none-any.whl",
+      "artifact_ids": [
+        "file-e707e1f046ce4aa67f7e"
+      ]
+    },
+    {
+      "name": "networkx",
+      "version": "3.5",
+      "source_uri": "https://files.pythonhosted.org/packages/eb/8d/776adee7bbf76365fdd7f2552710282c79a4ead5d2a46408c9043a2b70ba/networkx-3.5-py3-none-any.whl",
+      "artifact_ids": [
+        "file-98dc318b6bb373bbfdb7"
+      ]
+    },
+    {
+      "name": "numpy",
+      "version": "2.2.6",
+      "source_uri": "https://files.pythonhosted.org/packages/36/fa/8c9210162ca1b88529ab76b41ba02d433fd54fecaf6feb70ef9f124683f1/numpy-2.2.6-cp312-cp312-win_amd64.whl",
+      "artifact_ids": [
+        "file-52a7a8b18c36cf84baf5"
+      ]
+    },
+    {
+      "name": "packaging",
+      "version": "25.0",
+      "source_uri": "https://files.pythonhosted.org/packages/20/12/38679034af332785aac8774540895e234f4d07f7545804097de4b666afd8/packaging-25.0-py3-none-any.whl",
+      "artifact_ids": [
+        "file-d684192c708e4cdcd50e"
+      ]
+    },
+    {
+      "name": "pip",
+      "version": "25.1.1",
+      "source_uri": "https://files.pythonhosted.org/packages/29/a2/d40fb2460e883eca5199c62cfc2463fd261f760556ae6290f88488c362c0/pip-25.1.1-py3-none-any.whl",
+      "artifact_ids": [
+        "file-57b4bb49ca14e9342482"
+      ]
+    },
+    {
+      "name": "pydantic",
+      "version": "2.11.4",
+      "source_uri": "https://files.pythonhosted.org/packages/e7/12/46b65f3534d099349e38ef6ec98b1a5a81f42536d17e0ba382c28c67ba67/pydantic-2.11.4-py3-none-any.whl",
+      "artifact_ids": [
+        "file-d09d9a13a5d2e5792fe7"
+      ]
+    },
+    {
+      "name": "pydantic-core",
+      "version": "2.33.2",
+      "source_uri": "https://files.pythonhosted.org/packages/43/e4/5479fecb3606c1368d496a825d8411e126133c41224c1e7238be58b87d7e/pydantic_core-2.33.2-cp312-cp312-win_amd64.whl",
+      "artifact_ids": [
+        "file-b9020abaa1c09cb33303"
+      ]
+    },
+    {
+      "name": "pyyaml",
+      "version": "6.0.2",
+      "source_uri": "https://files.pythonhosted.org/packages/0c/e8/4f648c598b17c3d06e8753d7d13d57542b30d56e6c2dedf9c331ae56312e/PyYAML-6.0.2-cp312-cp312-win_amd64.whl",
+      "artifact_ids": [
+        "file-d70532f8cbf9821dc992"
+      ]
+    },
+    {
+      "name": "regex",
+      "version": "2024.11.6",
+      "source_uri": "https://files.pythonhosted.org/packages/38/ec/ad2d7de49a600cdb8dd78434a1aeffe28b9d6fc42eb36afab4a27ad23384/regex-2024.11.6-cp312-cp312-win_amd64.whl",
+      "artifact_ids": [
+        "file-da0c8470d8b4ee4b159f"
+      ]
+    },
+    {
+      "name": "requests",
+      "version": "2.32.4",
+      "source_uri": "https://files.pythonhosted.org/packages/7c/e4/56027c4a6b4ae70ca9de302488c5ca95ad4a39e190093d6c1a8ace08341b/requests-2.32.4-py3-none-any.whl",
+      "artifact_ids": [
+        "file-4495b4d37a3dc6118c8c"
+      ]
+    },
+    {
+      "name": "safetensors",
+      "version": "0.5.3",
+      "source_uri": "https://files.pythonhosted.org/packages/69/e2/b011c38e5394c4c18fb5500778a55ec43ad6106126e74723ffaee246f56e/safetensors-0.5.3-cp38-abi3-win_amd64.whl",
+      "artifact_ids": [
+        "file-defc5105826b46e9b220"
+      ]
+    },
+    {
+      "name": "setuptools",
+      "version": "80.9.0",
+      "source_uri": "https://files.pythonhosted.org/packages/a3/dc/17031897dae0efacfea57dfd3a82fdd2a2aeb58e0ff71b77b87e44edc772/setuptools-80.9.0-py3-none-any.whl",
+      "artifact_ids": [
+        "file-f5f6de95403ab9d6dc1f"
+      ]
+    },
+    {
+      "name": "sympy",
+      "version": "1.14.0",
+      "source_uri": "https://files.pythonhosted.org/packages/a2/09/77d55d46fd61b4a135c444fc97158ef34a095e5681d0a6c10b75bf356191/sympy-1.14.0-py3-none-any.whl",
+      "artifact_ids": [
+        "file-4e847355a407af33dd08"
+      ]
+    },
+    {
+      "name": "tokenizers",
+      "version": "0.21.2",
+      "source_uri": "https://files.pythonhosted.org/packages/13/c3/cc2755ee10be859c4338c962a35b9a663788c0c0b50c0bdd8078fb6870cf/tokenizers-0.21.2-cp39-abi3-win_amd64.whl",
+      "artifact_ids": [
+        "file-67c355807912bd78bfcf"
+      ]
+    },
+    {
+      "name": "torch",
+      "version": "2.7.1+cpu",
+      "source_uri": "https://download.pytorch.org/whl/cpu/torch-2.7.1%2Bcpu-cp312-cp312-win_amd64.whl",
+      "artifact_ids": [
+        "file-d384116471fdb2fd5102"
+      ]
+    },
+    {
+      "name": "tqdm",
+      "version": "4.67.1",
+      "source_uri": "https://files.pythonhosted.org/packages/d0/30/dc54f88dd4a2b5dc8a0279bdd7270e735851848b762aeb1c1184ed1f6b14/tqdm-4.67.1-py3-none-any.whl",
+      "artifact_ids": [
+        "file-797ae7bdaab10ac56d49"
+      ]
+    },
+    {
+      "name": "typing-extensions",
+      "version": "4.14.1",
+      "source_uri": "https://files.pythonhosted.org/packages/b5/00/d631e67a838026495268c2f6884f3711a15a9a2a96cd244fdaea53b823fb/typing_extensions-4.14.1-py3-none-any.whl",
+      "artifact_ids": [
+        "file-bd8109be34d869d37fa6"
+      ]
+    },
+    {
+      "name": "typing-inspection",
+      "version": "0.4.1",
+      "source_uri": "https://files.pythonhosted.org/packages/17/69/cd203477f944c353c31bade965f880aa1061fd6bf05ded0726ca845b6ff7/typing_inspection-0.4.1-py3-none-any.whl",
+      "artifact_ids": [
+        "file-2e1a1a7b9a7f1197dac3"
+      ]
+    },
+    {
+      "name": "urllib3",
+      "version": "2.5.0",
+      "source_uri": "https://files.pythonhosted.org/packages/a7/c2/fe1e52489ae3122415c51f387e221dd0773709bad6c6cdaa599e8a2c5185/urllib3-2.5.0-py3-none-any.whl",
+      "artifact_ids": [
+        "file-a7115207be26914ef211"
+      ]
+    }
+  ],
+  "native_prerequisites": [
+    {
+      "name": "msvc-x64",
+      "version": "14.51.36247.0",
+      "source_uri": "https://download.visualstudio.microsoft.com/download/pr/ebdab8e5-1d7b-4d9f-a11b-cbb1720c3b12/843068991DAAA1F73AD9F6239BCE4D0F6A07A51F18C37EA2A867E9BECA71295C/VC_redist.x64.exe",
+      "artifact_ids": [
+        "file-1e8f4ad4781013612e42"
+      ],
+      "restoration_scope": "existing-host-baseline"
+    }
+  ],
+  "source_revision": "140caa1a27032373c6cf1544a99f89d8461a397e",
+  "interpreter_security_note": "CPython 3.12.10 is the last official Python 3.12 Windows binary release, accepted solely as a compatibility-preservation reference; NOT the current-security Python 3.12 release. Later production/runtime approval must reassess the interpreter security baseline.",
+  "artifacts": [
+    {
+      "artifact_id": "file-71c2f3f24884ad1f8013",
+      "role": "bootstrap",
+      "path": "bootstrap/python-3.12.10-amd64.exe",
+      "size_bytes": 26964224,
+      "sha256": "67b5635e80ea51072b87941312d00ec8927c4db9ba18938f7ad2d27b328b95fb",
+      "source_uri": "https://www.python.org/ftp/python/3.12.10/python-3.12.10-amd64.exe"
+    },
+    {
+      "artifact_id": "file-1e8f4ad4781013612e42",
+      "role": "bootstrap",
+      "path": "bootstrap/VC_redist.x64.exe",
+      "size_bytes": 18731856,
+      "sha256": "843068991daaa1f73ad9f6239bce4d0f6a07a51f18c37ea2a867e9beca71295c",
+      "source_uri": "https://download.visualstudio.microsoft.com/download/pr/ebdab8e5-1d7b-4d9f-a11b-cbb1720c3b12/843068991DAAA1F73AD9F6239BCE4D0F6A07A51F18C37EA2A867E9BECA71295C/VC_redist.x64.exe"
+    },
+    {
+      "artifact_id": "file-cf59fd4cc5fa6f2d4158",
+      "role": "wheel",
+      "path": "wheels/annotated_types-0.7.0-py3-none-any.whl",
+      "size_bytes": 13643,
+      "sha256": "1f02e8b43a8fbbc3f3e0d4f0f4bfc8131bcb4eebe8849b8e5c773f3a1c582a53",
+      "source_uri": "https://files.pythonhosted.org/packages/78/b6/6307fbef88d9b5ee7421e68d78a9f162e0da4900bc5f5793f6d3d0e34fb8/annotated_types-0.7.0-py3-none-any.whl"
+    },
+    {
+      "artifact_id": "file-1f53218140f9817abc00",
+      "role": "wheel",
+      "path": "wheels/certifi-2025.7.14-py3-none-any.whl",
+      "size_bytes": 162722,
+      "sha256": "6b31f564a415d79ee77df69d757bb49a5bb53bd9f756cbbe24394ffd6fc1f4b2",
+      "source_uri": "https://files.pythonhosted.org/packages/4f/52/34c6cf5bb9285074dc3531c437b3919e825d976fde097a7a73f79e726d03/certifi-2025.7.14-py3-none-any.whl"
+    },
+    {
+      "artifact_id": "file-b3ccc890e7965981cb22",
+      "role": "wheel",
+      "path": "wheels/charset_normalizer-3.4.2-cp312-cp312-win_amd64.whl",
+      "size_bytes": 105776,
+      "sha256": "5a9979887252a82fefd3d3ed2a8e3b937a7a809f65dcb1e068b090e165bbe99e",
+      "source_uri": "https://files.pythonhosted.org/packages/6c/4f/c02d5c493967af3eda9c771ad4d2bbc8df6f99ddbeb37ceea6e8716a32bc/charset_normalizer-3.4.2-cp312-cp312-win_amd64.whl"
+    },
+    {
+      "artifact_id": "file-2975bfd538871fec9007",
+      "role": "wheel",
+      "path": "wheels/colorama-0.4.6-py2.py3-none-any.whl",
+      "size_bytes": 25335,
+      "sha256": "4f1d9991f5acc0ca119f9d443620b77f9d6b33703e51011c16baf57afb285fc6",
+      "source_uri": "https://files.pythonhosted.org/packages/d1/d6/3965ed04c63042e047cb6a3e6ed1a63a35087b6a609aa3a15ed8ac56c221/colorama-0.4.6-py2.py3-none-any.whl"
+    },
+    {
+      "artifact_id": "file-b3a9ca83be37753957a1",
+      "role": "wheel",
+      "path": "wheels/filelock-3.18.0-py3-none-any.whl",
+      "size_bytes": 16215,
+      "sha256": "c401f4f8377c4464e6db25fff06205fd89bdd83b65eb0488ed1b160f780e21de",
+      "source_uri": "https://files.pythonhosted.org/packages/4d/36/2a115987e2d8c300a974597416d9de88f2444426de9571f4b59b2cca3acc/filelock-3.18.0-py3-none-any.whl"
+    },
+    {
+      "artifact_id": "file-430312e82a43a2fe05c0",
+      "role": "wheel",
+      "path": "wheels/fsspec-2025.5.1-py3-none-any.whl",
+      "size_bytes": 199052,
+      "sha256": "24d3a2e663d5fc735ab256263c4075f374a174c3410c0b25e5bd1970bceaa462",
+      "source_uri": "https://files.pythonhosted.org/packages/bb/61/78c7b3851add1481b048b5fdc29067397a1784e2910592bc81bb3f608635/fsspec-2025.5.1-py3-none-any.whl"
+    },
+    {
+      "artifact_id": "file-668d8280b07a2b2994d1",
+      "role": "wheel",
+      "path": "wheels/hf_xet-1.1.5-cp37-abi3-win_amd64.whl",
+      "size_bytes": 2738931,
+      "sha256": "73e167d9807d166596b4b2f0b585c6d5bd84a26dea32843665a8b58f6edba245",
+      "source_uri": "https://files.pythonhosted.org/packages/f0/55/ef77a85ee443ae05a9e9cba1c9f0dd9241eb42da2aeba1dc50f51154c81a/hf_xet-1.1.5-cp37-abi3-win_amd64.whl"
+    },
+    {
+      "artifact_id": "file-6ca0dd203bd5cdf7d70d",
+      "role": "wheel",
+      "path": "wheels/huggingface_hub-0.33.4-py3-none-any.whl",
+      "size_bytes": 515339,
+      "sha256": "09f9f4e7ca62547c70f8b82767eefadd2667f4e116acba2e3e62a5a81815a7bb",
+      "source_uri": "https://files.pythonhosted.org/packages/46/7b/98daa50a2db034cab6cd23a3de04fa2358cb691593d28e9130203eb7a805/huggingface_hub-0.33.4-py3-none-any.whl"
+    },
+    {
+      "artifact_id": "file-bfe77b7f768f40df5be5",
+      "role": "wheel",
+      "path": "wheels/idna-3.10-py3-none-any.whl",
+      "size_bytes": 70442,
+      "sha256": "946d195a0d259cbba61165e88e65941f16e9b36ea6ddb97f00452bae8b1287d3",
+      "source_uri": "https://files.pythonhosted.org/packages/76/c6/c88e154df9c4e1a2a66ccf0005a88dfb2650c1dffb6f5ce603dfbd452ce3/idna-3.10-py3-none-any.whl"
+    },
+    {
+      "artifact_id": "file-4b0108600c9fdb333f70",
+      "role": "wheel",
+      "path": "wheels/jinja2-3.1.6-py3-none-any.whl",
+      "size_bytes": 134899,
+      "sha256": "85ece4451f492d0c13c5dd7c13a64681a86afae63a5f347908daf103ce6d2f67",
+      "source_uri": "https://files.pythonhosted.org/packages/62/a1/3d680cbfd5f4b8f15abc1d571870c5fc3e594bb582bc3b64ea099db13e56/jinja2-3.1.6-py3-none-any.whl"
+    },
+    {
+      "artifact_id": "file-bfb915ed1b0f4d35639c",
+      "role": "wheel",
+      "path": "wheels/MarkupSafe-3.0.2-cp312-cp312-win_amd64.whl",
+      "size_bytes": 15601,
+      "sha256": "8e06879fc22a25ca47312fbe7c8264eb0b662f6db27cb2d3bbbc74b1df4b9b87",
+      "source_uri": "https://files.pythonhosted.org/packages/c1/80/a61f99dc3a936413c3ee4e1eecac96c0da5ed07ad56fd975f1a9da5bc630/MarkupSafe-3.0.2-cp312-cp312-win_amd64.whl"
+    },
+    {
+      "artifact_id": "file-e707e1f046ce4aa67f7e",
+      "role": "wheel",
+      "path": "wheels/mpmath-1.3.0-py3-none-any.whl",
+      "size_bytes": 536198,
+      "sha256": "a0b2b9fe80bbcd81a6647ff13108738cfb482d481d826cc0e02f5b35e5c88d2c",
+      "source_uri": "https://files.pythonhosted.org/packages/43/e3/7d92a15f894aa0c9c4b49b8ee9ac9850d6e63b03c9c32c0367a13ae62209/mpmath-1.3.0-py3-none-any.whl"
+    },
+    {
+      "artifact_id": "file-98dc318b6bb373bbfdb7",
+      "role": "wheel",
+      "path": "wheels/networkx-3.5-py3-none-any.whl",
+      "size_bytes": 2034406,
+      "sha256": "0030d386a9a06dee3565298b4a734b68589749a544acbb6c412dc9e2489ec6ec",
+      "source_uri": "https://files.pythonhosted.org/packages/eb/8d/776adee7bbf76365fdd7f2552710282c79a4ead5d2a46408c9043a2b70ba/networkx-3.5-py3-none-any.whl"
+    },
+    {
+      "artifact_id": "file-52a7a8b18c36cf84baf5",
+      "role": "wheel",
+      "path": "wheels/numpy-2.2.6-cp312-cp312-win_amd64.whl",
+      "size_bytes": 12614190,
+      "sha256": "c1f9540be57940698ed329904db803cf7a402f3fc200bfe599334c9bd84a40b2",
+      "source_uri": "https://files.pythonhosted.org/packages/36/fa/8c9210162ca1b88529ab76b41ba02d433fd54fecaf6feb70ef9f124683f1/numpy-2.2.6-cp312-cp312-win_amd64.whl"
+    },
+    {
+      "artifact_id": "file-d684192c708e4cdcd50e",
+      "role": "wheel",
+      "path": "wheels/packaging-25.0-py3-none-any.whl",
+      "size_bytes": 66469,
+      "sha256": "29572ef2b1f17581046b3a2227d5c611fb25ec70ca1ba8554b24b0e69331a484",
+      "source_uri": "https://files.pythonhosted.org/packages/20/12/38679034af332785aac8774540895e234f4d07f7545804097de4b666afd8/packaging-25.0-py3-none-any.whl"
+    },
+    {
+      "artifact_id": "file-57b4bb49ca14e9342482",
+      "role": "wheel",
+      "path": "wheels/pip-25.1.1-py3-none-any.whl",
+      "size_bytes": 1825227,
+      "sha256": "2913a38a2abf4ea6b64ab507bd9e967f3b53dc1ede74b01b0931e1ce548751af",
+      "source_uri": "https://files.pythonhosted.org/packages/29/a2/d40fb2460e883eca5199c62cfc2463fd261f760556ae6290f88488c362c0/pip-25.1.1-py3-none-any.whl"
+    },
+    {
+      "artifact_id": "file-d09d9a13a5d2e5792fe7",
+      "role": "wheel",
+      "path": "wheels/pydantic-2.11.4-py3-none-any.whl",
+      "size_bytes": 443900,
+      "sha256": "d9615eaa9ac5a063471da949c8fc16376a84afb5024688b3ff885693506764eb",
+      "source_uri": "https://files.pythonhosted.org/packages/e7/12/46b65f3534d099349e38ef6ec98b1a5a81f42536d17e0ba382c28c67ba67/pydantic-2.11.4-py3-none-any.whl"
+    },
+    {
+      "artifact_id": "file-b9020abaa1c09cb33303",
+      "role": "wheel",
+      "path": "wheels/pydantic_core-2.33.2-cp312-cp312-win_amd64.whl",
+      "size_bytes": 1955866,
+      "sha256": "f941635f2a3d96b2973e867144fde513665c87f13fe0e193c158ac51bfaaa7b2",
+      "source_uri": "https://files.pythonhosted.org/packages/43/e4/5479fecb3606c1368d496a825d8411e126133c41224c1e7238be58b87d7e/pydantic_core-2.33.2-cp312-cp312-win_amd64.whl"
+    },
+    {
+      "artifact_id": "file-d70532f8cbf9821dc992",
+      "role": "wheel",
+      "path": "wheels/PyYAML-6.0.2-cp312-cp312-win_amd64.whl",
+      "size_bytes": 156338,
+      "sha256": "7e7401d0de89a9a855c839bc697c079a4af81cf878373abd7dc625847d25cbd8",
+      "source_uri": "https://files.pythonhosted.org/packages/0c/e8/4f648c598b17c3d06e8753d7d13d57542b30d56e6c2dedf9c331ae56312e/PyYAML-6.0.2-cp312-cp312-win_amd64.whl"
+    },
+    {
+      "artifact_id": "file-da0c8470d8b4ee4b159f",
+      "role": "wheel",
+      "path": "wheels/regex-2024.11.6-cp312-cp312-win_amd64.whl",
+      "size_bytes": 273567,
+      "sha256": "a93c194e2df18f7d264092dc8539b8ffb86b45b899ab976aa15d48214138e81b",
+      "source_uri": "https://files.pythonhosted.org/packages/38/ec/ad2d7de49a600cdb8dd78434a1aeffe28b9d6fc42eb36afab4a27ad23384/regex-2024.11.6-cp312-cp312-win_amd64.whl"
+    },
+    {
+      "artifact_id": "file-4495b4d37a3dc6118c8c",
+      "role": "wheel",
+      "path": "wheels/requests-2.32.4-py3-none-any.whl",
+      "size_bytes": 64847,
+      "sha256": "27babd3cda2a6d50b30443204ee89830707d396671944c998b5975b031ac2b2c",
+      "source_uri": "https://files.pythonhosted.org/packages/7c/e4/56027c4a6b4ae70ca9de302488c5ca95ad4a39e190093d6c1a8ace08341b/requests-2.32.4-py3-none-any.whl"
+    },
+    {
+      "artifact_id": "file-defc5105826b46e9b220",
+      "role": "wheel",
+      "path": "wheels/safetensors-0.5.3-cp38-abi3-win_amd64.whl",
+      "size_bytes": 308878,
+      "sha256": "836cbbc320b47e80acd40e44c8682db0e8ad7123209f69b093def21ec7cafd11",
+      "source_uri": "https://files.pythonhosted.org/packages/69/e2/b011c38e5394c4c18fb5500778a55ec43ad6106126e74723ffaee246f56e/safetensors-0.5.3-cp38-abi3-win_amd64.whl"
+    },
+    {
+      "artifact_id": "file-f5f6de95403ab9d6dc1f",
+      "role": "wheel",
+      "path": "wheels/setuptools-80.9.0-py3-none-any.whl",
+      "size_bytes": 1201486,
+      "sha256": "062d34222ad13e0cc312a4c02d73f059e86a4acbfbdea8f8f76b28c99f306922",
+      "source_uri": "https://files.pythonhosted.org/packages/a3/dc/17031897dae0efacfea57dfd3a82fdd2a2aeb58e0ff71b77b87e44edc772/setuptools-80.9.0-py3-none-any.whl"
+    },
+    {
+      "artifact_id": "file-4e847355a407af33dd08",
+      "role": "wheel",
+      "path": "wheels/sympy-1.14.0-py3-none-any.whl",
+      "size_bytes": 6299353,
+      "sha256": "e091cc3e99d2141a0ba2847328f5479b05d94a6635cb96148ccb3f34671bd8f5",
+      "source_uri": "https://files.pythonhosted.org/packages/a2/09/77d55d46fd61b4a135c444fc97158ef34a095e5681d0a6c10b75bf356191/sympy-1.14.0-py3-none-any.whl"
+    },
+    {
+      "artifact_id": "file-67c355807912bd78bfcf",
+      "role": "wheel",
+      "path": "wheels/tokenizers-0.21.2-cp39-abi3-win_amd64.whl",
+      "size_bytes": 2509918,
+      "sha256": "58747bb898acdb1007f37a7bbe614346e98dc28708ffb66a3fd50ce169ac6c98",
+      "source_uri": "https://files.pythonhosted.org/packages/13/c3/cc2755ee10be859c4338c962a35b9a663788c0c0b50c0bdd8078fb6870cf/tokenizers-0.21.2-cp39-abi3-win_amd64.whl"
+    },
+    {
+      "artifact_id": "file-d384116471fdb2fd5102",
+      "role": "wheel",
+      "path": "wheels/torch-2.7.1+cpu-cp312-cp312-win_amd64.whl",
+      "size_bytes": 215985616,
+      "sha256": "0bc887068772233f532b51a3e8c8cfc682ae62bef74bf4e0c53526c8b9e4138f",
+      "source_uri": "https://download.pytorch.org/whl/cpu/torch-2.7.1%2Bcpu-cp312-cp312-win_amd64.whl"
+    },
+    {
+      "artifact_id": "file-797ae7bdaab10ac56d49",
+      "role": "wheel",
+      "path": "wheels/tqdm-4.67.1-py3-none-any.whl",
+      "size_bytes": 78540,
+      "sha256": "26445eca388f82e72884e0d580d5464cd801a3ea01e63e5601bdff9ba6a48de2",
+      "source_uri": "https://files.pythonhosted.org/packages/d0/30/dc54f88dd4a2b5dc8a0279bdd7270e735851848b762aeb1c1184ed1f6b14/tqdm-4.67.1-py3-none-any.whl"
+    },
+    {
+      "artifact_id": "file-de5533f10df7c24b18f4",
+      "role": "wheel",
+      "path": "wheels/transformers-4.53.3-py3-none-any.whl",
+      "size_bytes": 10826382,
+      "sha256": "5aba81c92095806b6baf12df35d756cf23b66c356975fb2a7fa9e536138d7c75",
+      "source_uri": "https://files.pythonhosted.org/packages/41/b1/d7520cc5cb69c825599042eb3a7c986fa9baa8a8d2dea9acd78e152c81e2/transformers-4.53.3-py3-none-any.whl"
+    },
+    {
+      "artifact_id": "file-bd8109be34d869d37fa6",
+      "role": "wheel",
+      "path": "wheels/typing_extensions-4.14.1-py3-none-any.whl",
+      "size_bytes": 43906,
+      "sha256": "d1e1e3b58374dc93031d6eda2420a48ea44a36c2b4766a4fdeb3710755731d76",
+      "source_uri": "https://files.pythonhosted.org/packages/b5/00/d631e67a838026495268c2f6884f3711a15a9a2a96cd244fdaea53b823fb/typing_extensions-4.14.1-py3-none-any.whl"
+    },
+    {
+      "artifact_id": "file-2e1a1a7b9a7f1197dac3",
+      "role": "wheel",
+      "path": "wheels/typing_inspection-0.4.1-py3-none-any.whl",
+      "size_bytes": 14552,
+      "sha256": "389055682238f53b04f7badcb49b989835495a96700ced5dab2d8feae4b26f51",
+      "source_uri": "https://files.pythonhosted.org/packages/17/69/cd203477f944c353c31bade965f880aa1061fd6bf05ded0726ca845b6ff7/typing_inspection-0.4.1-py3-none-any.whl"
+    },
+    {
+      "artifact_id": "file-a7115207be26914ef211",
+      "role": "wheel",
+      "path": "wheels/urllib3-2.5.0-py3-none-any.whl",
+      "size_bytes": 129795,
+      "sha256": "e6b01673c0fa6a13e374b50871808eb3bf7046c4b125b216f6bf1cc604cff0dc",
+      "source_uri": "https://files.pythonhosted.org/packages/a7/c2/fe1e52489ae3122415c51f387e221dd0773709bad6c6cdaa599e8a2c5185/urllib3-2.5.0-py3-none-any.whl"
+    },
+    {
+      "artifact_id": "file-8f28f9f9dd0c7b89fcdc",
+      "role": "source",
+      "path": "source/annotated-types.METADATA",
+      "size_bytes": 15046,
+      "sha256": "ee5b6ac64b09274c026051813484025939564067801f485115d9cadc207cf791",
+      "source_uri": "https://github.com/chionger/Portable-ATC-Radar-Trainer/blob/402619d9296715605e8efb3aa282c82d7ab0f6f5/docs/evidence/fp001d/OFFLINE-OPERATOR.md"
+    },
+    {
+      "artifact_id": "file-462ad80279b3d3b46ef2",
+      "role": "source",
+      "path": "source/assemble.py",
+      "size_bytes": 3780,
+      "sha256": "fcde7266853682f9af875748320f5f53df50b284b7565b7c890777b9bae98e44",
+      "source_uri": "https://github.com/chionger/Portable-ATC-Radar-Trainer/blob/402619d9296715605e8efb3aa282c82d7ab0f6f5/docs/evidence/fp001d/OFFLINE-OPERATOR.md"
+    },
+    {
+      "artifact_id": "file-00c8fc6331c8d1ccbce8",
+      "role": "source",
+      "path": "source/candidate-package-metadata.json",
+      "size_bytes": 63728,
+      "sha256": "205649e5123cd7c0eeba58cdc4b02f9eaf6baad3429557ad25c741ed963af60b",
+      "source_uri": "https://github.com/chionger/Portable-ATC-Radar-Trainer/blob/402619d9296715605e8efb3aa282c82d7ab0f6f5/docs/evidence/fp001d/OFFLINE-OPERATOR.md"
+    },
+    {
+      "artifact_id": "file-b396a76f678fa5ff8f97",
+      "role": "source",
+      "path": "source/certifi.METADATA",
+      "size_bytes": 2423,
+      "sha256": "edc98328ed1af9f55c3ff5827d9e03a4b2a00ccbbf0040188534f996cc104e86",
+      "source_uri": "https://github.com/chionger/Portable-ATC-Radar-Trainer/blob/402619d9296715605e8efb3aa282c82d7ab0f6f5/docs/evidence/fp001d/OFFLINE-OPERATOR.md"
+    },
+    {
+      "artifact_id": "file-36a12c7807c8b9357664",
+      "role": "source",
+      "path": "source/charset-normalizer.METADATA",
+      "size_bytes": 36474,
+      "sha256": "5a778d37297d42fb11658ccad457840ba5b06a0e22205a130287af3e0a591536",
+      "source_uri": "https://github.com/chionger/Portable-ATC-Radar-Trainer/blob/402619d9296715605e8efb3aa282c82d7ab0f6f5/docs/evidence/fp001d/OFFLINE-OPERATOR.md"
+    },
+    {
+      "artifact_id": "file-b9bc5556e9299bbd2cce",
+      "role": "source",
+      "path": "source/colorama.METADATA",
+      "size_bytes": 17158,
+      "sha256": "7baed29eb50c3b29bdb33ff84e3177bf1bc05784f7685ecdcaa4471c7dd810cc",
+      "source_uri": "https://github.com/chionger/Portable-ATC-Radar-Trainer/blob/402619d9296715605e8efb3aa282c82d7ab0f6f5/docs/evidence/fp001d/OFFLINE-OPERATOR.md"
+    },
+    {
+      "artifact_id": "file-f33d45b3c5856c54056d",
+      "role": "source",
+      "path": "source/filelock.METADATA",
+      "size_bytes": 2897,
+      "sha256": "6ccceb64c205cad21b820fd668ba261fbf62ffb284c7c6a15f42090716f1d7f2",
+      "source_uri": "https://github.com/chionger/Portable-ATC-Radar-Trainer/blob/402619d9296715605e8efb3aa282c82d7ab0f6f5/docs/evidence/fp001d/OFFLINE-OPERATOR.md"
+    },
+    {
+      "artifact_id": "file-e4c907009701b7616d68",
+      "role": "source",
+      "path": "source/finalize_bundle.py",
+      "size_bytes": 8361,
+      "sha256": "343dc19fbe0281e0d731c5d5109c7460a3f62c7020983d7fd62bf721d002aa06",
+      "source_uri": "https://github.com/chionger/Portable-ATC-Radar-Trainer/blob/402619d9296715605e8efb3aa282c82d7ab0f6f5/docs/evidence/fp001d/OFFLINE-OPERATOR.md"
+    },
+    {
+      "artifact_id": "file-e9b12a99a71088611fee",
+      "role": "source",
+      "path": "source/fsspec.METADATA",
+      "size_bytes": 11697,
+      "sha256": "a4bdaebefe4c5b819aa57ba4cd5c1d6467b78215b8291be1ef996f0d74e4325e",
+      "source_uri": "https://github.com/chionger/Portable-ATC-Radar-Trainer/blob/402619d9296715605e8efb3aa282c82d7ab0f6f5/docs/evidence/fp001d/OFFLINE-OPERATOR.md"
+    },
+    {
+      "artifact_id": "file-fde3f108fce27a9ee48a",
+      "role": "source",
+      "path": "source/hf-xet.METADATA",
+      "size_bytes": 883,
+      "sha256": "a0525f71540b001335d840395670529516ac5f51fd5f370566490be64493031e",
+      "source_uri": "https://github.com/chionger/Portable-ATC-Radar-Trainer/blob/402619d9296715605e8efb3aa282c82d7ab0f6f5/docs/evidence/fp001d/OFFLINE-OPERATOR.md"
+    },
+    {
+      "artifact_id": "file-52ec71f3448450526142",
+      "role": "source",
+      "path": "source/huggingface-hub.METADATA",
+      "size_bytes": 14777,
+      "sha256": "3090a40f9a005e340275937ad336eb046e68e95b5d5649e0449d41081a591072",
+      "source_uri": "https://github.com/chionger/Portable-ATC-Radar-Trainer/blob/402619d9296715605e8efb3aa282c82d7ab0f6f5/docs/evidence/fp001d/OFFLINE-OPERATOR.md"
+    },
+    {
+      "artifact_id": "file-d09a4605460ac2abae4e",
+      "role": "source",
+      "path": "source/idna.METADATA",
+      "size_bytes": 10158,
+      "sha256": "5114796720df4353c2106864628a23a9f8b645ad2d6aedbefa58701b85d27e32",
+      "source_uri": "https://github.com/chionger/Portable-ATC-Radar-Trainer/blob/402619d9296715605e8efb3aa282c82d7ab0f6f5/docs/evidence/fp001d/OFFLINE-OPERATOR.md"
+    },
+    {
+      "artifact_id": "file-c4d53956ee524d5e6d8a",
+      "role": "source",
+      "path": "source/inspect_bundle.py",
+      "size_bytes": 4612,
+      "sha256": "974a4b9a81988bdbfac0d812dd9b96e45311ac8b38f001fd7b7d82a0c615fa0b",
+      "source_uri": "https://github.com/chionger/Portable-ATC-Radar-Trainer/blob/402619d9296715605e8efb3aa282c82d7ab0f6f5/docs/evidence/fp001d/OFFLINE-OPERATOR.md"
+    },
+    {
+      "artifact_id": "file-19a8d04cba6f0969870c",
+      "role": "source",
+      "path": "source/inspect_package_metadata.py",
+      "size_bytes": 8218,
+      "sha256": "0f2c5dd6d0fb776cb1166756af23bf6d28acc98e5886f8a9a08d476c0b7f68de",
+      "source_uri": "https://github.com/chionger/Portable-ATC-Radar-Trainer/blob/402619d9296715605e8efb3aa282c82d7ab0f6f5/docs/evidence/fp001d/OFFLINE-OPERATOR.md"
+    },
+    {
+      "artifact_id": "file-48814d713215ae786049",
+      "role": "source",
+      "path": "source/jinja2.METADATA",
+      "size_bytes": 2871,
+      "sha256": "68c5548fb67c4132a13898d9b31ec50c6bea2abdd915d921f214355c3a6499c8",
+      "source_uri": "https://github.com/chionger/Portable-ATC-Radar-Trainer/blob/402619d9296715605e8efb3aa282c82d7ab0f6f5/docs/evidence/fp001d/OFFLINE-OPERATOR.md"
+    },
+    {
+      "artifact_id": "file-faf87b0fa43d9cab9675",
+      "role": "source",
+      "path": "source/markupsafe.METADATA",
+      "size_bytes": 4067,
+      "sha256": "9e1a1a6e3ba9046e358ff2713c2277ca582b67a171f2830215b88b17d29a7ea7",
+      "source_uri": "https://github.com/chionger/Portable-ATC-Radar-Trainer/blob/402619d9296715605e8efb3aa282c82d7ab0f6f5/docs/evidence/fp001d/OFFLINE-OPERATOR.md"
+    },
+    {
+      "artifact_id": "file-848027026ac1eb5c4671",
+      "role": "source",
+      "path": "source/model-history/ACQUISITION.txt",
+      "size_bytes": 446,
+      "sha256": "eb39c8a87b9b4feec7bbea24473598f15ada5d0f482224095f481071adfda65e",
+      "source_uri": "https://github.com/chionger/Portable-ATC-Radar-Trainer/blob/402619d9296715605e8efb3aa282c82d7ab0f6f5/model-zoo/manifest.json"
+    },
+    {
+      "artifact_id": "file-82b9073c2497d7a7f330",
+      "role": "source",
+      "path": "source/model-history/manifest-assets.json",
+      "size_bytes": 3207,
+      "sha256": "104ba47aa70540c3946cd9e669adf16121a372379519eb78cda1c2c79c85d428",
+      "source_uri": "https://github.com/chionger/Portable-ATC-Radar-Trainer/blob/402619d9296715605e8efb3aa282c82d7ab0f6f5/model-zoo/manifest.json"
+    },
+    {
+      "artifact_id": "file-2b925df9849e3016397f",
+      "role": "source",
+      "path": "source/model-history/SHA256.csv",
+      "size_bytes": 6054,
+      "sha256": "bdc21b6f2a9b25ce9dc0736e98c6a3ea479d2883cc5e560438302fc453878b3d",
+      "source_uri": "https://github.com/chionger/Portable-ATC-Radar-Trainer/blob/402619d9296715605e8efb3aa282c82d7ab0f6f5/model-zoo/manifest.json"
+    },
+    {
+      "artifact_id": "file-030363237f4bd716c9e7",
+      "role": "source",
+      "path": "source/model-zoo/manifest.json",
+      "size_bytes": 218464,
+      "sha256": "4379f75ae508f818635470aaf84d7f7c21cc8912c16bfc119f591398fc3de366",
+      "source_uri": "https://github.com/chionger/Portable-ATC-Radar-Trainer/blob/402619d9296715605e8efb3aa282c82d7ab0f6f5/model-zoo/manifest.json"
+    },
+    {
+      "artifact_id": "file-f1330ed62ab1d32d9ec9",
+      "role": "source",
+      "path": "source/mpmath.METADATA",
+      "size_bytes": 8630,
+      "sha256": "44b66ea444b9c0d19ae94815d356bf047ae6b680c19268b5c265687cd6a81406",
+      "source_uri": "https://github.com/chionger/Portable-ATC-Radar-Trainer/blob/402619d9296715605e8efb3aa282c82d7ab0f6f5/docs/evidence/fp001d/OFFLINE-OPERATOR.md"
+    },
+    {
+      "artifact_id": "file-213f443ee93f256df1e8",
+      "role": "source",
+      "path": "source/native-bootstrap-metadata.json",
+      "size_bytes": 982,
+      "sha256": "843162747d41868cbc5fa2107fbf5b1dd024d5e76d76760a9bf6bd429550cdcf",
+      "source_uri": "https://github.com/chionger/Portable-ATC-Radar-Trainer/blob/402619d9296715605e8efb3aa282c82d7ab0f6f5/docs/evidence/fp001d/OFFLINE-OPERATOR.md"
+    },
+    {
+      "artifact_id": "file-b71ab869a8fefa5cf33f",
+      "role": "source",
+      "path": "source/networkx.METADATA",
+      "size_bytes": 6336,
+      "sha256": "18b28258a7a706532cc5e97549a0f1beb39ba7b299c085904367c4930d4f8b94",
+      "source_uri": "https://github.com/chionger/Portable-ATC-Radar-Trainer/blob/402619d9296715605e8efb3aa282c82d7ab0f6f5/docs/evidence/fp001d/OFFLINE-OPERATOR.md"
+    },
+    {
+      "artifact_id": "file-cd8e33f8cfba4e81a12c",
+      "role": "source",
+      "path": "source/numpy.METADATA",
+      "size_bytes": 60844,
+      "sha256": "229f3544b02805e0f6a12030e155d8a45fd3a4100b3291574175e6a76f20e1e1",
+      "source_uri": "https://github.com/chionger/Portable-ATC-Radar-Trainer/blob/402619d9296715605e8efb3aa282c82d7ab0f6f5/docs/evidence/fp001d/OFFLINE-OPERATOR.md"
+    },
+    {
+      "artifact_id": "file-408a18e6fccbcf6f6889",
+      "role": "source",
+      "path": "source/packaging.METADATA",
+      "size_bytes": 3281,
+      "sha256": "5b611a609c38fefc3d616bf45d20aec98fb7d53f245daca9e2c30fc85c7ac282",
+      "source_uri": "https://github.com/chionger/Portable-ATC-Radar-Trainer/blob/402619d9296715605e8efb3aa282c82d7ab0f6f5/docs/evidence/fp001d/OFFLINE-OPERATOR.md"
+    },
+    {
+      "artifact_id": "file-9ae60f375c3996f86a7b",
+      "role": "source",
+      "path": "source/pip.METADATA",
+      "size_bytes": 3649,
+      "sha256": "405c63d6d2e993c8465ab8102d1849614a70a3fd45a81af8dce4f4b2b2197265",
+      "source_uri": "https://github.com/chionger/Portable-ATC-Radar-Trainer/blob/402619d9296715605e8efb3aa282c82d7ab0f6f5/docs/evidence/fp001d/OFFLINE-OPERATOR.md"
+    },
+    {
+      "artifact_id": "file-39ac2d036ed32210b7aa",
+      "role": "source",
+      "path": "source/pydantic-core.METADATA",
+      "size_bytes": 6883,
+      "sha256": "904297200149e3a7d901f4dee47a94b2ba4819b88c1b70e29d6cf1809028e24a",
+      "source_uri": "https://github.com/chionger/Portable-ATC-Radar-Trainer/blob/402619d9296715605e8efb3aa282c82d7ab0f6f5/docs/evidence/fp001d/OFFLINE-OPERATOR.md"
+    },
+    {
+      "artifact_id": "file-457bdd28aa7570cf1f45",
+      "role": "source",
+      "path": "source/pydantic.METADATA",
+      "size_bytes": 66605,
+      "sha256": "d5badcd1b57ff3fd49754a594f59a85ef448f8f12e1bf420a95461deebceae26",
+      "source_uri": "https://github.com/chionger/Portable-ATC-Radar-Trainer/blob/402619d9296715605e8efb3aa282c82d7ab0f6f5/docs/evidence/fp001d/OFFLINE-OPERATOR.md"
+    },
+    {
+      "artifact_id": "file-22813e3fbd4a89649330",
+      "role": "source",
+      "path": "source/pyyaml.METADATA",
+      "size_bytes": 2106,
+      "sha256": "f65c17a933ab5cfb6cfa32362e8e54c2e680628d21891034059aa3721d168c09",
+      "source_uri": "https://github.com/chionger/Portable-ATC-Radar-Trainer/blob/402619d9296715605e8efb3aa282c82d7ab0f6f5/docs/evidence/fp001d/OFFLINE-OPERATOR.md"
+    },
+    {
+      "artifact_id": "file-f79611a146fc0a8a16a9",
+      "role": "source",
+      "path": "source/regex.METADATA",
+      "size_bytes": 41547,
+      "sha256": "ce4e01d70f31bcf5049a3591cda09f5a5d4f140d516247b7ce631ef48c1044a5",
+      "source_uri": "https://github.com/chionger/Portable-ATC-Radar-Trainer/blob/402619d9296715605e8efb3aa282c82d7ab0f6f5/docs/evidence/fp001d/OFFLINE-OPERATOR.md"
+    },
+    {
+      "artifact_id": "file-8270800b07419b80d483",
+      "role": "source",
+      "path": "source/requests.METADATA",
+      "size_bytes": 4934,
+      "sha256": "dd2e362ef34da0bd843f62230b55425e81259c6ad34d55b03e0226541e05605e",
+      "source_uri": "https://github.com/chionger/Portable-ATC-Radar-Trainer/blob/402619d9296715605e8efb3aa282c82d7ab0f6f5/docs/evidence/fp001d/OFFLINE-OPERATOR.md"
+    },
+    {
+      "artifact_id": "file-f0392e8b112f93b67f63",
+      "role": "source",
+      "path": "source/safetensors.METADATA",
+      "size_bytes": 3883,
+      "sha256": "7f1ab4ef80b13057294d9176fe642edaf90306f1985a94133e57ce74528a7f22",
+      "source_uri": "https://github.com/chionger/Portable-ATC-Radar-Trainer/blob/402619d9296715605e8efb3aa282c82d7ab0f6f5/docs/evidence/fp001d/OFFLINE-OPERATOR.md"
+    },
+    {
+      "artifact_id": "file-4237c196b8c13af9703f",
+      "role": "source",
+      "path": "source/scripts/collect_runtime_evidence.py",
+      "size_bytes": 7777,
+      "sha256": "6cdd109e8b2b3ffdb8fff3b4d679915f4bb90441013d1be1493a3acd5a506ecd",
+      "source_uri": "https://github.com/chionger/Portable-ATC-Radar-Trainer/blob/1b9749b34d45bfb1e410e41273db3a074d9f7454/scripts/collect_runtime_evidence.py"
+    },
+    {
+      "artifact_id": "file-a1559b730c3a4911b36c",
+      "role": "source",
+      "path": "source/scripts/offline_runtime_probe.py",
+      "size_bytes": 11597,
+      "sha256": "af02443128f1b8265006d642552e31acb8b76a6f25550b81561be2471ed94ed1",
+      "source_uri": "https://github.com/chionger/Portable-ATC-Radar-Trainer/blob/402619d9296715605e8efb3aa282c82d7ab0f6f5/scripts/offline_runtime_probe.py"
+    },
+    {
+      "artifact_id": "file-bd84f6744a8be75364ac",
+      "role": "source",
+      "path": "source/scripts/runtime_preservation.py",
+      "size_bytes": 15931,
+      "sha256": "d3ce08a87805433e530bb5566a25f4bc429f36d73fbba5146f24264dbf413062",
+      "source_uri": "https://github.com/chionger/Portable-ATC-Radar-Trainer/blob/402619d9296715605e8efb3aa282c82d7ab0f6f5/scripts/runtime_preservation.py"
+    },
+    {
+      "artifact_id": "file-b59a1e44f11a67b96309",
+      "role": "source",
+      "path": "source/scripts/verify_model_zoo.py",
+      "size_bytes": 16357,
+      "sha256": "3d6a5e6cbbbe67138296bd75de45d9ccdab903314c34d2a6d359feda7a590942",
+      "source_uri": "https://github.com/chionger/Portable-ATC-Radar-Trainer/blob/402619d9296715605e8efb3aa282c82d7ab0f6f5/scripts/verify_model_zoo.py"
+    },
+    {
+      "artifact_id": "file-d5b853a4a0d4b5d4f7a1",
+      "role": "source",
+      "path": "source/scripts/verify_runtime_preservation.py",
+      "size_bytes": 5644,
+      "sha256": "f6843c7c5dfefc585c33af3a122f0ffec64f877de142b72eafccf20f90629a42",
+      "source_uri": "https://github.com/chionger/Portable-ATC-Radar-Trainer/blob/402619d9296715605e8efb3aa282c82d7ab0f6f5/scripts/verify_runtime_preservation.py"
+    },
+    {
+      "artifact_id": "file-ab401b6d6523d5aca98d",
+      "role": "source",
+      "path": "source/setuptools.METADATA",
+      "size_bytes": 6572,
+      "sha256": "7f890ca8dbc16b63b568c89312ed6a7f9f0a79d0b2b7f3c83bf796ac3d930615",
+      "source_uri": "https://github.com/chionger/Portable-ATC-Radar-Trainer/blob/402619d9296715605e8efb3aa282c82d7ab0f6f5/docs/evidence/fp001d/OFFLINE-OPERATOR.md"
+    },
+    {
+      "artifact_id": "file-364d989cf02c774264fd",
+      "role": "source",
+      "path": "source/small_sources.py",
+      "size_bytes": 1561,
+      "sha256": "c0bc0b50e139b0181d8d4b7e1c53f5843c66c7da8e891d4367e8548dddb0144d",
+      "source_uri": "https://github.com/chionger/Portable-ATC-Radar-Trainer/blob/402619d9296715605e8efb3aa282c82d7ab0f6f5/docs/evidence/fp001d/OFFLINE-OPERATOR.md"
+    },
+    {
+      "artifact_id": "file-baa1ce2ed9440c0693e8",
+      "role": "source",
+      "path": "source/sympy.METADATA",
+      "size_bytes": 12816,
+      "sha256": "b756c2fbfd5be05ac5bdb0ebca61f55618f30f633ed92d88a5687429313a7595",
+      "source_uri": "https://github.com/chionger/Portable-ATC-Radar-Trainer/blob/402619d9296715605e8efb3aa282c82d7ab0f6f5/docs/evidence/fp001d/OFFLINE-OPERATOR.md"
+    },
+    {
+      "artifact_id": "file-fd476e0a131b09978316",
+      "role": "source",
+      "path": "source/tokenizers.METADATA",
+      "size_bytes": 6944,
+      "sha256": "40287100c985d3241437fd44c8ce2ee22bc19a4b0338c16253e736f5928e3334",
+      "source_uri": "https://github.com/chionger/Portable-ATC-Radar-Trainer/blob/402619d9296715605e8efb3aa282c82d7ab0f6f5/docs/evidence/fp001d/OFFLINE-OPERATOR.md"
+    },
+    {
+      "artifact_id": "file-febb336ca87a3d54ca4e",
+      "role": "source",
+      "path": "source/torch.METADATA",
+      "size_bytes": 27965,
+      "sha256": "396eb741e6076501feec2e916cd5f253a75e34ee0bc8e25e71d4747c8c63009d",
+      "source_uri": "https://github.com/chionger/Portable-ATC-Radar-Trainer/blob/402619d9296715605e8efb3aa282c82d7ab0f6f5/docs/evidence/fp001d/OFFLINE-OPERATOR.md"
+    },
+    {
+      "artifact_id": "file-8a75f00ff9fb1a2f83b6",
+      "role": "source",
+      "path": "source/tqdm.METADATA",
+      "size_bytes": 57675,
+      "sha256": "688a1632df525a198fec52dcfefb1246d31eacee9c035aacac2d7eaf8d8ff669",
+      "source_uri": "https://github.com/chionger/Portable-ATC-Radar-Trainer/blob/402619d9296715605e8efb3aa282c82d7ab0f6f5/docs/evidence/fp001d/OFFLINE-OPERATOR.md"
+    },
+    {
+      "artifact_id": "file-8664e27bb81fb3ab2197",
+      "role": "source",
+      "path": "source/transformers.METADATA",
+      "size_bytes": 40931,
+      "sha256": "4b7e9ae141fd6a9a055a36ddc089645a008ffcecd50d76003b882df11b7c51be",
+      "source_uri": "https://github.com/chionger/Portable-ATC-Radar-Trainer/blob/402619d9296715605e8efb3aa282c82d7ab0f6f5/docs/evidence/fp001d/OFFLINE-OPERATOR.md"
+    },
+    {
+      "artifact_id": "file-c9f1032cb4810dd7de1c",
+      "role": "source",
+      "path": "source/typing-extensions.METADATA",
+      "size_bytes": 2995,
+      "sha256": "f0b4b77a7174c372b22f85988a69457ec91c9e401183eb2ffcbead1db3cc4b9b",
+      "source_uri": "https://github.com/chionger/Portable-ATC-Radar-Trainer/blob/402619d9296715605e8efb3aa282c82d7ab0f6f5/docs/evidence/fp001d/OFFLINE-OPERATOR.md"
+    },
+    {
+      "artifact_id": "file-71aeaab05a34e0acf394",
+      "role": "source",
+      "path": "source/typing-inspection.METADATA",
+      "size_bytes": 2552,
+      "sha256": "67abbcb9113094d0e1d1ae7e38de2d176765555ace9509ac21eb5cd490c24894",
+      "source_uri": "https://github.com/chionger/Portable-ATC-Radar-Trainer/blob/402619d9296715605e8efb3aa282c82d7ab0f6f5/docs/evidence/fp001d/OFFLINE-OPERATOR.md"
+    },
+    {
+      "artifact_id": "file-6a7a12c67abf18140d3c",
+      "role": "source",
+      "path": "source/urllib3.METADATA",
+      "size_bytes": 6461,
+      "sha256": "99a6244c866dd1afa59040be84c6566c206670667225c60e791938fe7b93acd7",
+      "source_uri": "https://github.com/chionger/Portable-ATC-Radar-Trainer/blob/402619d9296715605e8efb3aa282c82d7ab0f6f5/docs/evidence/fp001d/OFFLINE-OPERATOR.md"
+    },
+    {
+      "artifact_id": "file-a2bb7b3fa7fd35f8ca06",
+      "role": "licence",
+      "path": "licences/annotated-types/annotated_types-0.7.0.dist-info/licenses/LICENSE",
+      "size_bytes": 1083,
+      "sha256": "fe1049884b1a0d9342901e88e07f32925d24b3121d9972b6a6805fb9824b095d",
+      "source_uri": "https://files.pythonhosted.org/packages/78/b6/6307fbef88d9b5ee7421e68d78a9f162e0da4900bc5f5793f6d3d0e34fb8/annotated_types-0.7.0-py3-none-any.whl"
+    },
+    {
+      "artifact_id": "file-089887eaa9ee94f97829",
+      "role": "licence",
+      "path": "licences/certifi/certifi-2025.7.14.dist-info/licenses/LICENSE",
+      "size_bytes": 989,
+      "sha256": "e93716da6b9c0d5a4a1df60fe695b370f0695603d21f6f83f053e42cfc10caf7",
+      "source_uri": "https://files.pythonhosted.org/packages/4f/52/34c6cf5bb9285074dc3531c437b3919e825d976fde097a7a73f79e726d03/certifi-2025.7.14-py3-none-any.whl"
+    },
+    {
+      "artifact_id": "file-74c4aa9ce9bab5f3d436",
+      "role": "licence",
+      "path": "licences/charset-normalizer/charset_normalizer-3.4.2.dist-info/licenses/LICENSE",
+      "size_bytes": 1092,
+      "sha256": "18577485d3704f1a479ded8e573c0976cfed315fd2fd17983fa988da4c2f70d1",
+      "source_uri": "https://files.pythonhosted.org/packages/6c/4f/c02d5c493967af3eda9c771ad4d2bbc8df6f99ddbeb37ceea6e8716a32bc/charset_normalizer-3.4.2-cp312-cp312-win_amd64.whl"
+    },
+    {
+      "artifact_id": "file-f0273e92bcedc1a9bda4",
+      "role": "licence",
+      "path": "licences/colorama/colorama-0.4.6.dist-info/licenses/LICENSE.txt",
+      "size_bytes": 1491,
+      "sha256": "cac35c02686e5d04a5a7140bfb3b36e73aed496656e891102e428886d7930318",
+      "source_uri": "https://files.pythonhosted.org/packages/d1/d6/3965ed04c63042e047cb6a3e6ed1a63a35087b6a609aa3a15ed8ac56c221/colorama-0.4.6-py2.py3-none-any.whl"
+    },
+    {
+      "artifact_id": "file-229051c62599f913ea79",
+      "role": "licence",
+      "path": "licences/cpython-LICENSE.txt",
+      "size_bytes": 13936,
+      "sha256": "3b2f81fe21d181c499c59a256c8e1968455d6689d269aa85373bfb6af41da3bf",
+      "source_uri": "https://raw.githubusercontent.com/python/cpython/v3.12.10/LICENSE"
+    },
+    {
+      "artifact_id": "file-aa74dcb860a3da944180",
+      "role": "licence",
+      "path": "licences/filelock/filelock-3.18.0.dist-info/licenses/LICENSE",
+      "size_bytes": 1210,
+      "sha256": "88d9b4eb60579c191ec391ca04c16130572d7eedc4a86daa58bf28c6e14c9bcd",
+      "source_uri": "https://files.pythonhosted.org/packages/4d/36/2a115987e2d8c300a974597416d9de88f2444426de9571f4b59b2cca3acc/filelock-3.18.0-py3-none-any.whl"
+    },
+    {
+      "artifact_id": "file-715fc11478db8718d72d",
+      "role": "licence",
+      "path": "licences/fsspec/fsspec-2025.5.1.dist-info/licenses/LICENSE",
+      "size_bytes": 1513,
+      "sha256": "2dc35496ce53a7307915c008a844aad53e772b49b34cdd00445067691407ec94",
+      "source_uri": "https://files.pythonhosted.org/packages/bb/61/78c7b3851add1481b048b5fdc29067397a1784e2910592bc81bb3f608635/fsspec-2025.5.1-py3-none-any.whl"
+    },
+    {
+      "artifact_id": "file-8aba4ae02ae2875c61ce",
+      "role": "licence",
+      "path": "licences/hf-xet/hf_xet-1.1.5.dist-info/licenses/LICENSE",
+      "size_bytes": 11558,
+      "sha256": "1eb85fc97224598dad1852b5d6483bbcf0aa8608790dcc657a5a2a761ae9c8c6",
+      "source_uri": "https://files.pythonhosted.org/packages/f0/55/ef77a85ee443ae05a9e9cba1c9f0dd9241eb42da2aeba1dc50f51154c81a/hf_xet-1.1.5-cp37-abi3-win_amd64.whl"
+    },
+    {
+      "artifact_id": "file-a3f0354da1c91c809bf0",
+      "role": "licence",
+      "path": "licences/huggingface-hub/huggingface_hub-0.33.4.dist-info/LICENSE",
+      "size_bytes": 11357,
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "source_uri": "https://files.pythonhosted.org/packages/46/7b/98daa50a2db034cab6cd23a3de04fa2358cb691593d28e9130203eb7a805/huggingface_hub-0.33.4-py3-none-any.whl"
+    },
+    {
+      "artifact_id": "file-57d78bfe64f85de36e6a",
+      "role": "licence",
+      "path": "licences/idna/idna-3.10.dist-info/LICENSE.md",
+      "size_bytes": 1541,
+      "sha256": "a59f0b0ef3635874109a4461ca44ff7a70d50696e814767bfaf721d4c9b0db0f",
+      "source_uri": "https://files.pythonhosted.org/packages/76/c6/c88e154df9c4e1a2a66ccf0005a88dfb2650c1dffb6f5ce603dfbd452ce3/idna-3.10-py3-none-any.whl"
+    },
+    {
+      "artifact_id": "file-2a26171886d13d0fb6a9",
+      "role": "licence",
+      "path": "licences/jinja2/jinja2-3.1.6.dist-info/licenses/LICENSE.txt",
+      "size_bytes": 1475,
+      "sha256": "3b49dcee4105eb37bac10faf1be260408fe85d252b8e9df2e0979fc1e094437b",
+      "source_uri": "https://files.pythonhosted.org/packages/62/a1/3d680cbfd5f4b8f15abc1d571870c5fc3e594bb582bc3b64ea099db13e56/jinja2-3.1.6-py3-none-any.whl"
+    },
+    {
+      "artifact_id": "file-a95b96d73e62a8545118",
+      "role": "licence",
+      "path": "licences/markupsafe/MarkupSafe-3.0.2.dist-info/LICENSE.txt",
+      "size_bytes": 1503,
+      "sha256": "4631ec0db5fd90a547e336817264c6798214338146f8ac94b4a57f96ee8c9ec4",
+      "source_uri": "https://files.pythonhosted.org/packages/c1/80/a61f99dc3a936413c3ee4e1eecac96c0da5ed07ad56fd975f1a9da5bc630/MarkupSafe-3.0.2-cp312-cp312-win_amd64.whl"
+    },
+    {
+      "artifact_id": "file-c802ecace810b3d1f3a5",
+      "role": "licence",
+      "path": "licences/mpmath/mpmath-1.3.0.dist-info/LICENSE",
+      "size_bytes": 1537,
+      "sha256": "c26cae81da4508e5e249985777a33821f183223ebb74d7f8cfbf90fe7eef2fb7",
+      "source_uri": "https://files.pythonhosted.org/packages/43/e3/7d92a15f894aa0c9c4b49b8ee9ac9850d6e63b03c9c32c0367a13ae62209/mpmath-1.3.0-py3-none-any.whl"
+    },
+    {
+      "artifact_id": "file-45449f03c767ca6c0125",
+      "role": "licence",
+      "path": "licences/msvc-licence.html",
+      "size_bytes": 235682,
+      "sha256": "f75f1964068cd7d8381354d4f211f98a24da7559ed91ac35b8ac465a393ebea1",
+      "source_uri": "https://visualstudio.microsoft.com/license-terms/vs2022-cruntime/"
+    },
+    {
+      "artifact_id": "file-8253dad54917d7104c8e",
+      "role": "licence",
+      "path": "licences/networkx/networkx-3.5.dist-info/licenses/LICENSE.txt",
+      "size_bytes": 1763,
+      "sha256": "3cf7c3a179d817b23b8b8568211769fefdf93797d207d984b8b2fa24d0220b33",
+      "source_uri": "https://files.pythonhosted.org/packages/eb/8d/776adee7bbf76365fdd7f2552710282c79a4ead5d2a46408c9043a2b70ba/networkx-3.5-py3-none-any.whl"
+    },
+    {
+      "artifact_id": "file-db036ab273e3b727cb74",
+      "role": "licence",
+      "path": "licences/numpy/numpy/_core/include/numpy/random/LICENSE.txt",
+      "size_bytes": 1039,
+      "sha256": "d544761558b510866c21f7e8a2d5716fca76e0b98117e3b6b86314db7244d150",
+      "source_uri": "https://files.pythonhosted.org/packages/36/fa/8c9210162ca1b88529ab76b41ba02d433fd54fecaf6feb70ef9f124683f1/numpy-2.2.6-cp312-cp312-win_amd64.whl"
+    },
+    {
+      "artifact_id": "file-e1c331ad80b02531aea3",
+      "role": "licence",
+      "path": "licences/numpy/numpy/ma/LICENSE",
+      "size_bytes": 1616,
+      "sha256": "d78dbb208b80d92b4d333e41a4baae50d12444f46e53199fa7726a91de6e2da7",
+      "source_uri": "https://files.pythonhosted.org/packages/36/fa/8c9210162ca1b88529ab76b41ba02d433fd54fecaf6feb70ef9f124683f1/numpy-2.2.6-cp312-cp312-win_amd64.whl"
+    },
+    {
+      "artifact_id": "file-465e162f8654c8b619fd",
+      "role": "licence",
+      "path": "licences/numpy/numpy/random/LICENSE.md",
+      "size_bytes": 3582,
+      "sha256": "b4bc2f4fa1c95778f1ed3dd8f14706bece399475b978f9f34b5d3cd72521b48a",
+      "source_uri": "https://files.pythonhosted.org/packages/36/fa/8c9210162ca1b88529ab76b41ba02d433fd54fecaf6feb70ef9f124683f1/numpy-2.2.6-cp312-cp312-win_amd64.whl"
+    },
+    {
+      "artifact_id": "file-4ad4bf6d4886bd8d2591",
+      "role": "licence",
+      "path": "licences/numpy/numpy-2.2.6.dist-info/LICENSE.txt",
+      "size_bytes": 47709,
+      "sha256": "14256cc3a2c9d32ac284da96b937feb44f72dd90bee2317ac3020166846ad99d",
+      "source_uri": "https://files.pythonhosted.org/packages/36/fa/8c9210162ca1b88529ab76b41ba02d433fd54fecaf6feb70ef9f124683f1/numpy-2.2.6-cp312-cp312-win_amd64.whl"
+    },
+    {
+      "artifact_id": "file-be1174deb0aad5276973",
+      "role": "licence",
+      "path": "licences/packaging/packaging-25.0.dist-info/licenses/LICENSE",
+      "size_bytes": 197,
+      "sha256": "cad1ef5bd340d73e074ba614d26f7deaca5c7940c3d8c34852e65c4909686c48",
+      "source_uri": "https://files.pythonhosted.org/packages/20/12/38679034af332785aac8774540895e234f4d07f7545804097de4b666afd8/packaging-25.0-py3-none-any.whl"
+    },
+    {
+      "artifact_id": "file-c45f7649aec86d029a3a",
+      "role": "licence",
+      "path": "licences/packaging/packaging-25.0.dist-info/licenses/LICENSE.APACHE",
+      "size_bytes": 10174,
+      "sha256": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594",
+      "source_uri": "https://files.pythonhosted.org/packages/20/12/38679034af332785aac8774540895e234f4d07f7545804097de4b666afd8/packaging-25.0-py3-none-any.whl"
+    },
+    {
+      "artifact_id": "file-93cc534d82130ab165d2",
+      "role": "licence",
+      "path": "licences/packaging/packaging-25.0.dist-info/licenses/LICENSE.BSD",
+      "size_bytes": 1344,
+      "sha256": "b70e7e9b742f1cc6f948b34c16aa39ffece94196364bc88ff0d2180f0028fac5",
+      "source_uri": "https://files.pythonhosted.org/packages/20/12/38679034af332785aac8774540895e234f4d07f7545804097de4b666afd8/packaging-25.0-py3-none-any.whl"
+    },
+    {
+      "artifact_id": "file-cc40698847232e0b680d",
+      "role": "licence",
+      "path": "licences/pip/pip-25.1.1.dist-info/licenses/LICENSE.txt",
+      "size_bytes": 1093,
+      "sha256": "634300a669d49aeae65b12c6c48c924c51a4cdf3d1ff086dc3456dc8bcaa2104",
+      "source_uri": "https://files.pythonhosted.org/packages/29/a2/d40fb2460e883eca5199c62cfc2463fd261f760556ae6290f88488c362c0/pip-25.1.1-py3-none-any.whl"
+    },
+    {
+      "artifact_id": "file-e67bcb21f88c321db8c8",
+      "role": "licence",
+      "path": "licences/pydantic/pydantic-2.11.4.dist-info/licenses/LICENSE",
+      "size_bytes": 1129,
+      "sha256": "a9e186f3ca16b5eef84318e7a701721351a00cb7b8ae3a4394b67b49e3529ef3",
+      "source_uri": "https://files.pythonhosted.org/packages/e7/12/46b65f3534d099349e38ef6ec98b1a5a81f42536d17e0ba382c28c67ba67/pydantic-2.11.4-py3-none-any.whl"
+    },
+    {
+      "artifact_id": "file-06a8e50cdf80d0b1d700",
+      "role": "licence",
+      "path": "licences/pydantic-core/pydantic_core-2.33.2.dist-info/licenses/LICENSE",
+      "size_bytes": 1101,
+      "sha256": "fbe7f615f18d135c07000e5a86325db27f42c7729699ef166ac1f7a3f4586bf4",
+      "source_uri": "https://files.pythonhosted.org/packages/43/e4/5479fecb3606c1368d496a825d8411e126133c41224c1e7238be58b87d7e/pydantic_core-2.33.2-cp312-cp312-win_amd64.whl"
+    },
+    {
+      "artifact_id": "file-e846b00ec1db34ac1e24",
+      "role": "licence",
+      "path": "licences/pyyaml/PyYAML-6.0.2.dist-info/LICENSE",
+      "size_bytes": 1101,
+      "sha256": "8d3928f9dc4490fd635707cb88eb26bd764102a7282954307d3e5167a577e8a4",
+      "source_uri": "https://files.pythonhosted.org/packages/0c/e8/4f648c598b17c3d06e8753d7d13d57542b30d56e6c2dedf9c331ae56312e/PyYAML-6.0.2-cp312-cp312-win_amd64.whl"
+    },
+    {
+      "artifact_id": "file-abb86ce8af00fc806237",
+      "role": "licence",
+      "path": "licences/regex/regex-2024.11.6.dist-info/LICENSE.txt",
+      "size_bytes": 11792,
+      "sha256": "3d220c06594b826bbabf110312f60f385f99e57e529fa4b9e536f79091f8b4c7",
+      "source_uri": "https://files.pythonhosted.org/packages/38/ec/ad2d7de49a600cdb8dd78434a1aeffe28b9d6fc42eb36afab4a27ad23384/regex-2024.11.6-cp312-cp312-win_amd64.whl"
+    },
+    {
+      "artifact_id": "file-54d016f465680b969bbc",
+      "role": "licence",
+      "path": "licences/repository-LICENSE.txt",
+      "size_bytes": 11357,
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "source_uri": "https://github.com/chionger/Portable-ATC-Radar-Trainer/blob/402619d9296715605e8efb3aa282c82d7ab0f6f5/LICENSE"
+    },
+    {
+      "artifact_id": "file-3f47156450fddf385a05",
+      "role": "licence",
+      "path": "licences/requests/requests-2.32.4.dist-info/licenses/LICENSE",
+      "size_bytes": 10142,
+      "sha256": "09e8a9bcec8067104652c168685ab0931e7868f9c8284b66f5ae6edae5f1130b",
+      "source_uri": "https://files.pythonhosted.org/packages/7c/e4/56027c4a6b4ae70ca9de302488c5ca95ad4a39e190093d6c1a8ace08341b/requests-2.32.4-py3-none-any.whl"
+    },
+    {
+      "artifact_id": "file-4e3797a72caba81f482a",
+      "role": "licence",
+      "path": "licences/safetensors-LICENSE.txt",
+      "size_bytes": 11357,
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "source_uri": "https://raw.githubusercontent.com/huggingface/safetensors/v0.5.3/LICENSE"
+    },
+    {
+      "artifact_id": "file-a39d9cbef51355c786d2",
+      "role": "licence",
+      "path": "licences/setuptools/setuptools/_vendor/autocommand-2.2.2.dist-info/LICENSE",
+      "size_bytes": 7634,
+      "sha256": "ade78d04982d69972d444a8e14a94f87a2334dd3855cc80348ea8e240aa0df2d",
+      "source_uri": "https://files.pythonhosted.org/packages/a3/dc/17031897dae0efacfea57dfd3a82fdd2a2aeb58e0ff71b77b87e44edc772/setuptools-80.9.0-py3-none-any.whl"
+    },
+    {
+      "artifact_id": "file-a9b2b15249f437a1633e",
+      "role": "licence",
+      "path": "licences/setuptools/setuptools/_vendor/backports.tarfile-1.2.0.dist-info/LICENSE",
+      "size_bytes": 1023,
+      "sha256": "86da0f01aeae46348a3c3d465195dc1ceccde79f79e87769a64b8da04b2a4741",
+      "source_uri": "https://files.pythonhosted.org/packages/a3/dc/17031897dae0efacfea57dfd3a82fdd2a2aeb58e0ff71b77b87e44edc772/setuptools-80.9.0-py3-none-any.whl"
+    },
+    {
+      "artifact_id": "file-d982ef6cd9670310551d",
+      "role": "licence",
+      "path": "licences/setuptools/setuptools/_vendor/importlib_metadata-8.0.0.dist-info/LICENSE",
+      "size_bytes": 11358,
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "source_uri": "https://files.pythonhosted.org/packages/a3/dc/17031897dae0efacfea57dfd3a82fdd2a2aeb58e0ff71b77b87e44edc772/setuptools-80.9.0-py3-none-any.whl"
+    },
+    {
+      "artifact_id": "file-23be6a216e311514104e",
+      "role": "licence",
+      "path": "licences/setuptools/setuptools/_vendor/inflect-7.3.1.dist-info/LICENSE",
+      "size_bytes": 1023,
+      "sha256": "86da0f01aeae46348a3c3d465195dc1ceccde79f79e87769a64b8da04b2a4741",
+      "source_uri": "https://files.pythonhosted.org/packages/a3/dc/17031897dae0efacfea57dfd3a82fdd2a2aeb58e0ff71b77b87e44edc772/setuptools-80.9.0-py3-none-any.whl"
+    },
+    {
+      "artifact_id": "file-fb86e4f00768c097e4d9",
+      "role": "licence",
+      "path": "licences/setuptools/setuptools/_vendor/jaraco.collections-5.1.0.dist-info/LICENSE",
+      "size_bytes": 1023,
+      "sha256": "86da0f01aeae46348a3c3d465195dc1ceccde79f79e87769a64b8da04b2a4741",
+      "source_uri": "https://files.pythonhosted.org/packages/a3/dc/17031897dae0efacfea57dfd3a82fdd2a2aeb58e0ff71b77b87e44edc772/setuptools-80.9.0-py3-none-any.whl"
+    },
+    {
+      "artifact_id": "file-db9c7a0438bb974ce4c0",
+      "role": "licence",
+      "path": "licences/setuptools/setuptools/_vendor/jaraco.context-5.3.0.dist-info/LICENSE",
+      "size_bytes": 1023,
+      "sha256": "86da0f01aeae46348a3c3d465195dc1ceccde79f79e87769a64b8da04b2a4741",
+      "source_uri": "https://files.pythonhosted.org/packages/a3/dc/17031897dae0efacfea57dfd3a82fdd2a2aeb58e0ff71b77b87e44edc772/setuptools-80.9.0-py3-none-any.whl"
+    },
+    {
+      "artifact_id": "file-dfc79909256447695fc1",
+      "role": "licence",
+      "path": "licences/setuptools/setuptools/_vendor/jaraco.functools-4.0.1.dist-info/LICENSE",
+      "size_bytes": 1023,
+      "sha256": "86da0f01aeae46348a3c3d465195dc1ceccde79f79e87769a64b8da04b2a4741",
+      "source_uri": "https://files.pythonhosted.org/packages/a3/dc/17031897dae0efacfea57dfd3a82fdd2a2aeb58e0ff71b77b87e44edc772/setuptools-80.9.0-py3-none-any.whl"
+    },
+    {
+      "artifact_id": "file-70cbb52da7afae1ee17d",
+      "role": "licence",
+      "path": "licences/setuptools/setuptools/_vendor/jaraco.text-3.12.1.dist-info/LICENSE",
+      "size_bytes": 1023,
+      "sha256": "86da0f01aeae46348a3c3d465195dc1ceccde79f79e87769a64b8da04b2a4741",
+      "source_uri": "https://files.pythonhosted.org/packages/a3/dc/17031897dae0efacfea57dfd3a82fdd2a2aeb58e0ff71b77b87e44edc772/setuptools-80.9.0-py3-none-any.whl"
+    },
+    {
+      "artifact_id": "file-aa0c1b96d05822e05659",
+      "role": "licence",
+      "path": "licences/setuptools/setuptools/_vendor/more_itertools-10.3.0.dist-info/LICENSE",
+      "size_bytes": 1053,
+      "sha256": "09f1c8c9e941af3e584d59641ea9b87d83c0cb0fd007eb5ef391a7e2643c1a46",
+      "source_uri": "https://files.pythonhosted.org/packages/a3/dc/17031897dae0efacfea57dfd3a82fdd2a2aeb58e0ff71b77b87e44edc772/setuptools-80.9.0-py3-none-any.whl"
+    },
+    {
+      "artifact_id": "file-a2527cf2e535f58d48aa",
+      "role": "licence",
+      "path": "licences/setuptools/setuptools/_vendor/packaging-24.2.dist-info/LICENSE",
+      "size_bytes": 197,
+      "sha256": "cad1ef5bd340d73e074ba614d26f7deaca5c7940c3d8c34852e65c4909686c48",
+      "source_uri": "https://files.pythonhosted.org/packages/a3/dc/17031897dae0efacfea57dfd3a82fdd2a2aeb58e0ff71b77b87e44edc772/setuptools-80.9.0-py3-none-any.whl"
+    },
+    {
+      "artifact_id": "file-715625831b700ea64759",
+      "role": "licence",
+      "path": "licences/setuptools/setuptools/_vendor/packaging-24.2.dist-info/LICENSE.APACHE",
+      "size_bytes": 10174,
+      "sha256": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594",
+      "source_uri": "https://files.pythonhosted.org/packages/a3/dc/17031897dae0efacfea57dfd3a82fdd2a2aeb58e0ff71b77b87e44edc772/setuptools-80.9.0-py3-none-any.whl"
+    },
+    {
+      "artifact_id": "file-dd423e45bddc056c6fba",
+      "role": "licence",
+      "path": "licences/setuptools/setuptools/_vendor/packaging-24.2.dist-info/LICENSE.BSD",
+      "size_bytes": 1344,
+      "sha256": "b70e7e9b742f1cc6f948b34c16aa39ffece94196364bc88ff0d2180f0028fac5",
+      "source_uri": "https://files.pythonhosted.org/packages/a3/dc/17031897dae0efacfea57dfd3a82fdd2a2aeb58e0ff71b77b87e44edc772/setuptools-80.9.0-py3-none-any.whl"
+    },
+    {
+      "artifact_id": "file-586d4baf16b56b36c20d",
+      "role": "licence",
+      "path": "licences/setuptools/setuptools/_vendor/platformdirs-4.2.2.dist-info/licenses/LICENSE",
+      "size_bytes": 1089,
+      "sha256": "29e0fd62e929850e86eb28c3fdccf0cefdf4fa94879011cffb3d0d4bed6d4db6",
+      "source_uri": "https://files.pythonhosted.org/packages/a3/dc/17031897dae0efacfea57dfd3a82fdd2a2aeb58e0ff71b77b87e44edc772/setuptools-80.9.0-py3-none-any.whl"
+    },
+    {
+      "artifact_id": "file-5768d8be5d0225f05e67",
+      "role": "licence",
+      "path": "licences/setuptools/setuptools/_vendor/tomli-2.0.1.dist-info/LICENSE",
+      "size_bytes": 1072,
+      "sha256": "b80816b0d530b8accb4c2211783790984a6e3b61922c2b5ee92f3372ab2742fe",
+      "source_uri": "https://files.pythonhosted.org/packages/a3/dc/17031897dae0efacfea57dfd3a82fdd2a2aeb58e0ff71b77b87e44edc772/setuptools-80.9.0-py3-none-any.whl"
+    },
+    {
+      "artifact_id": "file-f8865b3ba4e143a33f86",
+      "role": "licence",
+      "path": "licences/setuptools/setuptools/_vendor/typeguard-4.3.0.dist-info/LICENSE",
+      "size_bytes": 1130,
+      "sha256": "6163f7987dfb38d6bc320ce2b70b2f02b862bc41126516d552ef1cd43247e758",
+      "source_uri": "https://files.pythonhosted.org/packages/a3/dc/17031897dae0efacfea57dfd3a82fdd2a2aeb58e0ff71b77b87e44edc772/setuptools-80.9.0-py3-none-any.whl"
+    },
+    {
+      "artifact_id": "file-c48bd7398e1748522feb",
+      "role": "licence",
+      "path": "licences/setuptools/setuptools/_vendor/typing_extensions-4.12.2.dist-info/LICENSE",
+      "size_bytes": 13936,
+      "sha256": "3b2f81fe21d181c499c59a256c8e1968455d6689d269aa85373bfb6af41da3bf",
+      "source_uri": "https://files.pythonhosted.org/packages/a3/dc/17031897dae0efacfea57dfd3a82fdd2a2aeb58e0ff71b77b87e44edc772/setuptools-80.9.0-py3-none-any.whl"
+    },
+    {
+      "artifact_id": "file-c2e70e874aabaa07e640",
+      "role": "licence",
+      "path": "licences/setuptools/setuptools/_vendor/wheel/vendored/packaging/LICENSE",
+      "size_bytes": 197,
+      "sha256": "cad1ef5bd340d73e074ba614d26f7deaca5c7940c3d8c34852e65c4909686c48",
+      "source_uri": "https://files.pythonhosted.org/packages/a3/dc/17031897dae0efacfea57dfd3a82fdd2a2aeb58e0ff71b77b87e44edc772/setuptools-80.9.0-py3-none-any.whl"
+    },
+    {
+      "artifact_id": "file-36293f5575cfa553d813",
+      "role": "licence",
+      "path": "licences/setuptools/setuptools/_vendor/wheel/vendored/packaging/LICENSE.APACHE",
+      "size_bytes": 10174,
+      "sha256": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594",
+      "source_uri": "https://files.pythonhosted.org/packages/a3/dc/17031897dae0efacfea57dfd3a82fdd2a2aeb58e0ff71b77b87e44edc772/setuptools-80.9.0-py3-none-any.whl"
+    },
+    {
+      "artifact_id": "file-39c7bf8038d0d9ef279f",
+      "role": "licence",
+      "path": "licences/setuptools/setuptools/_vendor/wheel/vendored/packaging/LICENSE.BSD",
+      "size_bytes": 1344,
+      "sha256": "b70e7e9b742f1cc6f948b34c16aa39ffece94196364bc88ff0d2180f0028fac5",
+      "source_uri": "https://files.pythonhosted.org/packages/a3/dc/17031897dae0efacfea57dfd3a82fdd2a2aeb58e0ff71b77b87e44edc772/setuptools-80.9.0-py3-none-any.whl"
+    },
+    {
+      "artifact_id": "file-db17530655df8fdcbb1a",
+      "role": "licence",
+      "path": "licences/setuptools/setuptools/_vendor/wheel-0.45.1.dist-info/LICENSE.txt",
+      "size_bytes": 1107,
+      "sha256": "30c23618679108f3e8ea1d2a658c7ca417bdfc891c98ef1a89fa4ff0c9828654",
+      "source_uri": "https://files.pythonhosted.org/packages/a3/dc/17031897dae0efacfea57dfd3a82fdd2a2aeb58e0ff71b77b87e44edc772/setuptools-80.9.0-py3-none-any.whl"
+    },
+    {
+      "artifact_id": "file-ac699c23264fd5d693d9",
+      "role": "licence",
+      "path": "licences/setuptools/setuptools/_vendor/zipp-3.19.2.dist-info/LICENSE",
+      "size_bytes": 1023,
+      "sha256": "86da0f01aeae46348a3c3d465195dc1ceccde79f79e87769a64b8da04b2a4741",
+      "source_uri": "https://files.pythonhosted.org/packages/a3/dc/17031897dae0efacfea57dfd3a82fdd2a2aeb58e0ff71b77b87e44edc772/setuptools-80.9.0-py3-none-any.whl"
+    },
+    {
+      "artifact_id": "file-c816e455ae18f8ffa688",
+      "role": "licence",
+      "path": "licences/setuptools/setuptools/config/_validate_pyproject/NOTICE",
+      "size_bytes": 18737,
+      "sha256": "5d300dbfa643138b013b75ac9caeee591f951b8b0ee24288c34ccd926c4780c8",
+      "source_uri": "https://files.pythonhosted.org/packages/a3/dc/17031897dae0efacfea57dfd3a82fdd2a2aeb58e0ff71b77b87e44edc772/setuptools-80.9.0-py3-none-any.whl"
+    },
+    {
+      "artifact_id": "file-7717913902ab0858f03c",
+      "role": "licence",
+      "path": "licences/setuptools/setuptools/config/NOTICE",
+      "size_bytes": 493,
+      "sha256": "2dddf08818297a3b89d43d95ff659d8da85741108c9136dfa3a4d856c0623bd8",
+      "source_uri": "https://files.pythonhosted.org/packages/a3/dc/17031897dae0efacfea57dfd3a82fdd2a2aeb58e0ff71b77b87e44edc772/setuptools-80.9.0-py3-none-any.whl"
+    },
+    {
+      "artifact_id": "file-5403a0b28f46181de835",
+      "role": "licence",
+      "path": "licences/setuptools/setuptools-80.9.0.dist-info/licenses/LICENSE",
+      "size_bytes": 1023,
+      "sha256": "86da0f01aeae46348a3c3d465195dc1ceccde79f79e87769a64b8da04b2a4741",
+      "source_uri": "https://files.pythonhosted.org/packages/a3/dc/17031897dae0efacfea57dfd3a82fdd2a2aeb58e0ff71b77b87e44edc772/setuptools-80.9.0-py3-none-any.whl"
+    },
+    {
+      "artifact_id": "file-ad805c9fccbb3a8f33ec",
+      "role": "licence",
+      "path": "licences/sympy/sympy/parsing/latex/LICENSE.txt",
+      "size_bytes": 1075,
+      "sha256": "007bc30a58fa40a996e772047120de4eaf31f5110e4f9c3b5f93fcdfbe2eaca1",
+      "source_uri": "https://files.pythonhosted.org/packages/a2/09/77d55d46fd61b4a135c444fc97158ef34a095e5681d0a6c10b75bf356191/sympy-1.14.0-py3-none-any.whl"
+    },
+    {
+      "artifact_id": "file-7b9da709b26423418e04",
+      "role": "licence",
+      "path": "licences/sympy/sympy-1.14.0.dist-info/licenses/LICENSE",
+      "size_bytes": 7885,
+      "sha256": "07a5e9819f727b4986ad2829c7a29a6320d42575f720eb24d71b7fef573a0286",
+      "source_uri": "https://files.pythonhosted.org/packages/a2/09/77d55d46fd61b4a135c444fc97158ef34a095e5681d0a6c10b75bf356191/sympy-1.14.0-py3-none-any.whl"
+    },
+    {
+      "artifact_id": "file-5b093b0c4d6558542b65",
+      "role": "licence",
+      "path": "licences/tokenizers-LICENSE.txt",
+      "size_bytes": 11357,
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "source_uri": "https://raw.githubusercontent.com/huggingface/tokenizers/v0.21.2/LICENSE"
+    },
+    {
+      "artifact_id": "file-5bf1de0af3e2f26cf5e7",
+      "role": "licence",
+      "path": "licences/torch/torch-2.7.1+cpu.dist-info/LICENSE",
+      "size_bytes": 509525,
+      "sha256": "ae974fab814f2206dca2ec12699c719dcd3d2dcf981dff14727948c4ea288b3e",
+      "source_uri": "https://download.pytorch.org/whl/cpu/torch-2.7.1%2Bcpu-cp312-cp312-win_amd64.whl"
+    },
+    {
+      "artifact_id": "file-2eca48f903c61fe616d3",
+      "role": "licence",
+      "path": "licences/torch/torch-2.7.1+cpu.dist-info/NOTICE",
+      "size_bytes": 24088,
+      "sha256": "1c3dec6c0342c7ed9e12af59b296c7bb1d394af5cf881db74191cc8299efce5c",
+      "source_uri": "https://download.pytorch.org/whl/cpu/torch-2.7.1%2Bcpu-cp312-cp312-win_amd64.whl"
+    },
+    {
+      "artifact_id": "file-57ab29bbe1c1a596b540",
+      "role": "licence",
+      "path": "licences/tqdm/tqdm-4.67.1.dist-info/LICENCE",
+      "size_bytes": 1985,
+      "sha256": "dc33252e829015e3b150086fb9b3a40f6ad6fb32c2f4610ce812fa677d35986a",
+      "source_uri": "https://files.pythonhosted.org/packages/d0/30/dc54f88dd4a2b5dc8a0279bdd7270e735851848b762aeb1c1184ed1f6b14/tqdm-4.67.1-py3-none-any.whl"
+    },
+    {
+      "artifact_id": "file-a6e573e868618fbdc735",
+      "role": "licence",
+      "path": "licences/transformers/transformers-4.53.3.dist-info/licenses/LICENSE",
+      "size_bytes": 11418,
+      "sha256": "77fd4710def9ec3c0f6225800e0235f15a425abd4a8b03559127fcd782612049",
+      "source_uri": "https://files.pythonhosted.org/packages/41/b1/d7520cc5cb69c825599042eb3a7c986fa9baa8a8d2dea9acd78e152c81e2/transformers-4.53.3-py3-none-any.whl"
+    },
+    {
+      "artifact_id": "file-bba288d3ae063f39f8ed",
+      "role": "licence",
+      "path": "licences/typing-extensions/typing_extensions-4.14.1.dist-info/licenses/LICENSE",
+      "size_bytes": 13936,
+      "sha256": "3b2f81fe21d181c499c59a256c8e1968455d6689d269aa85373bfb6af41da3bf",
+      "source_uri": "https://files.pythonhosted.org/packages/b5/00/d631e67a838026495268c2f6884f3711a15a9a2a96cd244fdaea53b823fb/typing_extensions-4.14.1-py3-none-any.whl"
+    },
+    {
+      "artifact_id": "file-902c90a8c121ab8d61c1",
+      "role": "licence",
+      "path": "licences/typing-inspection/typing_inspection-0.4.1.dist-info/licenses/LICENSE",
+      "size_bytes": 1090,
+      "sha256": "804b59b25f2c31bd278f9202a19ae49a3945aa2664387e2d0a128c7cacc61ec3",
+      "source_uri": "https://files.pythonhosted.org/packages/17/69/cd203477f944c353c31bade965f880aa1061fd6bf05ded0726ca845b6ff7/typing_inspection-0.4.1-py3-none-any.whl"
+    },
+    {
+      "artifact_id": "file-2f7d743c637814d461e8",
+      "role": "licence",
+      "path": "licences/urllib3/urllib3-2.5.0.dist-info/licenses/LICENSE.txt",
+      "size_bytes": 1093,
+      "sha256": "130e3a64d5fdd5d096a752694634a7d9df284469de86e5732100268041e3d686",
+      "source_uri": "https://files.pythonhosted.org/packages/a7/c2/fe1e52489ae3122415c51f387e221dd0773709bad6c6cdaa599e8a2c5185/urllib3-2.5.0-py3-none-any.whl"
+    },
+    {
+      "artifact_id": "file-053d9c8345ca52835559",
+      "role": "input",
+      "path": "input/acceptance.wav",
+      "size_bytes": 32044,
+      "sha256": "5ddf60a351f393ca7122c05f204d1ab3f15b7b75ad63bc81b4aa5ccae618d0c9",
+      "source_uri": "https://github.com/chionger/Portable-ATC-Radar-Trainer/blob/402619d9296715605e8efb3aa282c82d7ab0f6f5/docs/evidence/fp001d/OFFLINE-OPERATOR.md"
+    },
+    {
+      "artifact_id": "file-833cc6c995ca80f3474e",
+      "role": "input",
+      "path": "input/RIGHTS.txt",
+      "size_bytes": 291,
+      "sha256": "b46867780fe45ab7f5bd4b7e0f03a45dd763cffcc9190fb7c5070b0dc759cbbb",
+      "source_uri": "https://github.com/chionger/Portable-ATC-Radar-Trainer/blob/402619d9296715605e8efb3aa282c82d7ab0f6f5/docs/evidence/fp001d/OFFLINE-OPERATOR.md"
+    },
+    {
+      "artifact_id": "file-a21ac49cc5eb0d8c0db7",
+      "role": "procedure",
+      "path": "procedure/OPERATOR.md",
+      "size_bytes": 2638,
+      "sha256": "42c4a717bb9ea6d7d72fee548bca435dcbe2c8bc3bf81133099c1c9866a66ca7",
+      "source_uri": "https://github.com/chionger/Portable-ATC-Radar-Trainer/blob/140caa1a27032373c6cf1544a99f89d8461a397e/docs/evidence/fp001d/OFFLINE-OPERATOR.md"
+    },
+    {
+      "artifact_id": "file-cb39e18b1a8cd415a734",
+      "role": "procedure",
+      "path": "procedure/prepare_fp001d_account.ps1",
+      "size_bytes": 1723,
+      "sha256": "ca1d0bcb77b3476d140dedcd88cc28557439782c3acd74a38ee4be58fab92105",
+      "source_uri": "https://github.com/chionger/Portable-ATC-Radar-Trainer/blob/402619d9296715605e8efb3aa282c82d7ab0f6f5/scripts/prepare_fp001d_account.ps1"
+    },
+    {
+      "artifact_id": "file-4cd1c010e87b4a3cdba5",
+      "role": "procedure",
+      "path": "procedure/requirements.lock",
+      "size_bytes": 3023,
+      "sha256": "ec4b9065752175eb5055b5e77367c4d2f2ca54c9133aef0248afbef6d8440d96",
+      "source_uri": "https://github.com/chionger/Portable-ATC-Radar-Trainer/blob/402619d9296715605e8efb3aa282c82d7ab0f6f5/docs/evidence/fp001d/OFFLINE-OPERATOR.md"
+    },
+    {
+      "artifact_id": "file-7c2b7ac9f313e5c78bd0",
+      "role": "procedure",
+      "path": "procedure/run_fp001d_offline.ps1",
+      "size_bytes": 12558,
+      "sha256": "e173893f5f4811b0784e6d3d1f79d456ab16078d0924bf5546293441bc0af96e",
+      "source_uri": "https://github.com/chionger/Portable-ATC-Radar-Trainer/blob/140caa1a27032373c6cf1544a99f89d8461a397e/scripts/run_fp001d_offline.ps1"
+    },
+    {
+      "artifact_id": "file-f410fbaf759123a40684",
+      "role": "procedure",
+      "path": "procedure/fp001d_network.ps1",
+      "size_bytes": 1932,
+      "sha256": "9b2523cfc5fcc62f90886dca43a98011698aae5dd38d909fa4d9d91ba500ba1a",
+      "source_uri": "https://github.com/chionger/Portable-ATC-Radar-Trainer/blob/1b9749b34d45bfb1e410e41273db3a074d9f7454/scripts/fp001d_network.ps1"
+    }
+  ],
+  "platform": {
+    "operating_system": "Windows",
+    "os_version": "10.0.26200",
+    "architecture": "AMD64",
+    "cpu_requirements": "x64 CPU supporting the preserved CPU wheel; reference Intel Core i5-12450H",
+    "minimum_ram_bytes": 8589934592,
+    "accelerator": "none",
+    "gpu_requirements": "not required",
+    "driver_requirements": "not required",
+    "cuda_requirements": "not required"
+  },
+  "configuration": {
+    "device": "cpu",
+    "dtype": "float32",
+    "task": "transcribe",
+    "language": "en",
+    "sample_rate_hz": 16000,
+    "max_new_tokens": 32,
+    "local_files_only": true,
+    "trust_remote_code": false,
+    "threads": 1,
+    "do_sample": false
+  },
+  "restoration": {
+    "bootstrap_artifact_id": "file-71c2f3f24884ad1f8013",
+    "bootstrap_install_steps": [
+      "Follow procedure/OPERATOR.md; prepare a new standard Windows account; manually disconnect/disable all network adapters BEFORE restoration.",
+      "Execute preserved procedure/run_fp001d_offline.ps1 under the new account. Fresh per-user CPython location, full local installer, no launcher/PATH changes. Do not execute MSVC installer: existing declared host-native baseline only."
+    ],
+    "environment_steps": [
+      "Fresh venv, no system-site-packages; install exactly procedure/requirements.lock with --no-index --no-cache-dir --only-binary=:all: --require-hashes. Require pip check exit 0."
+    ],
+    "start_steps": [
+      "Exactly one input/acceptance.wav through definition-bound offline probe. Retain restoration, generated token, model-integrity, identity, network and verification logs."
+    ],
+    "offline_only": true,
+    "clean_environment_required": true
+  },
+  "acceptance": {
+    "input_artifact_id": "file-053d9c8345ca52835559",
+    "network_isolation": "OS-enforced",
+    "checks": "restore-load-small-inference"
+  },
+  "scope": "offline-restoration-and-inference-only"
+}

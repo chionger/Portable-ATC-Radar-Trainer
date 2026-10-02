@@ -1,0 +1,48 @@
+{
+  "recorded_at": "2026-09-29T14:41:03.643863+00:00",
+  "c_accounted_bytes": 18199143,
+  "d_accounted_bytes": 309263000,
+  "c_cap_bytes": 2147483648,
+  "d_cap_bytes": 10737418240,
+  "c_roots": [
+    {
+      "path": "C:\\Users\\chion\\Documents\\Codex\\2026-09-29\\model",
+      "files": 39,
+      "bytes": 358303
+    },
+    {
+      "path": "C:\\Users\\chion\\.codex\\.chatgpt-projects\\g-p-6a9c2d97ca888191a39c1fc91be3f687\\fp001d",
+      "files": 864,
+      "bytes": 11366764
+    },
+    {
+      "path": "C:\\Users\\chion\\AppData\\Local\\Temp\\pytest-of-chion\\pytest-26",
+      "files": 2,
+      "bytes": 1052674
+    },
+    {
+      "path": "C:\\Users\\chion\\AppData\\Local\\Temp\\pytest-of-chion\\pytest-27",
+      "files": 210,
+      "bytes": 5417830
+    },
+    {
+      "path": "C:\\Users\\chion\\AppData\\Local\\Temp\\pytest-of-chion\\pytest-28",
+      "files": 9,
+      "bytes": 3572
+    }
+  ],
+  "d_roots": [
+    {
+      "path": "D:\\ATC-Runtime-Preservation\\whisper-turbo-win64-cpu\\1.0.0",
+      "files": 171,
+      "bytes": 309263000
+    },
+    {
+      "path": "D:\\ATC-Runtime-Restore\\fp001d-reference-001",
+      "files": 0,
+      "bytes": 0
+    }
+  ],
+  "method": "Logical file bytes, no filesystem allocation reservation. C counts complete task workspace, current sizes of repository files modified since task start (including development caches/build output/Git objects), and surviving new pytest temporary directories. Reused pre-existing environments/node_modules and unrelated host activity are excluded; modified existing files count in full, not net delta. The pre-existing inaccessible .pytest_cache is excluded: initial attempted writes failed, final tests disabled cacheprovider. D counts complete new bundle and restore root. No acceptance-user profile/bootstrap exists yet.",
+  "acceptance": "NOT_RUN"
+}

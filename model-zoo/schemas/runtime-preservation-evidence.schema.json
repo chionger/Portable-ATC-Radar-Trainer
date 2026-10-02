@@ -1,0 +1,604 @@
+{
+  "$defs": {
+    "Configuration": {
+      "additionalProperties": false,
+      "properties": {
+        "device": {
+          "const": "cpu",
+          "title": "Device",
+          "type": "string"
+        },
+        "do_sample": {
+          "const": false,
+          "default": false,
+          "title": "Do Sample",
+          "type": "boolean"
+        },
+        "dtype": {
+          "const": "float32",
+          "title": "Dtype",
+          "type": "string"
+        },
+        "language": {
+          "const": "en",
+          "title": "Language",
+          "type": "string"
+        },
+        "local_files_only": {
+          "const": true,
+          "title": "Local Files Only",
+          "type": "boolean"
+        },
+        "max_new_tokens": {
+          "maximum": 128,
+          "minimum": 1,
+          "title": "Max New Tokens",
+          "type": "integer"
+        },
+        "sample_rate_hz": {
+          "const": 16000,
+          "title": "Sample Rate Hz",
+          "type": "integer"
+        },
+        "task": {
+          "const": "transcribe",
+          "title": "Task",
+          "type": "string"
+        },
+        "threads": {
+          "const": 1,
+          "default": 1,
+          "title": "Threads",
+          "type": "integer"
+        },
+        "trust_remote_code": {
+          "const": false,
+          "title": "Trust Remote Code",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "device",
+        "dtype",
+        "task",
+        "language",
+        "sample_rate_hz",
+        "max_new_tokens",
+        "local_files_only",
+        "trust_remote_code"
+      ],
+      "title": "Configuration",
+      "type": "object"
+    },
+    "DefinitionReference": {
+      "additionalProperties": false,
+      "properties": {
+        "preservation_id": {
+          "pattern": "^[a-z0-9][a-z0-9._-]*$",
+          "title": "Preservation Id",
+          "type": "string"
+        },
+        "preservation_version": {
+          "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+          "title": "Preservation Version",
+          "type": "string"
+        },
+        "sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Sha256",
+          "type": "string"
+        }
+      },
+      "required": [
+        "preservation_id",
+        "preservation_version",
+        "sha256"
+      ],
+      "title": "DefinitionReference",
+      "type": "object"
+    },
+    "EvidenceFile": {
+      "additionalProperties": false,
+      "properties": {
+        "path": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Path",
+          "type": "string"
+        },
+        "sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Sha256",
+          "type": "string"
+        },
+        "size_bytes": {
+          "exclusiveMinimum": 0,
+          "title": "Size Bytes",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "path",
+        "size_bytes",
+        "sha256"
+      ],
+      "title": "EvidenceFile",
+      "type": "object"
+    },
+    "ExecutionEvidence": {
+      "additionalProperties": false,
+      "properties": {
+        "account_sid": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Account Sid",
+          "type": "string"
+        },
+        "bootstrap_exit_code": {
+          "const": 0,
+          "title": "Bootstrap Exit Code",
+          "type": "integer"
+        },
+        "controller_sid": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Controller Sid",
+          "type": "string"
+        },
+        "dependency_check_exit_code": {
+          "const": 0,
+          "title": "Dependency Check Exit Code",
+          "type": "integer"
+        },
+        "ended_at": {
+          "format": "date-time",
+          "title": "Ended At",
+          "type": "string"
+        },
+        "environment_location": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Environment Location",
+          "type": "string"
+        },
+        "inference_exit_code": {
+          "const": 0,
+          "title": "Inference Exit Code",
+          "type": "integer"
+        },
+        "install_exit_code": {
+          "const": 0,
+          "title": "Install Exit Code",
+          "type": "integer"
+        },
+        "native_restoration_proven": {
+          "const": false,
+          "title": "Native Restoration Proven",
+          "type": "boolean"
+        },
+        "new_account": {
+          "const": true,
+          "title": "New Account",
+          "type": "boolean"
+        },
+        "python_location": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Python Location",
+          "type": "string"
+        },
+        "started_at": {
+          "format": "date-time",
+          "title": "Started At",
+          "type": "string"
+        },
+        "system_site_packages": {
+          "const": false,
+          "title": "System Site Packages",
+          "type": "boolean"
+        },
+        "venv_exit_code": {
+          "const": 0,
+          "title": "Venv Exit Code",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "account_sid",
+        "controller_sid",
+        "new_account",
+        "python_location",
+        "environment_location",
+        "system_site_packages",
+        "bootstrap_exit_code",
+        "venv_exit_code",
+        "install_exit_code",
+        "dependency_check_exit_code",
+        "inference_exit_code",
+        "started_at",
+        "ended_at",
+        "native_restoration_proven"
+      ],
+      "title": "ExecutionEvidence",
+      "type": "object"
+    },
+    "ModelReference": {
+      "additionalProperties": false,
+      "properties": {
+        "entry_id": {
+          "pattern": "^[a-z0-9][a-z0-9._-]*$",
+          "title": "Entry Id",
+          "type": "string"
+        },
+        "revision": {
+          "pattern": "^[0-9a-f]{40}$",
+          "title": "Revision",
+          "type": "string"
+        }
+      },
+      "required": [
+        "entry_id",
+        "revision"
+      ],
+      "title": "ModelReference",
+      "type": "object"
+    },
+    "NetworkEvidence": {
+      "additionalProperties": false,
+      "properties": {
+        "covers_restoration_and_inference": {
+          "title": "Covers Restoration And Inference",
+          "type": "boolean"
+        },
+        "ended_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Ended At"
+        },
+        "external_retrievals": {
+          "minimum": 0,
+          "title": "External Retrievals",
+          "type": "integer"
+        },
+        "log": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/EvidenceFile"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "mechanism": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Mechanism",
+          "type": "string"
+        },
+        "method": {
+          "enum": [
+            "OS-enforced",
+            "not-executed"
+          ],
+          "title": "Method",
+          "type": "string"
+        },
+        "started_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Started At"
+        }
+      },
+      "required": [
+        "method",
+        "mechanism",
+        "covers_restoration_and_inference",
+        "external_retrievals",
+        "log"
+      ],
+      "title": "NetworkEvidence",
+      "type": "object"
+    },
+    "ObservedPlatform": {
+      "additionalProperties": false,
+      "properties": {
+        "architecture": {
+          "enum": [
+            "AMD64",
+            "x86_64",
+            "arm64",
+            "aarch64"
+          ],
+          "title": "Architecture",
+          "type": "string"
+        },
+        "available_ram_bytes_before_load": {
+          "exclusiveMinimum": 0,
+          "title": "Available Ram Bytes Before Load",
+          "type": "integer"
+        },
+        "cpu": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Cpu",
+          "type": "string"
+        },
+        "native_versions": {
+          "patternProperties": {
+            "^[a-z0-9][a-z0-9._-]*$": {
+              "minLength": 1,
+              "pattern": "\\S",
+              "type": "string"
+            }
+          },
+          "title": "Native Versions",
+          "type": "object"
+        },
+        "operating_system": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Operating System",
+          "type": "string"
+        },
+        "os_version": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Os Version",
+          "type": "string"
+        },
+        "total_ram_bytes": {
+          "exclusiveMinimum": 0,
+          "title": "Total Ram Bytes",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "operating_system",
+        "os_version",
+        "architecture",
+        "cpu",
+        "total_ram_bytes",
+        "available_ram_bytes_before_load",
+        "native_versions"
+      ],
+      "title": "ObservedPlatform",
+      "type": "object"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "approved_for_runtime": {
+      "const": false,
+      "title": "Approved For Runtime",
+      "type": "boolean"
+    },
+    "benchmarked": {
+      "const": false,
+      "title": "Benchmarked",
+      "type": "boolean"
+    },
+    "clean_environment": {
+      "title": "Clean Environment",
+      "type": "boolean"
+    },
+    "component_versions": {
+      "patternProperties": {
+        "^[a-z0-9][a-z0-9._-]*$": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "type": "string"
+        }
+      },
+      "title": "Component Versions",
+      "type": "object"
+    },
+    "definition": {
+      "$ref": "#/$defs/DefinitionReference"
+    },
+    "execution": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ExecutionEvidence"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "execution_log": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/EvidenceFile"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "inference_completed": {
+      "title": "Inference Completed",
+      "type": "boolean"
+    },
+    "inference_log": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/EvidenceFile"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "input_sha256": {
+      "anyOf": [
+        {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Input Sha256"
+    },
+    "model": {
+      "$ref": "#/$defs/ModelReference"
+    },
+    "model_integrity_record": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/EvidenceFile"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "model_loaded": {
+      "title": "Model Loaded",
+      "type": "boolean"
+    },
+    "network": {
+      "$ref": "#/$defs/NetworkEvidence"
+    },
+    "observed_configuration": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Configuration"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "observed_platform": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ObservedPlatform"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "output_sha256": {
+      "anyOf": [
+        {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Output Sha256"
+    },
+    "reason": {
+      "minLength": 1,
+      "pattern": "\\S",
+      "title": "Reason",
+      "type": "string"
+    },
+    "recorded_at": {
+      "format": "date-time",
+      "title": "Recorded At",
+      "type": "string"
+    },
+    "restoration_log": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/EvidenceFile"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "restored": {
+      "title": "Restored",
+      "type": "boolean"
+    },
+    "run_id": {
+      "pattern": "^[a-z0-9][a-z0-9._-]*$",
+      "title": "Run Id",
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "source_revision": {
+      "pattern": "^[0-9a-f]{40}$",
+      "title": "Source Revision",
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "PASSED",
+        "FAILED",
+        "BLOCKED"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "verified_artifacts": {
+      "patternProperties": {
+        "^[a-z0-9][a-z0-9._-]*$": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        }
+      },
+      "title": "Verified Artifacts",
+      "type": "object"
+    }
+  },
+  "required": [
+    "schema_version",
+    "run_id",
+    "model",
+    "definition",
+    "recorded_at",
+    "status",
+    "reason",
+    "restored",
+    "model_loaded",
+    "inference_completed",
+    "clean_environment",
+    "observed_platform",
+    "observed_configuration",
+    "source_revision",
+    "execution",
+    "execution_log",
+    "component_versions",
+    "verified_artifacts",
+    "network",
+    "restoration_log",
+    "inference_log",
+    "model_integrity_record",
+    "input_sha256",
+    "output_sha256",
+    "benchmarked",
+    "approved_for_runtime"
+  ],
+  "title": "RuntimeEvidence",
+  "type": "object"
+}
