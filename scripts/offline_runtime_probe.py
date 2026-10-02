@@ -229,7 +229,9 @@ def main(argv: Sequence[str] | None = None) -> int:
                 ]
             else:
                 sys.argv = ["pip", "--isolated", "check"]
-            runpy.run_module("pip", run_name="__main__")
+            # Match python -m pip's module identity while retaining this process's
+            # network audit hook. Windows rejects self-updates with argv[0]="pip".
+            runpy.run_module("pip", run_name="__main__", alter_sys=True)
             return 0
         reference_snapshot(args.model, args.manifest)
         if args.definition is None:
