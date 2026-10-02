@@ -1,7 +1,7 @@
-# Final FP-001D Windows acceptance: attempt 003
+# Final FP-001D Windows acceptance: attempt 004
 
-One final attempt only. FP001DFinal is the fresh standard account. Restore root:
-D:\ATC-Runtime-Restore\fp001d-final-003. Prior attempts remain intact.
+Reopened by owner after the pip invocation defect; one corrected attempt. FP001DRecovery is the fresh standard account. Restore root:
+D:\ATC-Runtime-Restore\fp001d-recovery-004. Prior attempts remain intact.
 No inference has occurred in earlier attempts. The pip diagnostic and repair both
 failed reading newly written pip.exe. ESET involvement is suspected, not proven.
 
@@ -17,7 +17,7 @@ The script records operator confirmation, not an independent security-setting au
    change only Proactive protection to allow execution during analysis. If the
    installed UI offers no such setting, stop and report; do not disable all ESET.
    Official reference: https://help.eset.com/essp/18/en-US/idh_config_liveguard.html
-4. Sign into FP001DFinal, still offline. Open ordinary PowerShell.
+4. Sign into FP001DRecovery, still offline. Open ordinary PowerShell.
 5. Run the staged run_fp001d_offline.ps1 with -CheckNetworkOnly. Proceed only on READY.
 6. Run once with -ConfirmManuallyDisconnected -ConfirmProactiveBlockingPaused.
 7. Wait for completion; retain logs. Restore ESET's original setting while offline,
