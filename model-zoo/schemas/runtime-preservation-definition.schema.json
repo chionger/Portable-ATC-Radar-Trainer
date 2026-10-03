@@ -1,0 +1,491 @@
+{
+  "$defs": {
+    "Acceptance": {
+      "additionalProperties": false,
+      "properties": {
+        "checks": {
+          "const": "restore-load-small-inference",
+          "title": "Checks",
+          "type": "string"
+        },
+        "input_artifact_id": {
+          "pattern": "^[a-z0-9][a-z0-9._-]*$",
+          "title": "Input Artifact Id",
+          "type": "string"
+        },
+        "network_isolation": {
+          "const": "OS-enforced",
+          "title": "Network Isolation",
+          "type": "string"
+        }
+      },
+      "required": [
+        "input_artifact_id",
+        "network_isolation",
+        "checks"
+      ],
+      "title": "Acceptance",
+      "type": "object"
+    },
+    "Artifact": {
+      "additionalProperties": false,
+      "properties": {
+        "artifact_id": {
+          "pattern": "^[a-z0-9][a-z0-9._-]*$",
+          "title": "Artifact Id",
+          "type": "string"
+        },
+        "path": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Path",
+          "type": "string"
+        },
+        "role": {
+          "enum": [
+            "bootstrap",
+            "wheel",
+            "source",
+            "licence",
+            "input",
+            "procedure",
+            "image"
+          ],
+          "title": "Role",
+          "type": "string"
+        },
+        "sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Sha256",
+          "type": "string"
+        },
+        "size_bytes": {
+          "exclusiveMinimum": 0,
+          "title": "Size Bytes",
+          "type": "integer"
+        },
+        "source_uri": {
+          "pattern": "^https://[^\\s]+$",
+          "title": "Source Uri",
+          "type": "string"
+        }
+      },
+      "required": [
+        "artifact_id",
+        "role",
+        "path",
+        "size_bytes",
+        "sha256",
+        "source_uri"
+      ],
+      "title": "Artifact",
+      "type": "object"
+    },
+    "Component": {
+      "additionalProperties": false,
+      "properties": {
+        "artifact_ids": {
+          "items": {
+            "pattern": "^[a-z0-9][a-z0-9._-]*$",
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Artifact Ids",
+          "type": "array"
+        },
+        "name": {
+          "pattern": "^[a-z0-9][a-z0-9._-]*$",
+          "title": "Name",
+          "type": "string"
+        },
+        "source_uri": {
+          "pattern": "^https://[^\\s]+$",
+          "title": "Source Uri",
+          "type": "string"
+        },
+        "version": {
+          "pattern": "^[0-9][a-zA-Z0-9.+_-]*$",
+          "title": "Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "version",
+        "source_uri",
+        "artifact_ids"
+      ],
+      "title": "Component",
+      "type": "object"
+    },
+    "Configuration": {
+      "additionalProperties": false,
+      "properties": {
+        "device": {
+          "const": "cpu",
+          "title": "Device",
+          "type": "string"
+        },
+        "do_sample": {
+          "const": false,
+          "default": false,
+          "title": "Do Sample",
+          "type": "boolean"
+        },
+        "dtype": {
+          "const": "float32",
+          "title": "Dtype",
+          "type": "string"
+        },
+        "language": {
+          "const": "en",
+          "title": "Language",
+          "type": "string"
+        },
+        "local_files_only": {
+          "const": true,
+          "title": "Local Files Only",
+          "type": "boolean"
+        },
+        "max_new_tokens": {
+          "maximum": 128,
+          "minimum": 1,
+          "title": "Max New Tokens",
+          "type": "integer"
+        },
+        "sample_rate_hz": {
+          "const": 16000,
+          "title": "Sample Rate Hz",
+          "type": "integer"
+        },
+        "task": {
+          "const": "transcribe",
+          "title": "Task",
+          "type": "string"
+        },
+        "threads": {
+          "const": 1,
+          "default": 1,
+          "title": "Threads",
+          "type": "integer"
+        },
+        "trust_remote_code": {
+          "const": false,
+          "title": "Trust Remote Code",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "device",
+        "dtype",
+        "task",
+        "language",
+        "sample_rate_hz",
+        "max_new_tokens",
+        "local_files_only",
+        "trust_remote_code"
+      ],
+      "title": "Configuration",
+      "type": "object"
+    },
+    "ModelReference": {
+      "additionalProperties": false,
+      "properties": {
+        "entry_id": {
+          "pattern": "^[a-z0-9][a-z0-9._-]*$",
+          "title": "Entry Id",
+          "type": "string"
+        },
+        "revision": {
+          "pattern": "^[0-9a-f]{40}$",
+          "title": "Revision",
+          "type": "string"
+        }
+      },
+      "required": [
+        "entry_id",
+        "revision"
+      ],
+      "title": "ModelReference",
+      "type": "object"
+    },
+    "NativePrerequisite": {
+      "additionalProperties": false,
+      "properties": {
+        "artifact_ids": {
+          "items": {
+            "pattern": "^[a-z0-9][a-z0-9._-]*$",
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Artifact Ids",
+          "type": "array"
+        },
+        "name": {
+          "pattern": "^[a-z0-9][a-z0-9._-]*$",
+          "title": "Name",
+          "type": "string"
+        },
+        "restoration_scope": {
+          "const": "existing-host-baseline",
+          "title": "Restoration Scope",
+          "type": "string"
+        },
+        "source_uri": {
+          "pattern": "^https://[^\\s]+$",
+          "title": "Source Uri",
+          "type": "string"
+        },
+        "version": {
+          "pattern": "^[0-9][a-zA-Z0-9.+_-]*$",
+          "title": "Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "version",
+        "source_uri",
+        "artifact_ids",
+        "restoration_scope"
+      ],
+      "title": "NativePrerequisite",
+      "type": "object"
+    },
+    "PlatformRequirements": {
+      "additionalProperties": false,
+      "properties": {
+        "accelerator": {
+          "enum": [
+            "none",
+            "GPU"
+          ],
+          "title": "Accelerator",
+          "type": "string"
+        },
+        "architecture": {
+          "enum": [
+            "AMD64",
+            "x86_64",
+            "arm64",
+            "aarch64"
+          ],
+          "title": "Architecture",
+          "type": "string"
+        },
+        "cpu_requirements": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Cpu Requirements",
+          "type": "string"
+        },
+        "cuda_requirements": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Cuda Requirements",
+          "type": "string"
+        },
+        "driver_requirements": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Driver Requirements",
+          "type": "string"
+        },
+        "gpu_requirements": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Gpu Requirements",
+          "type": "string"
+        },
+        "minimum_ram_bytes": {
+          "exclusiveMinimum": 0,
+          "title": "Minimum Ram Bytes",
+          "type": "integer"
+        },
+        "operating_system": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Operating System",
+          "type": "string"
+        },
+        "os_version": {
+          "minLength": 1,
+          "pattern": "\\S",
+          "title": "Os Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "operating_system",
+        "os_version",
+        "architecture",
+        "cpu_requirements",
+        "minimum_ram_bytes",
+        "accelerator",
+        "gpu_requirements",
+        "driver_requirements",
+        "cuda_requirements"
+      ],
+      "title": "PlatformRequirements",
+      "type": "object"
+    },
+    "Restoration": {
+      "additionalProperties": false,
+      "properties": {
+        "bootstrap_artifact_id": {
+          "pattern": "^[a-z0-9][a-z0-9._-]*$",
+          "title": "Bootstrap Artifact Id",
+          "type": "string"
+        },
+        "bootstrap_install_steps": {
+          "items": {
+            "minLength": 1,
+            "pattern": "\\S",
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Bootstrap Install Steps",
+          "type": "array"
+        },
+        "clean_environment_required": {
+          "const": true,
+          "title": "Clean Environment Required",
+          "type": "boolean"
+        },
+        "environment_steps": {
+          "items": {
+            "minLength": 1,
+            "pattern": "\\S",
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Environment Steps",
+          "type": "array"
+        },
+        "offline_only": {
+          "const": true,
+          "title": "Offline Only",
+          "type": "boolean"
+        },
+        "start_steps": {
+          "items": {
+            "minLength": 1,
+            "pattern": "\\S",
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Start Steps",
+          "type": "array"
+        }
+      },
+      "required": [
+        "bootstrap_artifact_id",
+        "bootstrap_install_steps",
+        "environment_steps",
+        "start_steps",
+        "offline_only",
+        "clean_environment_required"
+      ],
+      "title": "Restoration",
+      "type": "object"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "acceptance": {
+      "$ref": "#/$defs/Acceptance"
+    },
+    "artifacts": {
+      "items": {
+        "$ref": "#/$defs/Artifact"
+      },
+      "minItems": 1,
+      "title": "Artifacts",
+      "type": "array"
+    },
+    "configuration": {
+      "$ref": "#/$defs/Configuration"
+    },
+    "dependencies": {
+      "items": {
+        "$ref": "#/$defs/Component"
+      },
+      "minItems": 1,
+      "title": "Dependencies",
+      "type": "array"
+    },
+    "interpreter": {
+      "$ref": "#/$defs/Component"
+    },
+    "interpreter_security_note": {
+      "minLength": 1,
+      "pattern": "\\S",
+      "title": "Interpreter Security Note",
+      "type": "string"
+    },
+    "model": {
+      "$ref": "#/$defs/ModelReference"
+    },
+    "native_prerequisites": {
+      "items": {
+        "$ref": "#/$defs/NativePrerequisite"
+      },
+      "title": "Native Prerequisites",
+      "type": "array"
+    },
+    "platform": {
+      "$ref": "#/$defs/PlatformRequirements"
+    },
+    "preservation_id": {
+      "pattern": "^[a-z0-9][a-z0-9._-]*$",
+      "title": "Preservation Id",
+      "type": "string"
+    },
+    "preservation_version": {
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+      "title": "Preservation Version",
+      "type": "string"
+    },
+    "restoration": {
+      "$ref": "#/$defs/Restoration"
+    },
+    "runtime": {
+      "$ref": "#/$defs/Component"
+    },
+    "schema_version": {
+      "const": "1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "scope": {
+      "const": "offline-restoration-and-inference-only",
+      "title": "Scope",
+      "type": "string"
+    },
+    "source_revision": {
+      "pattern": "^[0-9a-f]{40}$",
+      "title": "Source Revision",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "preservation_id",
+    "preservation_version",
+    "model",
+    "runtime",
+    "interpreter",
+    "dependencies",
+    "source_revision",
+    "interpreter_security_note",
+    "artifacts",
+    "platform",
+    "configuration",
+    "restoration",
+    "acceptance",
+    "scope"
+  ],
+  "title": "RuntimeDefinition",
+  "type": "object"
+}

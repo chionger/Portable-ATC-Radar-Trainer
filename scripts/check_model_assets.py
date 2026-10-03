@@ -13,6 +13,8 @@ MODEL_WEIGHT_EXTENSIONS = {
     ".tflite",
 }
 FORBIDDEN_MODEL_DIRECTORIES = {"assets", "cache", "downloads", "staging"}
+RUNTIME_ARTIFACT_EXTENSIONS = {".whl", ".exe", ".msi", ".dll", ".so", ".dylib", ".img", ".iso"}
+RUNTIME_DIRECTORIES = {"wheelhouse", "runtime-assets", "runtime-cache", "container-images"}
 MODEL_ZOO_ROOT = "model-zoo"
 FIXTURE_ROOT = PurePosixPath("tests/fixtures/model-zoo/assets")
 MAX_TINY_FIXTURE_BYTES = 4096
@@ -34,6 +36,10 @@ def violations(repository_root: Path, paths: list[str] | None = None) -> list[st
     for raw_path in paths if paths is not None else tracked_files(repository_root):
         path = PurePosixPath(raw_path)
         disk_path = repository_root.joinpath(*path.parts)
+        if path.suffix.lower() in RUNTIME_ARTIFACT_EXTENSIONS:
+            failures.append(f"{raw_path}: runtime binary/package must remain outside Git")
+        if any(part.lower() in RUNTIME_DIRECTORIES for part in path.parts[:-1]):
+            failures.append(f"{raw_path}: runtime artifact directory must remain outside Git")
         is_fixture = path.is_relative_to(FIXTURE_ROOT)
         if is_fixture:
             if disk_path.stat().st_size > MAX_TINY_FIXTURE_BYTES:
@@ -44,6 +50,8 @@ def violations(repository_root: Path, paths: list[str] | None = None) -> list[st
         if path.suffix.lower() in MODEL_WEIGHT_EXTENSIONS:
             failures.append(f"{raw_path}: recognized model-weight extension is forbidden")
         if path.parts and path.parts[0] == MODEL_ZOO_ROOT:
+            if path.suffix.lower() in {".zip", ".tar", ".gz", ".7z", ".bz2", ".xz"}:
+                failures.append(f"{raw_path}: runtime archive must remain outside Git")
             if any(part.lower() in FORBIDDEN_MODEL_DIRECTORIES for part in path.parts[1:-1]):
                 failures.append(f"{raw_path}: model asset/staging/cache directory is forbidden")
             if path.suffix.lower() == ".bin":

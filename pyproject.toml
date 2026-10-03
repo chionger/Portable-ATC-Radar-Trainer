@@ -52,6 +52,9 @@ files = [
   "scripts/model_acquisition.py",
   "scripts/model_source_huggingface.py",
   "scripts/verify_model_zoo.py",
+  "scripts/runtime_preservation.py",
+  "scripts/runtime_preservation_schemas.py",
+  "scripts/verify_runtime_preservation.py",
 ]
 
 [tool.setuptools.package-data]
