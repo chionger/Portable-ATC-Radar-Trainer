@@ -1,0 +1,204 @@
+{
+  "$defs": {
+    "AircraftState": {
+      "enum": [
+        "PARKED",
+        "READY_TO_TAXI",
+        "TAXIING",
+        "HOLDING",
+        "LINED_UP",
+        "TAKEOFF_ROLL",
+        "AIRBORNE",
+        "INBOUND",
+        "FINAL",
+        "LANDING_ROLL",
+        "VACATING",
+        "STOPPED"
+      ],
+      "title": "AircraftState",
+      "type": "string"
+    },
+    "ProviderEffect": {
+      "additionalProperties": false,
+      "properties": {
+        "effect_type": {
+          "enum": [
+            "STATE_CHANGED",
+            "ROUTE_ASSIGNED"
+          ],
+          "title": "Effect Type",
+          "type": "string"
+        },
+        "entity_id": {
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]{0,63}$",
+          "title": "Entity Id",
+          "type": "string"
+        },
+        "structured_payload": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StateEffect"
+            },
+            {
+              "$ref": "#/$defs/RouteEffect"
+            }
+          ],
+          "title": "Structured Payload"
+        }
+      },
+      "required": [
+        "effect_type",
+        "entity_id",
+        "structured_payload"
+      ],
+      "title": "ProviderEffect",
+      "type": "object"
+    },
+    "RejectionCode": {
+      "enum": [
+        "UNKNOWN_ENTITY",
+        "VERSION_CONFLICT",
+        "ILLEGAL_STATE",
+        "INVALID_PARAMETERS",
+        "RUNWAY_CLOSED"
+      ],
+      "title": "RejectionCode",
+      "type": "string"
+    },
+    "RouteEffect": {
+      "additionalProperties": false,
+      "properties": {
+        "route": {
+          "items": {
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]{0,63}$",
+            "type": "string"
+          },
+          "maxItems": 256,
+          "minItems": 1,
+          "title": "Route",
+          "type": "array"
+        },
+        "expected_entity_version": {
+          "minimum": 1,
+          "title": "Expected Entity Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "route",
+        "expected_entity_version"
+      ],
+      "title": "RouteEffect",
+      "type": "object"
+    },
+    "StateEffect": {
+      "additionalProperties": false,
+      "properties": {
+        "target": {
+          "$ref": "#/$defs/AircraftState"
+        },
+        "expected_entity_version": {
+          "minimum": 1,
+          "title": "Expected Entity Version",
+          "type": "integer"
+        },
+        "expected_runway_version": {
+          "anyOf": [
+            {
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Expected Runway Version"
+        },
+        "holding_point_id": {
+          "anyOf": [
+            {
+              "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]{0,63}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Holding Point Id"
+        },
+        "runway_id": {
+          "anyOf": [
+            {
+              "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]{0,63}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Runway Id"
+        }
+      },
+      "required": [
+        "target",
+        "expected_entity_version"
+      ],
+      "title": "StateEffect",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "1.0",
+      "default": "1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "accepted": {
+      "title": "Accepted",
+      "type": "boolean"
+    },
+    "rejection_code": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/RejectionCode"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "effects": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/ProviderEffect"
+      },
+      "maxItems": 2,
+      "title": "Effects",
+      "type": "array"
+    },
+    "resulting_entity_version": {
+      "anyOf": [
+        {
+          "minimum": 1,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Resulting Entity Version"
+    }
+  },
+  "required": [
+    "accepted"
+  ],
+  "title": "ApplyResult",
+  "type": "object"
+}

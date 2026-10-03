@@ -6,6 +6,7 @@ from packages.domain.scenario import Scenario
 from packages.domain.traffic import (
     Aerodrome,
     Aircraft,
+    AircraftRouteAssignedPayload,
     AircraftSpawnedPayload,
     AircraftState,
     AircraftStateChangedPayload,
@@ -73,7 +74,7 @@ def project_traffic(events: tuple[DomainEvent, ...]) -> TrafficState | None:
             if aerodrome is None or payload.aircraft.aircraft_id in aircraft:
                 raise ValueError("missing geometry or duplicate spawn")
             aircraft[payload.aircraft.aircraft_id] = payload.aircraft
-        elif isinstance(payload, AircraftStateChangedPayload):
+        elif isinstance(payload, AircraftStateChangedPayload | AircraftRouteAssignedPayload):
             if aircraft.get(payload.before.aircraft_id) != payload.before:
                 raise ValueError("aircraft fact does not follow committed state")
             aircraft[payload.after.aircraft_id] = payload.after

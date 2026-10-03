@@ -219,7 +219,7 @@
     "event_type": "aircraft.route_assigned",
     "schema_version": "1.0",
     "projection_version": "1.0",
-    "status": "reserved"
+    "status": "implemented"
   },
   {
     "event_type": "runway.occupancy_changed",

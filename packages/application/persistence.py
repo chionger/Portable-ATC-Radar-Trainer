@@ -21,6 +21,7 @@ from packages.domain.session import (
     transition_session,
 )
 from packages.domain.traffic import (
+    AircraftRouteAssignedPayload,
     AircraftSpawnedPayload,
     AircraftStateChangedPayload,
     RunwayOccupancyChangedPayload,
@@ -83,6 +84,7 @@ def project_session(events: tuple[DomainEvent, ...]) -> SessionProjection:
             isinstance(
                 payload,
                 AircraftSpawnedPayload
+                | AircraftRouteAssignedPayload
                 | AircraftStateChangedPayload
                 | RunwayOccupancyChangedPayload,
             )

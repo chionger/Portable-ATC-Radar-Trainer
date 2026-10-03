@@ -194,6 +194,23 @@
       "title": "Aircraft",
       "type": "object"
     },
+    "AircraftRouteAssignedPayload": {
+      "additionalProperties": false,
+      "properties": {
+        "before": {
+          "$ref": "#/$defs/Aircraft"
+        },
+        "after": {
+          "$ref": "#/$defs/Aircraft"
+        }
+      },
+      "required": [
+        "before",
+        "after"
+      ],
+      "title": "AircraftRouteAssignedPayload",
+      "type": "object"
+    },
     "AircraftSpawnedPayload": {
       "additionalProperties": false,
       "properties": {
@@ -966,6 +983,9 @@
         },
         {
           "$ref": "#/$defs/ComponentHealthChangedPayload"
+        },
+        {
+          "$ref": "#/$defs/AircraftRouteAssignedPayload"
         },
         {
           "$ref": "#/$defs/AircraftSpawnedPayload"
